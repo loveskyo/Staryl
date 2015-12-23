@@ -1,0 +1,186 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    string StaticDomain = Staryl.Manage.Controllers.ControllerBase.StaticDomain;
+}
+@model Staryl.Manage.Models.ViewModels
+@section style{
+    <link rel="stylesheet" href="@(StaticDomain)css/bootstrapValidator.min.css" />
+}
+<section class="content-header">
+    <h1>
+        新增栏目
+        <small>新增一个系统栏目</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li><a href="/menu">栏目管理</a></li>
+        <li class="active">新增栏目</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title"></h3>
+        </div>
+
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form id="addform" method="post" action="/menu/create" class="form-horizontal">
+            <div class="box-body">
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">上级栏目</label>
+                        <div class="col-sm-10">
+                            <select name="ParentId" class="form-control select2" style="width: 100%;">
+                                <option value="0">一级栏目</option>
+                                @if (Model.SystemMenuList != null)
+                                {
+                                    foreach (var info in Model.SystemMenuList)
+                                    {
+                                        <option value="@info.Id">@info.MenuName</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">栏目名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="MenuName" name="MenuName" value="" placeholder="输入栏目名称" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">栏目地址</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="MenuAddr" name="MenuAddr" value="" placeholder="输入栏目地址" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">位置</label>
+                        <div class="col-sm-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="IsLeft" checked="" value="true" /> 左导航
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="IsTop" checked="" value="true" /> 上导航
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">功能</label>
+                        <div class="col-sm-10">
+                            <select multiple="multiple" name="Functions" class="select" style="width:100%;">
+                                @if (Model.FunctionList != null)
+                                {
+                                    foreach (var info in Model.FunctionList)
+                                    {
+                                        <option value="@info.FunctionCode">@info.FunctionName</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            &nbsp;
+                        </label>
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-success btn-sm">
+                                提 交
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.box-body -->
+
+
+
+        </form>
+
+
+
+
+
+    </div>
+</section>
+
+
+
+
+
+@section scripts {
+<script src="@(StaticDomain)js/bootstrapValidator.min.js"></script>
+<script src="@(StaticDomain)js/language/zh_CN.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            //parent.$.SetMenu("menu");
+            $(".select").select2();
+            $('#addform')
+        .bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                MenuName: {
+                    validators: {
+                        notEmpty: {
+                            message: '不可为空'
+                        }
+                    }
+                },
+                MenuAddr: {
+                    validators: {
+                        notEmpty: {
+                            message: '不可为空'
+                        }
+                    }
+                },
+                Functions: {
+                    validators: {
+                        notEmpty: {
+                            message: '不可为空'
+                        }
+                    }
+                }
+
+            }
+        })
+        .on('success.form.bv', function (e) {
+            e.preventDefault();
+            var $form = $(e.target);
+            var bv = $form.data('bootstrapValidator');
+            $.post($form.attr('action'), $form.serialize(), function (result) {
+                parent.$.CheckLogin(result);
+                if (result.MsgNo == 1) {
+                    location = "/menu";
+                } else {
+                    Modal.alert({
+                        msg: result.Msg
+                    })
+                }
+            }, 'json');
+        });
+
+        });
+    </script>
+    }

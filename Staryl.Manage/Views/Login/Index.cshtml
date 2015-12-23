@@ -1,0 +1,97 @@
+﻿@{
+    Layout = null;
+    string StaticDomain = Staryl.Manage.Controllers.ControllerBase.StaticDomain;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Matrix Admin</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="@(StaticDomain)css/bootstrap.min.css" />
+    <link rel="stylesheet" href="@(StaticDomain)css/bootstrap-responsive.min.css" />
+    <link rel="stylesheet" href="@(StaticDomain)css/bootstrapValidator.min.css" />
+    <link rel="stylesheet" href="@(StaticDomain)css/matrix-login.css" />
+</head>
+<body>
+    <div id="loginbox">
+        <form id="loginform" method="post" class="form-vertical" action="/Login/Sign">
+            <div class="control-group normal_text"> <h3><img src="@(StaticDomain)img/logo.png" alt="Logo" /></h3></div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                    <input type="text" id="account" name="account" class="form-control" placeholder="用户名" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-eye-open"></span></span>
+                    <input type="password" id="password" name="password" style=" margin-bottom:0px;" class="form-control" value="@ViewBag.password" placeholder="密码" />
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="hidden" name="rUrl" value="/index" />
+                <span class="pull-left"><a href="#" class="flip-link btn btn-info" id="to-recover">忘记密码</a></span>
+                <span class="pull-right"><a type="submit" id="loginbtn" href="#" class="btn btn-success" /> 登录</a></span>
+            </div>
+        </form>
+        <form id="recoverform" action="#" class="form-vertical">
+            <p class="normal_text">输入您的邮箱地址.</p>
+
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+                    <input type="text" class="form-control" placeholder="E-mail address" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <span class="pull-left"><a href="#" class="flip-link btn btn-success" id="to-login">&laquo; 返回登录</a></span>
+                <span class="pull-right"><a class="btn btn-info" />Reecover</a></span>
+            </div>
+        </form>
+    </div>
+
+
+
+    <!-- system modal start -->
+    <div id="ycf-alert" class="modal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                    </button>
+                    <h5 class="modal-title">
+                        <i class="fa fa-exclamation-circle"></i>[Title]
+                    </h5>
+                </div>
+                <div class="modal-body small">
+                    <p>
+                        [Message]
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary ok" data-dismiss="modal">
+                        [BtnOk]
+                    </button>
+                    <button type="button" class="btn btn-default cancel" data-dismiss="modal">
+                        [BtnCancel]
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- system modal end -->
+
+    <script src="@(StaticDomain)js/jquery.min.js"></script>
+    <script src="@(StaticDomain)js/bootstrap.min.js"></script>
+    <script src="@(StaticDomain)js/bootstrapValidator.min.js"></script>
+    <script src="@(StaticDomain)js/bootstrapAlert.js"></script>
+    <script src="@(StaticDomain)js/language/zh_CN.js"></script>
+    <script src="@(StaticDomain)js/matrix.login.js"></script>
+</body>
+</html>

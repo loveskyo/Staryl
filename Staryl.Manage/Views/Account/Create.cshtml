@@ -1,0 +1,182 @@
+﻿@{
+    ViewBag.Title = "Create";
+    string StaticDomain = Staryl.Manage.Controllers.ControllerBase.StaticDomain;
+}
+@model Staryl.Manage.Models.ViewModels
+@section style{
+    <link rel="stylesheet" href="@(StaticDomain)css/bootstrapValidator.min.css" />
+}
+<section class="content-header">
+    <h1>
+        新增用户
+        <small>新增一个系统管理用户</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li><a href="/account">用户管理</a></li>
+        <li class="active">新增用户</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title"></h3>
+        </div>
+
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form id="addform" method="post" action="/account/create" class="form-horizontal">
+            <div class="box-body">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">用户名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="Account" data-bv-remote="true" data-bv-remote-type="post" data-bv-remote-url="/account/Check" data-bv-remote-message="用户名已存在" name="Account" value="" placeholder="输入用户名" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">用户密码</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="Password" name="Password" value="" placeholder="输入用户密码" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            真实姓名
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="UserName" name="UserName" value="" placeholder="输入用户姓名" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            备注
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="Remarks" name="Remarks" value="" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            角色
+                        </label>
+                        <div class="col-sm-10">
+                            <select name="RoleId" class="form-control select2" style="width: 100%;">
+                                @if (Model.RoleList != null)
+                                {
+                                    foreach (var info in Model.RoleList)
+                                    {
+                                        <option value="@info.Id">@info.RoleName</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            是否启用
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="checkbox" id="IsEnable" name="IsEnable" checked="true" value="true" data-on-text="启用" data-off-text="禁用" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            &nbsp;
+                        </label>
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-success btn-sm">
+                                提 交
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.box-body -->
+        </form>
+
+
+
+
+
+    </div>
+</section>
+@section scripts {
+    <script src="@(StaticDomain)js/bootstrapValidator.min.js"></script>
+    <script src="@(StaticDomain)js/language/zh_CN.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            parent.$.SetMenu("account/create");
+            $(".select2").select2();
+
+            $("#IsEnable").bootstrapSwitch();
+
+
+            $('#addform')
+    .bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            Account: {
+                validators: {
+                    notEmpty: {
+                        message: '请输入用户名'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_\.]+$/,
+                        message: '用户名格式为字母数字"_"组成'
+                    }
+                }
+            },
+            Password: {
+                validators: {
+                    notEmpty: {
+                        message: '请输入用户密码'
+                    },
+                    stringLength: {
+                        min: 6,
+                        max: 20,
+                        message: '请输入6-20位字符'
+                    }
+                }
+            },
+            UserName: {
+                validators: {
+                    notEmpty: {
+                        message: '请输入用户姓名'
+                    },
+                    stringLength: {
+                        min: 2,
+                        max: 10,
+                        message: '请输入2-10位字符'
+                    }
+                }
+            }
+
+        }
+    })
+    .on('success.form.bv', function (e) {
+        e.preventDefault();
+        var $form = $(e.target);
+        var bv = $form.data('bootstrapValidator');
+        $.post($form.attr('action'), $form.serialize(), function (result) {
+            parent.$.CheckLogin(result);
+            if (result.MsgNo == 1) {
+                location = "/Account";
+            } else {
+                Modal.alert({
+                    msg: result.Msg
+                })
+            }
+        }, 'json');
+    });
+
+        });
+    </script>
+}

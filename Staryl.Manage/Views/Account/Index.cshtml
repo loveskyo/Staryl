@@ -1,0 +1,223 @@
+﻿@{
+    ViewBag.Title = "Index";
+    string StaticDomain = Staryl.Manage.Controllers.ControllerBase.StaticDomain;
+
+}
+<section class="content-header">
+    <h1>
+        用户管理
+        <small>系统用户管理</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li class="active">用户管理</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title"><button id="add" class="btn btn-primary"><i class="fa fa-plus"></i> 新增</button></h3>
+                    <div class="box-tools">
+                        <form id="pagerForm" method="post" action="/account/gets">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="txtKey" class="form-control pull-right" placeholder="Search">
+                                <div class="input-group-btn">
+                                    <button type="button" id="searchbut" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                            <input type="hidden" name="txtPage" id="txtPage" value="1" /><!--当前页码-->
+                            <input type="hidden" name="txtPageSize" id="txtPageSize" value="10" /><!--每页记录数-->
+                        </form>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div id="datacontent" class="box-body table-responsive no-padding">
+
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <button type="button" id="deleteAll" class="btn btn-default btn-sm" title="删除"><i class="fa fa-trash-o"></i>&nbsp;&nbsp;删除</button>
+                    <ul id="page" class="pagination pagination-sm no-margin pull-right">
+                        <li><a href="#">首页</a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">尾页</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+</section>
+
+@section scripts {
+    <script id="datalist" type="text/html">
+        <table id="list" class="table table-hover">
+            <tr>
+                <th><input type="checkbox" class="minimal" id="selectAll" /></th>
+                <th>用户名</th>
+                <th>姓名</th>
+                <th>状态</th>
+                <th>角色</th>
+                <th>操作</th>
+            </tr>
+            {{each Data as item}}
+            <tr>
+                <td>{{if item.IsCanDelete}}<input type="checkbox" name="id" value="{{item.Id}}" class="minimal" />{{/if}}</td>
+                <td>{{item.Account}}</td>
+                <td>{{item.UserName}}</td>
+                <td>{{if item.IsEnable}}<span class="label label-success">正常</span>{{else}}<span class="label label-danger">禁用</span>{{/if}}</td>
+                <td>{{item.RoleName}}</td>
+                <td>
+                    <button type="button" data-id="{{item.Id}}" class="btn btn-default btn-xs modify" title="编辑"><i class="fa fa-edit"></i></button>
+                    {{if item.IsCanDelete}}<button type="button" data-id="{{item.Id}}" class="btn btn-default btn-xs delete" title="删除"><i class="fa fa-trash-o"></i></button>{{/if}}
+                </td>
+            </tr>
+            {{/each}}
+        </table>
+
+    </script>
+    <script src="@(StaticDomain)js/template.js"></script>
+    <script src="@(StaticDomain)js/template-date.js"></script>
+    <script src="@(StaticDomain)js/jquery.page.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $(document).ajaxStart(function () { Pace.restart(); });
+            parent.$.SetMenu("account");
+            init = function () {
+                //获取绑定数据
+                var $form = $("#pagerForm");
+                param = $form.serialize();
+                jsonAjax({ url: $form.attr("action"), param: param, callback: bindData });
+            }
+            bindData = function (result) {
+                parent.$.CheckLogin(result);
+                var vhtml = template("datalist", result);
+                $("#datacontent").html(vhtml);
+                var pageCount = Math.ceil(result.TotalCount / result.PageSize);
+                var pageCurrent = result.CurrPage;
+                pageInit(pageCount, pageCurrent);
+                //绑定操作事件
+                bindEvent();
+            }
+
+            //绑定列表相关事件
+            bindEvent = function () {
+                //iCheck for checkbox and radio inputs
+                $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                    checkboxClass: 'icheckbox_minimal-blue',
+                    radioClass: 'iradio_minimal-blue'
+                });
+                $('#selectAll').on('ifChecked', function (event) {
+                    $("#list :checkbox").not("#selectAll").iCheck("check");
+                }).on('ifUnchecked', function (event) {
+                    $("#list :checkbox").not("#selectAll").iCheck("uncheck");
+                });
+
+                $("#reverse").click(function () {//反选
+                    $("#list :checkbox").each(function () {
+                        $(this).prop("checked", !$(this).prop("checked"));
+                    });
+                });
+
+                if ($(".modify")) {
+                    $(".modify").click(function () {
+                        location = "/account/modify/" + $(this).attr("data-id");
+                    });
+                }
+
+                //列表删除事件绑定
+                if ($(".delete")) {
+                    $(".delete").click(function () {
+                        var id = $(this).attr("data-id");
+                        Modal.confirm({
+                            msg: "删除后无法恢复，确认删除？"
+                        })
+                      .on(function (e) {
+                          if (e) {
+                              jsonAjax({ url: "/account/Destroy", param: { Id: id }, callback: deleteSuc });
+                          }
+                      });
+                    });
+                }
+                //批量删除事件绑定
+                if ($("#deleteAll")) {
+                    $("#deleteAll").click(function () {
+                        var ids = getChecked();
+                        if (ids.length <= 0) {
+                            Modal.alert({
+                                msg: "请选择需要删除的记录"
+                            });
+                        } else {
+                            Modal.confirm({
+                                msg: "删除后无法恢复，确认删除？"
+                            })
+                          .on(function (e) {
+                              if (e) {
+                                  jsonAjax({ url: "/account/Destroys", param: { Ids: ids }, callback: deleteSuc });
+                              }
+                          });
+                        }
+                    });
+                }
+            }
+
+
+            //删除操作回调
+            deleteSuc = function (resutl) {
+                if (resutl.MsgNo == -1) {
+                    location = "/Login";
+                } else {
+                    init();
+                }
+            }
+
+            getChecked = function () {
+                var ids = "";
+                $("#datacontent :checkbox:checked").each(function () {
+                    if (ids.length <= 0)
+                        ids += $(this).val();
+                    else
+                        ids += "," + $(this).val();
+                });
+                return ids;
+            }
+
+            //新增按钮事件绑定
+            if ($("#add")) {
+                $("#add").click(function () {
+                    location = "/account/Create";
+                });
+            }
+
+            //查询按钮事件绑定
+            if ($("#searchbut")) {
+                $("#searchbut").click(function () {
+                    init();
+                });
+            }
+
+            pageInit = function (pageCount, pageCurrent) {
+                $("#page").createPage({
+                    pageCount: pageCount,
+                    current: pageCurrent,
+                    backFn: function (p) {
+                        console.log(p);
+                        $("#txtPage").val(p);
+                        init();
+                    }
+                });
+            }
+            //所有js加载好，启动获取数据
+            init();
+        });
+
+
+
+    </script>
+}
