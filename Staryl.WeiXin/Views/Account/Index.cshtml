@@ -1,0 +1,99 @@
+﻿
+@{
+    string StaticDomain = Staryl.WeiXin.Controllers.ControllerBase.StaticDomain;
+    ViewBag.Title = "我的账户"; 
+}
+@model Staryl.WeiXin.ViewModels
+    <header class="top-nav clearfix">
+        <a class="dlt-a pull-left" href="javascript:history.go(-1);"><i class="glyphicon glyphicon-menu-left"></i><span>返回</span></a>
+        <a class="dlt-a pull-right" href="javascript:void(0);"><i class="glyphicon glyphicon-comment"></i><span>通知</span></a>
+        <h4>我</h4>
+    </header>
+    <div class="member-info user-info">
+        <div class="row">
+            <div class="col-xs-2">
+                <a href="#">
+                    <img class="child-img" src="@(StaticDomain)@(string.IsNullOrEmpty(Model.userInfo.Avatar)?"images/no-pic.png":"upload/"+ViewBag.avatarpath+"/"+Model.userInfo.Id+"/"+Model.userInfo.Avatar)" />
+                </a>
+                <h5 class="text-center">@(string.IsNullOrEmpty(Model.userInfo.RealName)?Model.userInfo.Mobile:Model.userInfo.RealName)</h5>
+            </div>
+            <div class="col-xs-7">
+                <div class="progress-wrap">
+                    成长值:
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+                             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-wrap">
+                    积分:
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="user-menu-list">
+        <div class="list-group">
+
+            <a href="#" class="list-group-item">
+                <div class="item">
+                    <i class="icon-user"><img src="@(StaticDomain)images/icon-user-account.png" alt=""></i>
+                    <span>我的账户</span>
+                </div>
+            </a>
+            <a href="/account/starview" class="list-group-item">
+                <div class="item">
+                    <i class="icon-user"><img src="@(StaticDomain)images/icon-user-child.png" alt=""></i>
+                    <span>我的孩子</span>
+                </div>
+            </a>
+            <a href="#" class="list-group-item">
+                <div class="item">
+                    <i class="icon-user"><img src="@(StaticDomain)images/icon-user-attention.png" alt=""></i>
+                    <span>我的关注</span>
+                </div>
+            </a>
+            <a href="#" class="list-group-item">
+                <div class="item">
+                    <i class="icon-user"><img src="@(StaticDomain)images/icon-user-role.png" alt=""></i>
+                    <span>我的报名</span>
+                </div>
+            </a>
+        </div>
+        <div class="list-group">
+            <a href="#" class="list-group-item">
+                <div class="item">
+                    <i class="icon-user"><img src="@(StaticDomain)images/icon-user-exp.png" alt=""></i>
+                    <span>发布经历</span>
+                </div>
+            </a>
+            <a href="#" class="list-group-item">
+                <div class="item">
+                    <i class="icon-user"><img src="@(StaticDomain)images/icon-user-found.png" alt=""></i>
+                    <span>发现</span>
+                </div>
+            </a>
+        </div>
+        <div class="list-group">
+            <a href="#" class="list-group-item">
+                <div class="item">
+                    <i class="icon-user"><img src="@(StaticDomain)images/icon-user-vip.png" alt=""></i>
+                    <span>vip会员</span>
+                </div>
+            </a>
+            <a href="#" class="list-group-item">
+                <div class="item">
+                    <i class="icon-user"><img src="@(StaticDomain)images/icon-user-setup.png" alt=""></i>
+                    <span>设置</span>
+                </div>
+            </a>
+        </div>
+    </div>
+

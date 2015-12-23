@@ -1,0 +1,356 @@
+﻿
+@{
+    string StaticDomain = Staryl.WeiXin.Controllers.ControllerBase.StaticDomain;
+    ViewBag.Title = "我的童星";
+}
+@model Staryl.WeiXin.ViewModels
+
+<header class="top-nav clearfix">
+    <a class="dlt-a pull-left" href="/account"><i class="glyphicon glyphicon-menu-left"></i><span>返回</span></a>
+    <a class="btn edit-btn-bg pull-right btn-sm" href="/account/starinfo">资料编辑</a>
+    <h4>童星详情</h4>
+</header>
+<div class="member-info">
+    <div class="row">
+        <div class="col-xs-2">
+            <a href="#">
+                <img class="child-img" src="@(StaticDomain)upload/@ViewBag.avatarpath/@Model.userInfo.Id/@(Model.starUserInfo.Avatar)">
+            </a>
+            <h5 class="text-center">@Model.starUserInfo.RealName</h5>
+        </div>
+        <div class="col-xs-7">
+            <p class="inline-block text-center">
+                2
+                <br />粉丝
+            </p>
+
+            <p class="inline-block text-center">
+                2
+                <br />点赞
+            </p>
+
+            <p class="inline-block text-center">
+                2
+                <br />成长值
+            </p>
+        </div>
+        <div class="col-xs-3">
+            <div class="btn-group">
+                <button type="button" class="btn send-btn-bg pull-right dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    发布经历<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a href="#">照片</a></li>
+                    <li><a href="#">视频</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <p class="info-txt dlt-info-color"><span class="icon icon-message"></span>@(string.IsNullOrEmpty(Model.starUserInfo.Greeting) ? "这家伙很懒，什么都没留下" : Model.starUserInfo.Greeting)</p>
+        </div>
+    </div>
+</div>
+<div id="tabInfo" class="member-tag-list">
+    <div class="hd clearfix">
+        <ul class="tag-list-line list-unstyled">
+            <li><a href="#">童星资料</a></li>
+            <li><a href="#">演艺经历</a></li>
+            <li><a href="#">童星相册</a></li>
+            <li><a href="#">童星视频</a></li>
+        </ul>
+    </div>
+    <div class="bd" id="tabBox1-bd">
+        <div class="con">
+            <!-- 高度自适应需添加外层 -->
+            <div class="container">
+                <div class="row">
+                    <fieldset>
+                        <legend>
+                            <h5>个人简历</h5>
+                        </legend>
+                        <div class="col-xs-6">姓 名：@Model.starUserInfo.RealName</div>
+                        <div class="col-xs-6">年 龄：@(DateTime.Now.Year- Model.starUserInfo.Birthday.Year)</div>
+                        @if (Model.starUserInfo.Gender == 0)
+                        {
+                        <div class="col-xs-6">性 别：未知</div>
+                        }
+                        else if (Model.starUserInfo.Gender == 1)
+                        { 
+                        <div class="col-xs-6">性 别：男</div>
+                        }else
+                        { 
+                        <div class="col-xs-6">性 别：女</div>
+                        }
+                        <div class="col-xs-6">星 座：@(Lib.GetAtomFromBirthday(Model.starUserInfo.Birthday))</div>
+                        <div class="col-xs-6">身 高：@(Model.starUserInfo.Height.HasValue?Model.starUserInfo.Height.Value:0) cm</div>
+                        <div class="col-xs-6">生 肖：@(Lib.GetShengXiao(Model.starUserInfo.Birthday))</div>
+                        <div class="col-xs-6">出生日期：@(Model.starUserInfo.Birthday.ToString("yyyy-MM-dd"))</div>
+                        <div class="col-xs-6">体 重：@(Model.starUserInfo.Weight.HasValue ? Model.starUserInfo.Weight.Value : 0) kg</div>
+                        <div class="col-xs-12">
+                            <a href="###" class="btn btn-success">联系方式</a>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        <div class="con">
+            <fieldset>
+                <legend>
+                    <h5>演绎经历</h5>
+                </legend>
+                <div class="deduce-list">
+                    @*<div class="item clearfix">
+                        <i class="point glyphicon glyphicon-record"></i>
+                        <div class="text-warning">
+                            2015-11-11
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    编辑<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-left">
+                                    <li><a href="#">修改</a></li>
+                                    <li><a href="#">删除</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p>快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星</p>
+                        <div class="img-list">
+                            <div class="col-xs-4 col-md-4">
+                                <a href="images/imgs/img1.jpg" class="swipe-album-1 thumbnail" title="快乐小童星">
+                                    <img src="images/imgs/img1.jpg" alt="快乐小童星">
+                                </a>
+                            </div>
+                            <div class="col-xs-4 col-md-4">
+                                <a href="images/imgs/img2.jpg" class="swipe-album-1 thumbnail" title="我就是小明星">
+                                    <img src="images/imgs/img2.jpg" alt="我就是小明星">
+                                </a>
+                            </div>
+                            <div class="col-xs-4 col-md-4">
+                                <a href="images/imgs/img2.jpg" class="swipe-album-1 thumbnail" title="我就是小明星">
+                                    <img src="images/imgs/img2.jpg" alt="我就是小明星">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item clearfix">
+                        <i class="point glyphicon glyphicon-record"></i>
+
+                        <p>
+                            快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星
+                        </p>
+
+                        <div class="img-list">
+                            <div class="col-xs-4 col-md-4">
+                                <a href="images/imgs/img1.jpg" class="swipe-album-1 thumbnail" title="快乐小童星">
+                                    <img src="images/imgs/img1.jpg" alt="快乐小童星">
+                                </a>
+                            </div>
+                            <div class="col-xs-4 col-md-4">
+                                <a href="images/imgs/img2.jpg" class="swipe-album-1 thumbnail" title="我就是小明星">
+                                    <img src="images/imgs/img2.jpg" alt="我就是小明星">
+                                </a>
+                            </div>
+                            <div class="col-xs-4 col-md-4">
+                                <a href="images/imgs/img2.jpg" class="swipe-album-1 thumbnail" title="我就是小明星">
+                                    <img src="images/imgs/img2.jpg" alt="我就是小明星">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item clearfix">
+                        <i class="point glyphicon glyphicon-record"></i>
+
+                        <p>
+                            快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星
+                        </p>
+
+                        <div class="img-list">
+                            <div class="col-xs-4 col-md-4">
+                                <a href="images/imgs/img1.jpg" class="swipe-album-1 thumbnail" title="快乐小童星">
+                                    <img src="images/imgs/img1.jpg" alt="快乐小童星">
+                                </a>
+                            </div>
+                            <div class="col-xs-4 col-md-4">
+                                <a href="images/imgs/img2.jpg" class="swipe-album-1 thumbnail" title="我就是小明星">
+                                    <img src="images/imgs/img2.jpg" alt="我就是小明星">
+                                </a>
+                            </div>
+                            <div class="col-xs-4 col-md-4">
+                                <a href="images/imgs/img2.jpg" class="swipe-album-1 thumbnail" title="我就是小明星">
+                                    <img src="images/imgs/img2.jpg" alt="我就是小明星">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item clearfix">
+                        <i class="point glyphicon glyphicon-record"></i>
+
+                        <p>
+                            快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星快乐小童星
+                        </p>
+
+                        <div class="img-list">
+                            <div class="col-xs-4 col-md-4">
+                                <a href="images/imgs/img1.jpg" class="swipe-album-1 thumbnail" title="快乐小童星">
+                                    <img src="images/imgs/img1.jpg" alt="快乐小童星">
+                                </a>
+                            </div>
+                            <div class="col-xs-4 col-md-4">
+                                <a href="images/imgs/img2.jpg" class="swipe-album-1 thumbnail" title="我就是小明星">
+                                    <img src="images/imgs/img2.jpg" alt="我就是小明星">
+                                </a>
+                            </div>
+                            <div class="col-xs-4 col-md-4">
+                                <a href="images/imgs/img2.jpg" class="swipe-album-1 thumbnail" title="我就是小明星">
+                                    <img src="images/imgs/img2.jpg" alt="我就是小明星">
+                                </a>
+                            </div>
+                        </div>
+                    </div>*@
+
+                </div>
+            </fieldset>
+
+        </div>
+        <div class="con">
+            <div class="row lightbox">
+                @*<div class="col-xs-6 col-md-3">
+                    <a href="images/imgs/img1.jpg" class="swipe-album thumbnail" title="快乐小童星">
+                        <img class="lazy-img" data-original="images/imgs/img1.jpg" src="images/loading.gif" alt="快乐小童星">
+                    </a>
+                </div>
+                <div class="col-xs-6 col-md-3">
+                    <a href="images/imgs/img2.jpg" class="swipe-album thumbnail" title="我就是小明星">
+                        <img class="lazy-img" data-original="images/imgs/img2.jpg" src="images/loading.gif"
+                             alt="我就是小明星">
+                    </a>
+                </div>
+                <div class="col-xs-6 col-md-3">
+                    <a href="images/imgs/img1.jpg" class="swipe-album thumbnail" title="快乐小童星">
+                        <img class="lazy-img" data-original="images/imgs/img1.jpg" src="images/loading.gif" alt="快乐小童星">
+                    </a>
+                </div>
+                <div class="col-xs-6 col-md-3">
+                    <a href="images/imgs/img2.jpg" class="swipe-album thumbnail" title="我就是小明星">
+                        <img class="lazy-img" data-original="images/imgs/img2.jpg" src="images/loading.gif"
+                             alt="我就是小明星">
+                    </a>
+                </div>
+                <div class="col-xs-6 col-md-3">
+                    <a href="images/imgs/img1.jpg" class="swipe-album thumbnail" title="快乐小童星">
+                        <img class="lazy-img" data-original="images/imgs/img1.jpg" src="images/loading.gif" alt="快乐小童星">
+                    </a>
+                </div>
+                <div class="col-xs-6 col-md-3">
+                    <a href="images/imgs/img2.jpg" class="swipe-album thumbnail" title="我就是小明星">
+                        <img class="lazy-img" data-original="images/imgs/img2.jpg" src="images/loading.gif"
+                             alt="我就是小明星">
+                    </a>
+                </div>
+                <div class="col-xs-6 col-md-3">
+                    <a href="images/imgs/img1.jpg" class="swipe-album thumbnail" title="快乐小童星">
+                        <img class="lazy-img" data-original="images/imgs/img1.jpg" src="images/loading.gif" alt="快乐小童星">
+                    </a>
+                </div>
+                <div class="col-xs-6 col-md-3">
+                    <a href="images/imgs/img2.jpg" class="swipe-album thumbnail" title="我就是小明星">
+                        <img class="lazy-img" data-original="images/imgs/img2.jpg" src="images/loading.gif"
+                             alt="我就是小明星">
+                    </a>
+                </div>*@
+            </div>
+        </div>
+        <div class="con">
+            <div class="row lightbox video-list">
+                @*<div class="item col-xs-6 col-md-3">
+                    <a href="http://player.youku.com/embed/XMjk2MjczNDMy" rel="视频" class="swipe-video thumbnail"
+                       title="快乐小童星">
+                        <i class="glyphicon glyphicon-play"></i>
+                        <img src="images/imgs/img1.jpg" alt="我就是小明星">
+                    </a>
+                </div>
+
+                <div class="item col-xs-6 col-md-3">
+                    <a href="http://player.youku.com/embed/XMjAzNDY1NzIw" rel="视频" class="swipe-video thumbnail"
+                       title="快乐小童星">
+                        <i class="glyphicon glyphicon-play"></i>
+                        <img src="images/imgs/img2.jpg" alt="我就是小明星">
+                    </a>
+                </div>
+                <div class="item col-xs-6 col-md-3">
+                    <a href="http://player.youku.com/embed/XMjk2MjczNDMy" rel="视频" class="swipe-video thumbnail"
+                       title="快乐小童星">
+                        <i class="glyphicon glyphicon-play"></i>
+                        <img src="images/imgs/img1.jpg" alt="我就是小明星">
+                    </a>
+                </div>
+
+                <div class="item col-xs-6 col-md-3">
+                    <a href="http://player.youku.com/embed/XMjAzNDY1NzIw" rel="视频" class="swipe-video thumbnail"
+                       title="快乐小童星">
+                        <i class="glyphicon glyphicon-play"></i>
+                        <img src="images/imgs/img2.jpg" alt="我就是小明星">
+                    </a>
+                </div>
+                <div class="item col-xs-6 col-md-3">
+                    <a href="http://player.youku.com/embed/XMjk2MjczNDMy" rel="视频" class="swipe-video thumbnail"
+                       title="快乐小童星">
+                        <i class="glyphicon glyphicon-play"></i>
+                        <img src="images/imgs/img1.jpg" alt="我就是小明星">
+                    </a>
+                </div>
+
+                <div class="item col-xs-6 col-md-3">
+                    <a href="http://player.youku.com/embed/XMjAzNDY1NzIw" rel="视频" class="swipe-video thumbnail"
+                       title="快乐小童星">
+                        <i class="glyphicon glyphicon-play"></i>
+                        <img src="images/imgs/img2.jpg" alt="我就是小明星">
+                    </a>
+                </div>*@
+
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts {
+<script src="@(StaticDomain)js/lazyload/jquery.lazyload.js"></script>
+
+<script type="text/javascript">
+
+
+    //标签切换
+    TouchSlide({
+        slideCell: "#tabInfo",
+        endFun: function (i) { //高度自适应
+            var bd = document.getElementById("tabBox1-bd");
+            bd.parentNode.style.height = bd.children[i].children[0].offsetHeight + "px";
+            if (i > 0) bd.parentNode.style.transition = "200ms"; //添加动画效果
+        }
+    });
+
+    // 相册
+    $('.swipe-album').swipebox({
+        hideCloseButtonOnMobile: false
+    });
+
+    $('.swipe-album-1').swipebox({
+        hideCloseButtonOnMobile: false
+    });
+
+    // 视频
+    $('.swipe-video').swipebox({
+        videoMaxWidth: 1140, // 视频最大宽度
+        beforeOpen: function () {
+        }, // 被叫开幕前
+        afterClose: function () {
+        } // 被叫结束后
+    });
+    $(function () {
+        $("img.lazy-img").lazyload();
+    })
+</script>
+
+}

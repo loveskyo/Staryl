@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="bf5c838f-a09b-4df1-8d92-d7b5ae789068" ChangeDateTime="11/11/2015 15:52:01">
+    <Property Name="ElementName" Value="[dbo].[User].[Artat]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[User]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Avatar" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="10eddf05-c350-4ba2-b111-9e1d100d24ae" ChangeDateTime="12/12/2015 03:56:15">
+    <Property Name="ElementName" Value="[dbo].[User].[RecommendUserId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[User]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="RecommendUser" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="03facd3d-a56d-460c-b483-2f28a867ba76" ChangeDateTime="12/12/2015 04:00:50">
+    <Property Name="ElementName" Value="[dbo].[User].[UserName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[User]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Email" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="772a7814-06bc-4c2a-9046-1f187b19a226" ChangeDateTime="12/12/2015 04:01:05">
+    <Property Name="ElementName" Value="[dbo].[User].[IX_User_UserName]" />
+    <Property Name="ElementType" Value="SqlIndex" />
+    <Property Name="ParentElementName" Value="[dbo].[User]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[IX_User_Email]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9ccd9b9a-85ce-4b66-835b-4329a233257d" ChangeDateTime="12/12/2015 05:09:48">
+    <Property Name="ElementName" Value="[dbo].[User].[LoginStatus]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[User]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IsLogin" />
+  </Operation>
+</Operations>

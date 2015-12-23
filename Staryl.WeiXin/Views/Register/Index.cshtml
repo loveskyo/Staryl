@@ -1,0 +1,246 @@
+﻿@{
+    string StaticDomain = Staryl.WeiXin.Controllers.ControllerBase.StaticDomain;
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>注册</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="@(StaticDomain)stylesheets/bootstrap.css">
+    <script src="@(StaticDomain)js/jquery.min.js"></script>
+    <script src="@(StaticDomain)js/bootstrap.min.js"></script>
+    <script src="@(StaticDomain)js/bootstrapValidator.min.js"></script>
+    <script src="@(StaticDomain)js/language/zh_CN.js"></script>
+    <script src="@(StaticDomain)js/bootstrapAlert.js"></script>
+    <script src="@(StaticDomain)js/ajax.js"></script>
+
+</head>
+
+<body>
+    <header class="top-nav clearfix">
+        <a class="dlt-a pull-left" href="javascript:void(0);"><i class="icon icon-back"></i><span>返回</span></a>
+        <h4>免费注册</h4>
+    </header>
+
+    <div class="logo">
+        <div>
+            <a href="index.html"><img src="@(StaticDomain)images/logo.png" width="25%" alt="小童星"></a>
+        </div>
+        <div class="logo-nm"><img src="@(StaticDomain)images/logo-nm.png" width="15%" alt="小童星"></div>
+    </div>
+    <div class="container">
+        <form id="registerForm" method="post" action="/Register" class="form-horizonal login-form">
+            <div class="form-group">
+                <select class="form-control" name="UserType" data-bv-field="identify">
+                    <option value="">请选择您的身份</option>
+                    <option value="1">个人用户</option>
+                    <option value="2">机构用户</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="recommender " placeholder="推荐人">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="Mobile" name="Mobile" data-bv-field="mobile" placeholder="请输入您的手机号码">
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <input type="text" class="form-control" name="MobileYzm" data-bv-field="chkcode" placeholder="请输入验证码">
+                    </div>
+                    <div class="col-xs-4">
+                        <a class="btn btn-block btn-blue" id="CodeMobileBut" href="#">获取验证码</a>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" name="Password" data-bv-field="password" placeholder="设置密码">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" name="confirmPassword" data-bv-field="confirmPassword" placeholder="请再次输入密码">
+            </div>
+            <p class="help-block text-center">点击注册即表示同意<a href="###" class="cue-a">《童星用户协议》</a></p>
+            <button type="submit" class="btn btn-block btn-primary btn-lg">提交</button>
+        </form>
+    </div>
+
+
+
+    <!-- system modal start -->
+    <div id="ycf-alert" class="modal">
+        <!--<div class="modal-dialog modal-sm">-->
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">[Title]</h4>
+                </div>
+                <div class="modal-body">
+                    <p>[Message]</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default cancel pull-left" data-dismiss="modal">[BtnCancel]</button>
+                    <button type="button" class="btn btn-primary ok" data-dismiss="modal">[BtnOk]</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- system modal end -->
+
+    <script type="text/javascript">
+        $(function () {
+
+            $("#CodeMobileBut").click(function () {
+                setTimeout(function () {
+                    if (checkmobile()) {
+                        var param = { "mobile": "" + $("#Mobile").val() + "" };
+                        jsonAjax({
+                            url: "/register/SendMsg", param: param, callback: function (result) {
+                                if (result) {
+
+                                    var obj = $("#CodeMobileBut");
+
+                                    var count = 1;
+                                    var sum = 60;
+                                    var i = setInterval(function () {
+                                        if (count > 60) {
+                                            obj.removeClass('disabled');
+                                            obj.html('获取验证码');
+                                            clearInterval(i);
+                                        } else {
+                                            obj.html('剩余' + parseInt(sum - count) + '秒');
+                                        }
+                                        count++;
+                                    }, 1000);
+
+                                    $("#CodeMobileBut").addClass("disabled");
+
+                                } else {
+                                    Modal.alert({
+                                        msg: "请不要频繁请求"
+                                    });
+                                }
+                            }
+                        });
+                    } else {
+                        Modal.alert({
+                            msg: "请输入正确的手机号码"
+                        }).on(function (e) {
+                            $("#account").focus();
+                        });
+                    }
+                }, 500);
+                return false;
+            });
+
+
+
+            checkmobile = function () {
+                var $this = $("#Mobile");
+                var v = $this.parents(".form-group").attr("class");
+                var i = v.indexOf("has-success");
+                if (i > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            };
+
+            // 提交验证
+            $('#registerForm').bootstrapValidator({
+                message: '',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    UserType: {
+                        validators: {
+                            notEmpty: {
+                                message: '身份选项不能为空'
+                            }
+                        }
+                    },
+                    Mobile: {
+                        validators: {
+                            notEmpty: {
+                                message: '手机号码不能为空'
+                            },
+                            regexp: {
+                                regexp: /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/,
+                                message: '请输入正确的手机号码'
+                            },
+                            remote: {
+                                url: '/Register/CheckMobile',
+                                type: 'POST',
+                                message: '该手机已被注册，请使用其他手机号码'
+                            }
+
+                        }
+                    },
+                    MobileYzm: {
+                        validators: {
+                            notEmpty: {
+                                message: '验证码不能为空'
+                            }
+                        }
+                    },
+                    Password: {
+                        validators: {
+                            notEmpty: {
+                                message: '密码不能为空'
+                            },
+                            identical: {
+                                field: 'confirmPassword',
+                                message: '必须和确认密码一致'
+                            }
+                        }
+                    },
+                    confirmPassword: {
+                        validators: {
+                            notEmpty: {
+                                message: '密码不能为空'
+                            },
+                            identical: {
+                                field: 'Password',
+                                message: '请设置密码一致'
+                            }
+                        }
+                    }
+                }
+            }).on('success.form.bv', function (e) {
+                // Prevent form submission
+                e.preventDefault();
+
+                // Get the form instance
+                var $form = $(e.target);
+
+                // Get the BootstrapValidator instance
+                var bv = $form.data('bootstrapValidator');
+
+                // Use Ajax to submit form data
+                $.post($form.attr('action'), $form.serialize(), function (result) {
+                    console.log(result);
+                    if (!result.IsError) {
+                        location = "/account";
+                    } else {
+                        Modal.alert({
+                            msg: result.Msg
+                        }).on(function (e) {
+                            $("#account").focus();
+                        });
+                    }
+                }, 'json');
+            });
+        });
+    </script>
+</body>
+
+</html>

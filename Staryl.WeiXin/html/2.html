@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="stylesheets/bootstrap.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <header class="top-nav clearfix">
+        <a class="dlt-a pull-left" href="javascript:history.go(-1);"><i class="icon icon-back"></i><span>返回</span></a>
+        <h4>童星主页</h4>
+    </header>
+    <div class="container">
+        <div class="member-list">
+            <div class="row">
+                <div class="col-xs-3">
+                    <a href="###">
+                        <img src="images/no-pic.png">
+                    </a>
+                </div>
+                <div class="col-xs-9">
+                    <p class="nm">宝贝</p>
+                    <p>
+                        <span class="tag-btn wm-bg"><i class="icon icon-w"></i>7</span>
+                        <span class="tag-btn tag-ht-bg">120cm</span>
+                    </p>
+                    <p>人见人爱的洋娃娃</p>
+
+
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">操作<span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="#">编辑</a></li> 
+                        <li><a href="#">删除</a></li>
+                      </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    <a href="###">
+                        <img src="images/no-pic.png">
+                    </a>
+                </div>
+                <div class="col-xs-9">
+                    <p class="nm">宝贝</p>
+                    <p>
+                        <span class="tag-btn man-bg"><i class="icon icon-m"></i>7</span>
+                        <span class="tag-btn tag-ht-bg">120cm</span>
+                    </p>
+                    <p>人见人爱的洋娃娃</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    <a href="###">
+                        <img src="images/no-pic.png">
+                    </a>
+                </div>
+                <div class="col-xs-9">
+                    <p class="nm">宝贝</p>
+                    <p>
+                        <span class="tag-btn wm-bg"><i class="icon icon-w"></i>7</span>
+                        <span class="tag-btn tag-ht-bg">120cm</span>
+                    </p>
+                    <p>人见人爱的洋娃娃</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    <a href="###">
+                        <img src="images/no-pic.png">
+                    </a>
+                </div>
+                <div class="col-xs-9">
+                    <p class="nm">宝贝</p>
+                    <p>
+                        <span class="tag-btn man-bg"><i class="icon icon-m"></i>7</span>
+                        <span class="tag-btn tag-ht-bg">120cm</span>
+                    </p>
+                    <p>人见人爱的洋娃娃</p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <script src="http://localhost:4395/js/ajax.js"></script>
+<script type="text/javascript">
+    $(function () {
+        init = function () {
+            param = {};
+            jsonAjax({ url: "http://localhost:12979/api/Weixin", param: param, callback: bindData });
+        };
+        bindData = function (result)
+        {
+
+        };
+        init();
+        var v = document.cookie;
+        console.log(v);
+
+    });
+</script>
+
+</body>
+
+</html>

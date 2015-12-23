@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{269D444F-5C83-4E2E-86CC-14417AC5CA97}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Staryl.Static</RootNamespace>
+    <AssemblyName>Staryl.Static</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\AdminLTE.min.css" />
+    <Content Include="css\skins\skin-black-light.css" />
+    <Content Include="css\skins\skin-black-light.min.css" />
+    <Content Include="css\skins\skin-black.css" />
+    <Content Include="css\skins\skin-black.min.css" />
+    <Content Include="css\skins\skin-blue-light.css" />
+    <Content Include="css\skins\skin-blue-light.min.css" />
+    <Content Include="css\skins\skin-blue.css" />
+    <Content Include="css\skins\skin-blue.min.css" />
+    <Content Include="css\skins\skin-green-light.css" />
+    <Content Include="css\skins\skin-green-light.min.css" />
+    <Content Include="css\skins\skin-green.css" />
+    <Content Include="css\skins\skin-green.min.css" />
+    <Content Include="css\skins\skin-purple-light.css" />
+    <Content Include="css\skins\skin-purple-light.min.css" />
+    <Content Include="css\skins\skin-purple.css" />
+    <Content Include="css\skins\skin-purple.min.css" />
+    <Content Include="css\skins\skin-red-light.css" />
+    <Content Include="css\skins\skin-red-light.min.css" />
+    <Content Include="css\skins\skin-red.css" />
+    <Content Include="css\skins\skin-red.min.css" />
+    <Content Include="css\skins\skin-yellow-light.css" />
+    <Content Include="css\skins\skin-yellow-light.min.css" />
+    <Content Include="css\skins\skin-yellow.css" />
+    <Content Include="css\skins\skin-yellow.min.css" />
+    <Content Include="css\skins\_all-skins.css" />
+    <Content Include="css\skins\_all-skins.min.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="images\bg-input-focus.png" />
+    <Content Include="images\bg-input.png" />
+    <Content Include="images\icon-ad.png" />
+    <Content Include="images\icon-add-pic.png" />
+    <Content Include="images\icon-all.png" />
+    <Content Include="images\icon-back-2.png" />
+    <Content Include="images\icon-back.png" />
+    <Content Include="images\icon-edit-img-1.png" />
+    <Content Include="images\icon-edit-img.png" />
+    <Content Include="images\icon-group.png" />
+    <Content Include="images\icon-internet.png" />
+    <Content Include="images\icon-location-1.png" />
+    <Content Include="images\icon-location-2.png" />
+    <Content Include="images\icon-location.png" />
+    <Content Include="images\icon-m.png" />
+    <Content Include="images\icon-message.png" />
+    <Content Include="images\icon-microfilm.png" />
+    <Content Include="images\icon-movie.png" />
+    <Content Include="images\icon-notice.png" />
+    <Content Include="images\icon-search-1.png" />
+    <Content Include="images\icon-search-2.png" />
+    <Content Include="images\icon-search.png" />
+    <Content Include="images\icon-store.png" />
+    <Content Include="images\icon-tvplay.png" />
+    <Content Include="images\icon-user-account.png" />
+    <Content Include="images\icon-user-attention.png" />
+    <Content Include="images\icon-user-child.png" />
+    <Content Include="images\icon-user-exp.png" />
+    <Content Include="images\icon-user-found.png" />
+    <Content Include="images\icon-user-role.png" />
+    <Content Include="images\icon-user-setup.png" />
+    <Content Include="images\icon-user-vip.png" />
+    <Content Include="images\icon-w.png" />
+    <Content Include="images\imgs\img1.jpg" />
+    <Content Include="images\imgs\img2.jpg" />
+    <Content Include="images\imgs\img3.jpg" />
+    <Content Include="images\loading.gif" />
+    <Content Include="images\logo-nm.png" />
+    <Content Include="images\logo.png" />
+    <Content Include="images\navbar.png" />
+    <Content Include="images\no-pic.png" />
+    <Content Include="images\sprite.png" />
+    <Content Include="images\star-bg.png" />
+    <Content Include="img\bg-input-focus.png" />
+    <Content Include="img\bg-input.png" />
+    <Content Include="img\demo\Thumbs.db" />
+    <Content Include="img\Thumbs.db" />
+    <Content Include="css\bootstrap.css.map" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="images\navbar.psd" />
+    <Content Include="stylesheets\bootstrap.css.map" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\bootstrapValidator.min.css" />
+    <Content Include="img\breadcrumb.png" />
+    <Content Include="img\demo\av1.jpg" />
+    <Content Include="img\demo\av2.jpg" />
+    <Content Include="img\demo\av3.jpg" />
+    <Content Include="img\demo\av4.jpg" />
+    <Content Include="img\demo\av5.jpg" />
+    <Content Include="img\demo\demo-image1.jpg" />
+    <Content Include="img\demo\demo-image2.jpg" />
+    <Content Include="img\demo\demo-image3.jpg" />
+    <Content Include="img\demo\envelope.png" />
+    <Content Include="img\glyphicons-halflings-white.png" />
+    <Content Include="img\glyphicons-halflings.html" />
+    <Content Include="img\gritter.png" />
+    <Content Include="img\hue.png" />
+    <Content Include="img\larrow.png" />
+    <Content Include="img\line.png" />
+    <Content Include="img\logo.png" />
+    <Content Include="img\menu-active.png" />
+    <Content Include="img\rarrow.png" />
+    <Content Include="img\saturation.png" />
+    <Content Include="img\select2.png" />
+    <Content Include="img\spinner.gif" />
+    <Content Include="img\sprite.png" />
+    <Content Include="img\user2-160x160.jpg" />
+    <Content Include="js\ajax.js" />
+    <Content Include="js\app.min.js" />
+    <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\bootstrapAlert.js" />
+    <Content Include="js\bootstrapValidator.min.js" />
+    <Content Include="js\jquery.min.js" />
+    <Content Include="js\jquery.page.js" />
+    <Content Include="js\language\zh_CN.js" />
+    <Content Include="js\matrix.login.js" />
+    <Content Include="js\template-date.js" />
+    <Content Include="js\template.js" />
+    <Content Include="js\touchslide.js" />
+    <Content Include="plugins\datepicker\bootstrap-datetimepicker.min.css" />
+    <Content Include="plugins\datepicker\bootstrap-datetimepicker.min.js" />
+    <Content Include="plugins\datepicker\bootstrap-datetimepicker.zh-CN.js" />
+    <Content Include="plugins\datepicker\mobiscroll_002.js" />
+    <Content Include="plugins\iCheck\all.css" />
+    <Content Include="plugins\iCheck\icheck.js" />
+    <Content Include="plugins\iCheck\icheck.min.js" />
+    <Content Include="plugins\iCheck\minimal\aero%402x.png" />
+    <Content Include="plugins\iCheck\minimal\aero.css" />
+    <Content Include="plugins\iCheck\minimal\aero.png" />
+    <Content Include="plugins\iCheck\minimal\blue%402x.png" />
+    <Content Include="plugins\iCheck\minimal\blue.css" />
+    <Content Include="plugins\iCheck\minimal\blue.png" />
+    <Content Include="plugins\iCheck\minimal\green%402x.png" />
+    <Content Include="plugins\iCheck\minimal\green.css" />
+    <Content Include="plugins\iCheck\minimal\green.png" />
+    <Content Include="plugins\iCheck\minimal\grey%402x.png" />
+    <Content Include="plugins\iCheck\minimal\grey.css" />
+    <Content Include="plugins\iCheck\minimal\grey.png" />
+    <Content Include="plugins\iCheck\minimal\minimal%402x.png" />
+    <Content Include="plugins\iCheck\minimal\minimal.css" />
+    <Content Include="plugins\iCheck\minimal\minimal.png" />
+    <Content Include="plugins\iCheck\minimal\orange%402x.png" />
+    <Content Include="plugins\iCheck\minimal\orange.css" />
+    <Content Include="plugins\iCheck\minimal\orange.png" />
+    <Content Include="plugins\iCheck\minimal\pink%402x.png" />
+    <Content Include="plugins\iCheck\minimal\pink.css" />
+    <Content Include="plugins\iCheck\minimal\pink.png" />
+    <Content Include="plugins\iCheck\minimal\purple%402x.png" />
+    <Content Include="plugins\iCheck\minimal\purple.css" />
+    <Content Include="plugins\iCheck\minimal\purple.png" />
+    <Content Include="plugins\iCheck\minimal\red%402x.png" />
+    <Content Include="plugins\iCheck\minimal\red.css" />
+    <Content Include="plugins\iCheck\minimal\red.png" />
+    <Content Include="plugins\iCheck\minimal\yellow%402x.png" />
+    <Content Include="plugins\iCheck\minimal\yellow.css" />
+    <Content Include="plugins\iCheck\minimal\yellow.png" />
+    <Content Include="plugins\iCheck\minimal\_all.css" />
+    <Content Include="plugins\lazyload\jquery.lazyload.js" />
+    <Content Include="plugins\lightBox\bootstrap-lightbox.min.css" />
+    <Content Include="plugins\lightBox\bootstrap-lightbox.min.js" />
+    <Content Include="plugins\lightBox\jquery.swipebox.min.js" />
+    <Content Include="plugins\pace\pace.css" />
+    <Content Include="plugins\pace\pace.js" />
+    <Content Include="plugins\pace\pace.min.css" />
+    <Content Include="plugins\pace\pace.min.js" />
+    <Content Include="plugins\select2\i18n\az.js" />
+    <Content Include="plugins\select2\i18n\bg.js" />
+    <Content Include="plugins\select2\i18n\ca.js" />
+    <Content Include="plugins\select2\i18n\cs.js" />
+    <Content Include="plugins\select2\i18n\da.js" />
+    <Content Include="plugins\select2\i18n\de.js" />
+    <Content Include="plugins\select2\i18n\en.js" />
+    <Content Include="plugins\select2\i18n\es.js" />
+    <Content Include="plugins\select2\i18n\et.js" />
+    <Content Include="plugins\select2\i18n\eu.js" />
+    <Content Include="plugins\select2\i18n\fa.js" />
+    <Content Include="plugins\select2\i18n\fi.js" />
+    <Content Include="plugins\select2\i18n\fr.js" />
+    <Content Include="plugins\select2\i18n\gl.js" />
+    <Content Include="plugins\select2\i18n\he.js" />
+    <Content Include="plugins\select2\i18n\hi.js" />
+    <Content Include="plugins\select2\i18n\hr.js" />
+    <Content Include="plugins\select2\i18n\hu.js" />
+    <Content Include="plugins\select2\i18n\id.js" />
+    <Content Include="plugins\select2\i18n\is.js" />
+    <Content Include="plugins\select2\i18n\it.js" />
+    <Content Include="plugins\select2\i18n\ko.js" />
+    <Content Include="plugins\select2\i18n\lt.js" />
+    <Content Include="plugins\select2\i18n\lv.js" />
+    <Content Include="plugins\select2\i18n\mk.js" />
+    <Content Include="plugins\select2\i18n\nb.js" />
+    <Content Include="plugins\select2\i18n\nl.js" />
+    <Content Include="plugins\select2\i18n\pl.js" />
+    <Content Include="plugins\select2\i18n\pt-BR.js" />
+    <Content Include="plugins\select2\i18n\pt.js" />
+    <Content Include="plugins\select2\i18n\ro.js" />
+    <Content Include="plugins\select2\i18n\ru.js" />
+    <Content Include="plugins\select2\i18n\sk.js" />
+    <Content Include="plugins\select2\i18n\sr.js" />
+    <Content Include="plugins\select2\i18n\sv.js" />
+    <Content Include="plugins\select2\i18n\th.js" />
+    <Content Include="plugins\select2\i18n\tr.js" />
+    <Content Include="plugins\select2\i18n\uk.js" />
+    <Content Include="plugins\select2\i18n\vi.js" />
+    <Content Include="plugins\select2\i18n\zh-CN.js" />
+    <Content Include="plugins\select2\i18n\zh-TW.js" />
+    <Content Include="plugins\select2\select2.css" />
+    <Content Include="plugins\select2\select2.full.js" />
+    <Content Include="plugins\select2\select2.full.min.js" />
+    <Content Include="plugins\select2\select2.js" />
+    <Content Include="plugins\select2\select2.min.css" />
+    <Content Include="plugins\select2\select2.min.js" />
+    <Content Include="plugins\switch\bootstrap-switch.css" />
+    <Content Include="plugins\switch\bootstrap-switch.js" />
+    <Content Include="plugins\switch\bootstrap-switch.min.css" />
+    <Content Include="plugins\switch\bootstrap-switch.min.js" />
+    <Content Include="plugins\webupload\Uploader.swf" />
+    <Content Include="plugins\webupload\webuploader.css" />
+    <Content Include="plugins\webupload\webuploader.js" />
+    <Content Include="stylesheets\bootstrap.css" />
+    <Content Include="Web.config" />
+    <Content Include="widgets.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Upload\Avatr\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>4395</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:4395/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:4395/</IISAppRootUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

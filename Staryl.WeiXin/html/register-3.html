@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="stylesheets/bootstrap.css">
+    <link rel="stylesheet" href="js/datepicker/bootstrap-datetimepicker.min.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <script src="js/bootstrapValidator/bootstrapValidator.min.js"></script>
+    <script src="js/bootstrapValidator/zh_CN.js"></script>
+    
+    <script src="js/datepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="js/datepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+    
+</head>
+
+<body>
+    <header class="top-nav clearfix">
+        <a class="dlt-a pull-left" href="javascript:history.go(-1);"><i class="icon icon-back"></i><span>返回</span></a>
+        <h4>童星基本资料</h4>
+    </header>
+    <div class="container">
+        <div class="user-img-wrap">
+            <a href="###" class="user-img-block"><span class="icon icon-edit-img"></span><img class="user-img thumbnail" src="images/no-pic.png" alt=""></a>
+        </div>
+        <form id="registerForm" class="form-horizontal login-form">
+            <div class="form-group">
+                <label class="col-xs-3 control-label">姓 名</label>
+                <div class="col-xs-9">
+                    <input type="text" class="form-control" name="username" data-bv-field="username" placeholder="姓名">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-3 control-label">性 别</label>
+                <div class="col-xs-9">
+                    <select class="form-control" name="sex" data-bv-field="identify">
+                        <option value="">--选择性别--</option>
+                        <option value="1">男</option>
+                        <option value="2">女</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-3 control-label">出生日期</label>
+                <div class="col-xs-9">
+                    <input type="text" class="form-control form_datetime" name="birthday" data-bv-field="birthday" placeholder="出生日期">
+                    <!-- <input size="16" type="text" value="2012-06-15 14:45" readonly class="form_datetime"> -->
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-3 control-label">身 高(cm)</label>
+                <div class="col-xs-9">
+                    <input type="text" class="form-control" name="height" data-bv-field="height" placeholder="身高">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-3 control-label">体 重(kg)</label>
+                <div class="col-xs-9">
+                    <input type="text" class="form-control" name="weight" data-bv-field="weight" placeholder="体重">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-3 control-label">所在城市</label>
+                <div class="col-xs-9">
+                    <input type="text" class="form-control" name="address" data-bv-field="address" placeholder="所在城市">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-3 control-label">才艺特长</label>
+                <div class="col-xs-9">
+                    <textarea class="form-control" name="talent" data-bv-field="talent" placeholder="才艺特长"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-3 control-label"></label>
+                <div class="col-xs-9">
+                    <button type="submit" class="btn btn-block btn-primary btn-lg">提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+    $(function() {
+        //日期
+        $(".form_datetime").datetimepicker({
+            format: 'yyyy-mm-dd',
+            todayBtn: true,
+            pickerPosition: "bottom-left"
+        });
+
+        //提交验证
+        $('#registerForm').bootstrapValidator({
+            message: '',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                username: {
+                    validators: {
+                        notEmpty: {
+                            message: '姓名不能为空'
+                        }
+                    }
+                },
+                sex: {
+                    validators: {
+                        notEmpty: {
+                            message: '性别选项不能为空'
+                        }
+                    }
+                },
+                birthday: {
+                    validators: {
+                        notEmpty: {
+                            message: '出生日期不能为空'
+                        },
+                        date: {
+                            format: 'YYYY-MM-DD',
+                            message: '请正确填写出生日期'
+                        }
+                    }
+                },
+                height: {
+                    validators: {
+                        greaterThan: {
+                            value: 50,
+                            inclusive: true,
+                            message: '请填写正确的身高'
+                        }
+                    }
+                },
+                weight: {
+                    validators: {
+                        greaterThan: {
+                            value: 10,
+                            inclusive: true,
+                            message: '请填写正确的体重'
+                        }
+                    }
+                },
+                address: {
+                    validators: {
+                        notEmpty: {
+                            message: '所在城市不能为空'
+                        }
+                    }
+                }
+            }
+        })
+    })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+﻿@{
+    string StaticDomain = Staryl.WeiXin.Controllers.ControllerBase.StaticDomain;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title - 小童星</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="@(StaticDomain)stylesheets/bootstrap.css">
+    @RenderSection("style", required: false)
+
+    <script src="@(StaticDomain)js/jquery.min.js"></script>
+    <script src="@(StaticDomain)js/bootstrap.min.js"></script>
+    <script src="@(StaticDomain)js/touchslide.js"></script>
+    <script src="@(StaticDomain)plugins/lightBox/jquery.swipebox.min.js"></script>
+    <script src="@(StaticDomain)plugins/lazyload/jquery.lazyload.js"></script>
+
+    <script src="@(StaticDomain)js/bootstrapValidator.min.js"></script>
+    <script src="@(StaticDomain)js/language/zh_CN.js"></script>
+    <script src="@(StaticDomain)js/bootstrapAlert.js"></script>
+    <script src="@(StaticDomain)js/ajax.js"></script>
+
+
+
+
+</head>
+
+<body>
+    @RenderBody()
+
+
+    <!-- system modal start -->
+    <div id="ycf-alert" class="modal">
+        <!--<div class="modal-dialog modal-sm">-->
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">[Title]</h4>
+                </div>
+                <div class="modal-body">
+                    <p>[Message]</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default cancel pull-left" data-dismiss="modal">[BtnCancel]</button>
+                    <button type="button" class="btn btn-primary ok" data-dismiss="modal">[BtnOk]</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- system modal end -->
+    @RenderSection("scripts", required: false)
+
+
+</body>
+
+</html>
