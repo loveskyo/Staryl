@@ -1,8 +1,7 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>登录</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="stylesheets/bootstrap.css">
@@ -10,14 +9,12 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrapValidator/bootstrapValidator.min.js"></script>
     <script src="js/bootstrapValidator/zh_CN.js"></script>
-    <script src="http://localhost:4395/js/bootstrapAlert.js"></script>
-
 </head>
 
 <body>
     <header class="top-nav clearfix">
-        <a class="dlt-a pull-left" href="javascript:void(0);"><i class="icon icon-mark"></i><span>上海</span></a>
-        <a class="dlt-a pull-right" href="javascript:void(0);"><i class="icon icon-search"></i><span>搜索</span></a>
+        <a class="dlt-a pull-left" href="javascript:void(0);"><i class="glyphicon glyphicon-map-marker"></i><span>上海</span></a>
+        <a class="dlt-a pull-right" href="javascript:void(0);"><i class="glyphicon glyphicon-search"></i><span>搜索</span></a>
         <h4>星库</h4>
     </header>
     <div class="logo">
@@ -27,42 +24,19 @@
         <div class="logo-nm"><img src="images/logo-nm.png" width="25%" alt="小童星"></div>
     </div>
     <div class="container">
-        <form id="loginForm" method="post" action="http://localhost:12979/api/Login" class="form-horizonal login-form">
+        <form id="loginForm" class="form-horizonal login-form">
             <div class="form-group">
-                <input type="text" class="form-control" name="MobileOrEmail" data-bv-field="username" placeholder="请输入您的手机号码/邮箱">
+                <input type="text" class="form-control" name="username" data-bv-field="username" placeholder="请输入您的手机号码/邮箱">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" name="Password" data-bv-field="password" placeholder="请输入密码">
+                <input type="password" class="form-control" name="password" data-bv-field="password" placeholder="请输入密码">
             </div>
             <p class="text-right"><a href="###" class="cue-a">忘记密码？</a></p>
             <button type="submit" class="btn btn-block btn-primary btn-lg">登录</button>
-            <p class="reg-cue text-center">还没有帐号？现在去<a href="register.html" class="cue-a">注册</a></p>
+            <p class="reg-cue text-center">还没有帐号？现在去<a href="###" class="cue-a">注册</a></p>
+            <p class="help-block logo-info text-center"><img src="images/logo-info.png" width="90%" alt=""></p>
         </form>
     </div>
-
-    <!-- system modal start -->
-    <div id="ycf-alert" class="modal">
-        <!--<div class="modal-dialog modal-sm">-->
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title">[Title]</h4>
-                </div>
-                <div class="modal-body">
-                    <p>[Message]</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default cancel pull-left" data-dismiss="modal">[BtnCancel]</button>
-                    <button type="button" class="btn btn-primary ok" data-dismiss="modal">[BtnOk]</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- system modal end -->
-
     <script type="text/javascript">
     $(function() {
 
@@ -75,14 +49,14 @@
                 validating: 'glyphicon glyphicon-refresh'
             },
             fields: {
-                MobileOrEmail: {
+                username: {
                     validators: {
                         notEmpty: {
                             message: '用户名不能为空'
                         }
                     }
                 },
-                Password: {
+                password: {
                     validators: {
                         notEmpty: {
                             message: '密码不能为空'
@@ -90,30 +64,7 @@
                     }
                 }
             }
-        }).on('success.form.bv', function (e) {
-            // Prevent form submission
-            e.preventDefault();
-
-            // Get the form instance
-            var $form = $(e.target);
-
-            // Get the BootstrapValidator instance
-            var bv = $form.data('bootstrapValidator');
-
-            // Use Ajax to submit form data
-            $.post($form.attr('action'), $form.serialize(), function (result) {
-                console.log(result);
-                if (!result.IsError) {
-                    location = result.Msg;
-                } else {
-                    Modal.alert({
-                        msg: result.Msg
-                    }).on(function (e) {
-                        $("#account").focus();
-                    });
-                }
-            }, 'json');
-        });
+        })
     });
     </script>
 </body>

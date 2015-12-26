@@ -122,6 +122,7 @@
     <Content Include="images\imgs\img2.jpg" />
     <Content Include="images\imgs\img3.jpg" />
     <Content Include="images\loading.gif" />
+    <Content Include="images\logo-info.png" />
     <Content Include="images\logo-nm.png" />
     <Content Include="images\logo.png" />
     <Content Include="images\navbar.png" />

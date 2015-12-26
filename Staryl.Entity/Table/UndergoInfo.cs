@@ -37,5 +37,10 @@ namespace Staryl.Entity
       /// </summary> 
       public string CreateIP{get;set;}
 
+      /// <summary>
+      /// 经历类型
+      /// </summary> 
+      public int UndergoType{get;set;}
+
     }
 }

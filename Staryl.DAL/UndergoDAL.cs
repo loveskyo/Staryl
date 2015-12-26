@@ -21,15 +21,16 @@ public int Create(UndergoInfo model)
         {         Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
          sb.Append("insert into Undergo(");
-         sb.Append("StarUserId,Photos,Content,CreateDate,CreateIP");
+         sb.Append("StarUserId,Photos,Content,CreateDate,CreateIP,UndergoType");
          sb.Append(") values(");
-         sb.Append("@StarUserId,@Photos,@Content,@CreateDate,@CreateIP);SELECT @@IDENTITY;");
+         sb.Append("@StarUserId,@Photos,@Content,@CreateDate,@CreateIP,@UndergoType);SELECT @@IDENTITY;");
          DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
             db.AddInParameter(dbCommand, "@StarUserId", DbType.Int32, model.StarUserId);
             db.AddInParameter(dbCommand, "@Photos", DbType.String, model.Photos);
             db.AddInParameter(dbCommand, "@Content", DbType.String, model.Content);
             db.AddInParameter(dbCommand, "@CreateDate", DbType.DateTime, model.CreateDate);
             db.AddInParameter(dbCommand, "@CreateIP", DbType.String, model.CreateIP);
+            db.AddInParameter(dbCommand, "@UndergoType", DbType.Int32, model.UndergoType);
             int id = Convert.ToInt32(db.ExecuteScalar(dbCommand));  
             return id; 
       }
@@ -40,7 +41,7 @@ public int Create(UndergoInfo model)
          Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
          sb.Append("update Undergo set ");
-         sb.Append("StarUserId=@StarUserId,Photos=@Photos,Content=@Content,CreateDate=@CreateDate,CreateIP=@CreateIP");
+         sb.Append("StarUserId=@StarUserId,Photos=@Photos,Content=@Content,CreateDate=@CreateDate,CreateIP=@CreateIP,UndergoType=@UndergoType");
          sb.Append(" where Id=@Id");
          DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
          db.AddInParameter(dbCommand, "@Id", DbType.Int32, model.Id);
@@ -49,6 +50,7 @@ public int Create(UndergoInfo model)
          db.AddInParameter(dbCommand, "@Content", DbType.String, model.Content);
          db.AddInParameter(dbCommand, "@CreateDate", DbType.DateTime, model.CreateDate);
          db.AddInParameter(dbCommand, "@CreateIP", DbType.String, model.CreateIP);
+         db.AddInParameter(dbCommand, "@UndergoType", DbType.Int32, model.UndergoType);
          return db.ExecuteNonQuery(dbCommand) < 1 ? false : true; 
       }
 
@@ -192,6 +194,11 @@ public int Create(UndergoInfo model)
             {
                 model.CreateIP = ( string)(ojb);
             }
+            ojb = dataReader["UndergoType"]; 
+            if (ojb != null && ojb != DBNull.Value)
+            {
+                model.UndergoType = ( int)(ojb);
+            }
 
             return model;
         }
@@ -213,7 +220,7 @@ bool suc = BaseDAL.ExecuteTransactionScopeInsert(this.ToDataTable(list), 250, "U
             if (list.Count > 0)
             {
 
-                string columnNameList = "?Id??StarUserId??Photos??Content??CreateDate??CreateIP?"; 
+                string columnNameList = "?Id??StarUserId??Photos??Content??CreateDate??CreateIP??UndergoType?"; 
 
                 PropertyInfo[] propertys = list[0].GetType().GetProperties();
                 foreach (PropertyInfo pi in propertys)
@@ -243,6 +250,7 @@ bool suc = BaseDAL.ExecuteTransactionScopeInsert(this.ToDataTable(list), 250, "U
                 dr["Content"] = list[i].Content; 
                 dr["CreateDate"] = list[i].CreateDate; 
                 dr["CreateIP"] = list[i].CreateIP; 
+                dr["UndergoType"] = list[i].UndergoType; 
 
                 result.Rows.Add(dr );
             }

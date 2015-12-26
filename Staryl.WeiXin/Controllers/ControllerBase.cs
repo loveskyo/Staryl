@@ -18,6 +18,7 @@ namespace Staryl.WeiXin.Controllers
         protected UserManager mUserMgr = new UserManager();
         protected StarUserManager mStarUserMgr = new StarUserManager();
         protected SystemAreaManager mSystemAreaMgr = new SystemAreaManager();
+        protected UndergoManager mUndergoMgr = new UndergoManager();
         /// <summary>
         /// 获取客户端的 IP地址
         /// </summary>
@@ -124,6 +125,16 @@ namespace Staryl.WeiXin.Controllers
             }
         }
 
+        /// <summary>
+        /// 经历图片
+        /// </summary>
+        protected string UndergoUrl
+        {
+            get {
+                return "Undergo";
+            }
+        }
+
 
         #endregion
 
@@ -194,5 +205,42 @@ namespace Staryl.WeiXin.Controllers
 
 
         #endregion
+
+        public string SaveImg(int accountId, string subpath, HttpFileCollectionBase uploadedFiles)
+        {
+            string filePathName = string.Empty;
+            string urlPath = this.UploadRoot;
+            string localPath = this.UploadRoot;
+
+            string upPath = localPath + "/" + subpath + "/" + accountId;
+            if (!Directory.Exists(upPath))
+            {
+                Directory.CreateDirectory(upPath);
+            }
+            
+            string fileName = string.Empty;
+            string fileNames=string.Empty;
+            for (int i = 0; i < uploadedFiles.Count; i++)
+            {
+                HttpPostedFileBase fileInfo = uploadedFiles[i];
+
+                if (fileInfo != null && fileInfo.ContentLength > 0)
+                {
+                    fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
+                    filePathName = localPath + "/" + subpath + "/" + accountId + "/" + fileName;//"/App_Upload/" + fileInfo.FileName;//自行处理保存
+                    fileInfo.SaveAs(filePathName);
+                    if (string.IsNullOrEmpty(fileNames))
+                    {
+                        fileNames = fileName;
+                    }
+                    else
+                        fileNames += "," + fileName;
+
+                }
+
+            }
+            return fileNames;//返回路径以备后用
+        }
+
     }
 }

@@ -6,6 +6,7 @@
     [Content] NVARCHAR(1000) NULL, 
     [CreateDate] DATETIME NOT NULL, 
     [CreateIP] NVARCHAR(50) NOT NULL, 
+    [UndergoType] INT NOT NULL, 
     CONSTRAINT [FK_Undergo_StarUser] FOREIGN KEY ([StarUserId]) REFERENCES [StarUser]([Id]), 
     CONSTRAINT [PK_Undergo] PRIMARY KEY ([Id]),
 )
@@ -49,3 +50,13 @@ EXEC sp_addextendedproperty @name = N'MS_Description',
 GO
 
 CREATE INDEX [IX_Undergo_StarUserId] ON [dbo].[Undergo] ([StarUserId])
+
+GO
+EXEC sp_addextendedproperty @name = N'MS_Description',
+    @value = N'经历类型',
+    @level0type = N'SCHEMA',
+    @level0name = N'dbo',
+    @level1type = N'TABLE',
+    @level1name = N'Undergo',
+    @level2type = N'COLUMN',
+    @level2name = N'UndergoType'

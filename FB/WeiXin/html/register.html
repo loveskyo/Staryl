@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -12,138 +12,181 @@
 </head>
 
 <body>
-    <header class="top-nav clearfix">
-        <a class="dlt-a pull-left" href="javascript:void(0);"><i class="icon icon-back"></i><span>返回</span></a>
-        <h4>免费注册</h4>
-    </header>
+<header class="top-nav clearfix">
+    <a class="dlt-a pull-left" href="javascript:void(0);"><i
+            class="glyphicon glyphicon-menu-left"></i><span>返回</span></a>
+    <h4>免费注册</h4>
+</header>
 
-    <div class="logo">
-        <div>
-            <a href="index.html"><img src="images/logo.png" width="25%" alt="小童星"></a>
+<div class="logo">
+    <div>
+        <a href="index.html"><img src="images/logo.png" width="25%" alt="小童星"></a>
+    </div>
+    <div class="logo-nm"><img src="images/logo-nm.png" width="15%" alt="小童星"></div>
+</div>
+<div class="container">
+    <form id="registerForm" class="form-horizonal login-form">
+        <div class="form-group">
+            <select class="form-control" name="identify" data-bv-field="identify">
+                <option value="">请选择您的身份</option>
+                <option value="1">个人用户</option>
+                <option value="2">机构用户</option>
+            </select>
         </div>
-        <div class="logo-nm"><img src="images/logo-nm.png" width="15%" alt="小童星"></div>
-    </div> 
-    <div class="container">
-        <form id="registerForm" method="post" action="http://localhost:12979/api/Register" class="form-horizonal login-form">
-            <div class="form-group">
-                <select class="form-control" name="UserType" data-bv-field="identify">
-                    <option value="">请选择您的身份</option>
-                    <option value="1">个人用户</option>
-                    <option value="2">机构用户</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" name="recommender " placeholder="推荐人">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" name="Mobile" data-bv-field="mobile" placeholder="请输入您的手机号码">
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-xs-8">
-                        <input type="text" class="form-control" name="MobileYzm" data-bv-field="chkcode" placeholder="请输入验证码">
-                    </div>
-                    <div class="col-xs-4">
-                        <a class="btn btn-block btn-blue" href="###">获取验证码</a>
-                    </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="recommender " placeholder="推荐人">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="mobile" data-bv-field="mobile" placeholder="请输入您的手机号码">
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-xs-8">
+                    <input type="text" class="form-control" name="chkcode" data-bv-field="chkcode" placeholder="请输入验证码">
+                </div>
+                <div class="col-xs-4">
+                    <a class="btn btn-block btn-blue" data-toggle="modal" data-target="#checkCodeModal"
+                       href="###">获取验证码</a>
                 </div>
             </div>
-            <div class="form-group">
-                <input type="password" class="form-control" name="Password" data-bv-field="password" placeholder="设置密码">
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" name="confirmPassword" data-bv-field="confirmPassword" placeholder="请再次输入密码">
-            </div>
-            <p class="help-block text-center">点击注册即表示同意<a href="###" class="cue-a">《童星用户协议》</a></p>
-            <button type="submit" class="btn btn-block btn-primary btn-lg">提交</button>
-        </form>
-    </div>
-    <script type="text/javascript">
-        $(function () {
-            // 提交验证
-            $('#registerForm').bootstrapValidator({
-                message: '',
-                feedbackIcons: {
-                    valid: 'glyphicon glyphicon-ok',
-                    invalid: 'glyphicon glyphicon-remove',
-                    validating: 'glyphicon glyphicon-refresh'
-                },
-                fields: {
-                    UserType: {
-                        validators: {
-                            notEmpty: {
-                                message: '身份选项不能为空'
-                            }
-                        }
-                    },
-                    Mobile: {
-                        validators: {
-                            notEmpty: {
-                                message: '手机号码不能为空'
-                            },
-                            phone: {
-                                message: '请正确填写手机号码',
-                                country: 'CN'
-                            }
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="password" data-bv-field="password" placeholder="设置密码">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="confirmPassword" data-bv-field="confirmPassword"
+                   placeholder="请再次输入密码">
+        </div>
+        <p class="help-block text-center">点击注册即表示同意<a href="###" class="cue-a">《童星用户协议》</a></p>
+        <button type="submit" class="btn btn-block btn-primary btn-lg">提交</button>
+        <p class="help-block logo-info text-center"><img src="images/logo-info.png" width="90%" alt=""></p>
+    </form>
+</div>
 
+<!--验证码 modal-->
+<div class="modal fade" id="checkCodeModal" tabindex="-1" role="dialog" aria-labelledby="checkCodeModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="checkCodeModalLabel">手机验证码</h4>
+            </div>
+            <form id="mchckCodeForm" class="form-horizonal login-form">
+
+            <div class="modal-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <input type="text" class="form-control" name="mchkcode" data-bv-field="mchkcode"
+                                       placeholder="请输入验证码">
+                            </div>
+                            <div class="col-xs-4">
+                                <a class="btn btn-block btn-primary" href="###">获取验证码</a>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="submit" id="chkSaveBtn" class="btn btn-blue">确定</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+
+        // 提交验证
+        $('#registerForm').bootstrapValidator({
+            message: '',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                identify: {
+                    validators: {
+                        notEmpty: {
+                            message: '身份选项不能为空'
                         }
-                    },
-                    MobileYzm: {
-                        validators: {
-                            notEmpty: {
-                                message: '验证码不能为空'
-                            }
+                    }
+                },
+                mobile: {
+                    validators: {
+                        notEmpty: {
+                            message: '手机号码不能为空'
+                        },
+                        phone: {
+                            message: '请正确填写手机号码',
+                            country: 'CN'
                         }
-                    },
-                    Password: {
-                        validators: {
-                            notEmpty: {
-                                message: '密码不能为空'
-                            },
-                            identical: {
-                                field: 'confirmPassword',
-                                message: '必须和确认密码一致'
-                            }
+
+                    }
+                },
+                chkcode: {
+                    validators: {
+                        notEmpty: {
+                            message: '验证码不能为空'
                         }
-                    },
-                    confirmPassword: {
-                        validators: {
-                            notEmpty: {
-                                message: '密码不能为空'
-                            },
-                            identical: {
-                                field: 'Password',
-                                message: '请设置密码一致'
-                            }
+                    }
+                },
+                password: {
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        },
+                        identical: {
+                            field: 'confirmPassword',
+                            message: '必须和确认密码一致'
+                        }
+                    }
+                },
+                confirmPassword: {
+                    validators: {
+                        notEmpty: {
+                            message: '密码不能为空'
+                        },
+                        identical: {
+                            field: 'password',
+                            message: '请设置密码一致'
                         }
                     }
                 }
-            }).on('success.form.bv', function (e) {
-                // Prevent form submission
-                e.preventDefault();
-
-                // Get the form instance
-                var $form = $(e.target);
-
-                // Get the BootstrapValidator instance
-                var bv = $form.data('bootstrapValidator');
-
-                // Use Ajax to submit form data
-                $.post($form.attr('action'), $form.serialize(), function (result) {
-                    console.log(result);
-                    if (!result.IsError) {
-                        location = result.Msg;
-                    } else {
-                        Modal.alert({
-                            msg: result.Msg
-                        }).on(function (e) {
-                            $("#account").focus();
-                        });
-                    }
-                }, 'json');
-            });
+            }
         });
-    </script>
+        //验证码验证
+        $('#mchckCodeForm').bootstrapValidator({
+            message: '',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                mchkcode: {
+                    validators: {
+                        notEmpty: {
+                            message: '验证码不能为空'
+                        }
+                    }
+                }
+            }
+        });
+        //验证码弹出框
+        $("#chkSaveBtn").click(function () {
+            //操作流程
+//            $("#checkCodeModal").modal('hide');
+
+        });
+    });
+</script>
 </body>
 
 </html>

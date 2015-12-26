@@ -228,8 +228,10 @@
     <Compile Include="Controllers\AuthAttribute.cs" />
     <Compile Include="Controllers\CheckCodeController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
+    <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\UndergoController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\WeixinController.cs" />
     <Compile Include="Models\CookieHelper.cs" />
@@ -267,6 +269,8 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\StarInfo.cshtml" />
     <Content Include="Views\Account\StarView.cshtml" />
+    <Content Include="Views\Index\Index.cshtml" />
+    <Content Include="Views\Undergo\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
