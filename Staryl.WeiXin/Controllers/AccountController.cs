@@ -19,7 +19,7 @@ namespace Staryl.WeiXin.Controllers
             ViewBag.avatarpath = this.AvatrUrl;
             return View(viewmodels);
         }
- 
+
         public ActionResult StarInfo()
         {
             ViewModels viewmodels = new ViewModels();
