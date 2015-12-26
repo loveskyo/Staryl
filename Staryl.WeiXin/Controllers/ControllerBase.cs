@@ -70,6 +70,8 @@ namespace Staryl.WeiXin.Controllers
 
         private string GetCityByIP(string ip)
         {
+            if (string.IsNullOrEmpty(ip) || ip == "::1")
+                return "中国";
             string url = string.Format("http://ip.taobao.com/service/getIpInfo.php?ip={0}", ip);
             string res = GetUrl(url);
             if (string.IsNullOrEmpty(res))

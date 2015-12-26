@@ -20,6 +20,7 @@ namespace Staryl.DAL
         {
             //return DatabaseFactory.CreateDatabase(name);
             return EnterpriseLibraryContainer.Current.GetInstance<Database>(name);
+           
         }
     }
 }
