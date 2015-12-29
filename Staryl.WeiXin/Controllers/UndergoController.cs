@@ -62,6 +62,16 @@ namespace Staryl.WeiXin.Controllers
             }
             return Json(false);
         }
+        [HttpPost]
+        public ActionResult Destroy(FormCollection col)
+        {
+            int id = 0;
+            int.TryParse(col["id"], out id);
+            if (id <= 0)
+                return Json(false);
+            bool result = mUndergoMgr.Delete(new UndergoInfo { Id = id });
+            return Json(result);
+        }
 
 
     }

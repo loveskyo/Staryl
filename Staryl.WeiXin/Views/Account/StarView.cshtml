@@ -98,7 +98,7 @@
                 <legend>
                     <h5>演绎经历</h5>
                 </legend>
-                <div class="deduce-list">
+                <div id="undergoList" class="deduce-list">
                     @*<div class="item clearfix">
                         <i class="point glyphicon glyphicon-record"></i>
                         <div class="text-warning">
@@ -314,43 +314,128 @@
             </div>
         </div>
     </div>
+    <form id="undergoForm" action="/weixin/Undergo">
+        <input type="hidden" name="pageIndex" value="1" />
+        <input type="hidden" name="pageSize" value="10" />
+        <input type="hidden" name="StarUserId" value="@Model.starUserInfo.Id" />
+    </form>
 </div>
 @section scripts {
-<script src="@(StaticDomain)js/lazyload/jquery.lazyload.js"></script>
+
+<script id="datalist" type="text/html">
+    {{each Data as item}}
+    <div class="item clearfix">
+        <i class="point glyphicon glyphicon-record"></i>
+        <div class="text-warning">
+            {{item.CreateDate | dateFormat:'yyyy-MM-dd'}}
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    编辑<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-left">
+                    <li><a href="#">修改</a></li>
+                    <li><a href="#" class="delete" data-id="{{item.Id}}">删除</a></li>
+                </ul>
+            </div>
+        </div>
+        <p>{{item.Content}}</p>
+        <div class="img-list">
+            {{each item.PhotoList as undergo}}
+            <div class="col-xs-4 col-md-4">
+                <a href="@(StaticDomain)Upload/@ViewBag.undergoPath/@Model.starUserInfo.Id/{{undergo}}" class="swipe-album-1 thumbnail" title="快乐小童星">
+                    <img class="lazy-img" src="@(StaticDomain)Upload/@ViewBag.undergoPath/@Model.starUserInfo.Id/{{undergo}}" alt="快乐小童星">
+                </a>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+    {{/each}}
+
+
+</script>
+<script src="@(StaticDomain)js/template.js"></script>
+<script src="@(StaticDomain)js/template-date.js"></script>
+
+<script src="@(StaticDomain)js/ajax.js"></script>
+<script src="@(StaticDomain)plugins/lazyload/jquery.lazyload.js"></script>
 
 <script type="text/javascript">
 
-
-    //标签切换
-    TouchSlide({
-        slideCell: "#tabInfo",
-        endFun: function (i) { //高度自适应
-            var bd = document.getElementById("tabBox1-bd");
-            bd.parentNode.style.height = bd.children[i].children[0].offsetHeight + "px";
-            if (i > 0) bd.parentNode.style.transition = "200ms"; //添加动画效果
-        }
-    });
-
-    // 相册
-    $('.swipe-album').swipebox({
-        hideCloseButtonOnMobile: false
-    });
-
-    $('.swipe-album-1').swipebox({
-        hideCloseButtonOnMobile: false
-    });
-
-    // 视频
-    $('.swipe-video').swipebox({
-        videoMaxWidth: 1140, // 视频最大宽度
-        beforeOpen: function () {
-        }, // 被叫开幕前
-        afterClose: function () {
-        } // 被叫结束后
-    });
     $(function () {
-        $("img.lazy-img").lazyload();
-    })
+
+
+        undergoinit = function () {
+            //获取绑定数据
+            var $form = $("#undergoForm");
+            param = $form.serialize();
+            jsonAjax({ url: $form.attr("action"), param: param, callback: undergobindData });
+        }
+        undergobindData = function (result) {
+            //parent.$.CheckLogin(result);
+            var vhtml = template("datalist", result);
+            $("#undergoList").html(vhtml);
+            var pageCount = Math.ceil(result.TotalCount / result.PageSize);
+            var pageCurrent = result.CurrPage;
+            undergobindEvent();
+            $("img.lazy-img").lazyload();
+
+        }
+        undergobindEvent = function () {
+            $("#undergoList .delete").unbind("click").bind("click", function () {
+                var id = $(this).attr("data-id");
+                Modal.confirm({
+                    msg: "删除后无法恢复，确认删除？"
+                }).on(function (e) {
+                    if (e) {
+                        var param = { "id": id };
+                        jsonAjax({
+                            url: "/undergo/Destroy", param: param, callback: function (result) {
+                                if (result.Msg == -1) {
+                                    location = "/login";
+                                } else if (result)
+                                    location = "/account/starview";
+                                else
+                                    Modal.alert({
+                                        msg: "删除失败"
+                                    });
+                            }
+                        }); 
+                    }
+                });
+            });
+        }
+
+
+
+        //标签切换
+        TouchSlide({
+            slideCell: "#tabInfo",
+            endFun: function (i) { //高度自适应
+                var bd = document.getElementById("tabBox1-bd");
+                bd.parentNode.style.height = bd.children[i].children[0].offsetHeight + "px";
+                if (i > 0) bd.parentNode.style.transition = "200ms"; //添加动画效果
+            }
+        });
+
+        // 相册
+        $('.swipe-album').swipebox({
+            hideCloseButtonOnMobile: false
+        });
+
+        $('.swipe-album-1').swipebox({
+            hideCloseButtonOnMobile: false
+        });
+
+        // 视频
+        $('.swipe-video').swipebox({
+            videoMaxWidth: 1140, // 视频最大宽度
+            beforeOpen: function () {
+            }, // 被叫开幕前
+            afterClose: function () {
+            } // 被叫结束后
+        });
+        undergoinit();
+    });
 </script>
 
 }

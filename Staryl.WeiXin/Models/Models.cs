@@ -15,4 +15,19 @@ namespace Staryl.WeiXin
         public SystemAreaInfo systemArea { get; set; }
         public List<SystemAreaInfo> systemAreaList { get; set; }
     }
+
+
+    public class ReturnData
+    {
+        public object Data { get; set; }
+        public int CurrPage { get; set; }
+        public int TotalCount { get; set; }
+        public int PageSize { get; set; }
+    }
+
+
+    public class ViewUndergo : UndergoInfo
+    {
+        public IEnumerable<string> PhotoList { get; set; }
+    }
 }

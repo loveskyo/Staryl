@@ -7,10 +7,20 @@
 @section style {
     <link href="@(StaticDomain)plugins/webupload/webuploader.css" rel="stylesheet" />
     <style type="text/css">
-        #upimg{
-            width:100px;
-            height:100px;
-            background:#808080;
+        #upimg {
+            width: 100px;
+            height: 100px;
+        }
+
+            #upimg .webuploader-pick {
+                background: none;
+                padding: 0px;
+            }
+        #fileList span {
+        width:100px; height:100px; display:block; position:relative;
+        }
+        #fileList .send-img .send-img-list img {
+        width:100px; height:100px;
         }
     </style>
 }
@@ -33,12 +43,19 @@
                 <option value="2">培训经历</option>
             </select>
         </div>
-        <div id="fileList" class="form-group">
+        <div class="form-group">
             <div class="send-img clearfix">
-                <img src="http://fpoimg.com/100x100?text=Advertisement&bg_color=999999&text_color=666666" alt="">
+                <div id="fileList" class="send-img-list">
+
+                </div>
+                <div id="upimg" class="send-btn">
+                    <img src="@(StaticDomain)images/icon-add-pic.png" alt="">
+                    @*<input class="send-pic-btn" type="file" name="simg" accept="image/*">*@
+                </div>
+
             </div>
-            <div id="upimg"></div>
             <div class="text-muted">最多只可上传9张图片,单张照片最大10M</div>
+            <input type="hidden" name="Photos" id="Photos" value="" />
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-block btn-primary btn-lg">发布</button>
@@ -54,11 +71,11 @@
     <script>
         var BASE_URL = "@(StaticDomain)";
 
-        $(function(){
+        $(function () {
             //日期
             var currYear = (new Date()).getFullYear();
             $(".form-datetime").mobiscroll({
-                preset : 'date',
+                preset: 'date',
                 theme: 'android-ics light',
                 display: 'modal', //显示方式
                 mode: 'scroller', //日期选择模式
@@ -124,17 +141,18 @@
                  extensions: 'gif,jpg,jpeg,bmp,png',
                  mimeTypes: 'image/*'
              },
-             fileNumLimit: 9
+             fileNumLimit: 9,
+             fileSingleSizeLimit:10500000,
          });
 
             // 当有文件添加进来的时候
             uploader.on('fileQueued', function (file) {
-
                 var $li = $(
-                        '<div id="' + file.id + '" class="send-img clearfix">' +
-                            '<img alt=' + file.name + '>' +
+                        '<div id="' + file.id + '" class="send-img-item">' +
+                            '<a href="#" class="glyphicon glyphicon-remove dlt-a remove-this"></a><img alt=' + file.name + '>' +
                         '</div>'
                         ),
+
                     $img = $li.find('img');
 
                 $list.append($li);
@@ -148,6 +166,14 @@
 
                     $img.attr('src', src);
                 }, thumbnailWidth, thumbnailHeight);
+
+                $li.on('click', '.remove-this', function () {
+                    uploader.removeFile(file, true);
+                    $li.remove();
+                    return false;
+                })
+
+
             });
 
             // 文件上传过程中创建进度条实时显示。
@@ -166,7 +192,14 @@
             });
 
             // 文件上传成功，给item添加成功class, 用样式标记上传成功。
-            uploader.on('uploadSuccess', function (file) {
+            uploader.on('uploadSuccess', function (file, response) {
+                var photos = $("#Photos").val();
+                if (photos.length <= 0)
+                    photos = response.filepath;
+                else
+                    photos += "," + response.filepath;
+                $("#Photos").val(photos);
+
                 $('#' + file.id).addClass('upload-state-done');
             });
 
@@ -188,9 +221,21 @@
                 $('#' + file.id).find('.progress').remove();
             });
 
+            uploader.on('error', function (type) {
+                switch (type)
+                {
+                    case "Q_EXCEED_NUM_LIMIT":
+                        Modal.alert({ title: "错误提示", msg: "一次最多只能上传 9 张图片" });
+                        break;
+                    case "F_EXCEED_SIZE":
+                        Modal.alert({ title: "错误提示", msg: "上传图片大小不能超过 10M" });
+                        break;
 
-            /*上传插件结束*/
+                }
+            });
+
             uploader.on("uploadFinished", function () {
+        
                 $.post($("#imgForm").attr('action'), $("#imgForm").serializeJson(), function (result) {
                     if (Number(result) == 1) {
                         location = "/account/starview";
@@ -201,7 +246,7 @@
                     }
                 }, 'json');
             });
-
+            /*上传插件结束*/
 
 
             $('#imgForm').bootstrapValidator({

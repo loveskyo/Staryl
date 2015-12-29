@@ -223,10 +223,10 @@ namespace Staryl.WeiXin.Controllers
             for (int i = 0; i < uploadedFiles.Count; i++)
             {
                 HttpPostedFileBase fileInfo = uploadedFiles[i];
-
+                int round = new Random(Guid.NewGuid().GetHashCode()).Next(10000, 99999);
                 if (fileInfo != null && fileInfo.ContentLength > 0)
                 {
-                    fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
+                    fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + round + ".jpg";
                     filePathName = localPath + "/" + subpath + "/" + accountId + "/" + fileName;//"/App_Upload/" + fileInfo.FileName;//自行处理保存
                     fileInfo.SaveAs(filePathName);
                     if (string.IsNullOrEmpty(fileNames))

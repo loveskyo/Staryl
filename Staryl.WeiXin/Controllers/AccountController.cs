@@ -40,6 +40,8 @@ namespace Staryl.WeiXin.Controllers
             UserInfo userInfo = mUserMgr.Get(this.AccountId);
             viewmodels.userInfo = userInfo;
             ViewBag.avatarpath = this.AvatrUrl;
+            ViewBag.undergoPath = this.UndergoUrl;
+            ViewBag.photoPath = this.PhotoUrl;
 
             List<StarUserInfo> list = mStarUserMgr.GetByParentId(userInfo.Id);
             viewmodels.starUserInfo = list != null && list.Count > 0 ? list.First() : null;

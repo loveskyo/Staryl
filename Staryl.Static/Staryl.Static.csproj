@@ -140,6 +140,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="images\navbar.psd" />
     <Content Include="stylesheets\bootstrap.css.map" />
+    <Content Include="stylesheets\font\glyphicons-halflings-regular.eot" />
+    <Content Include="stylesheets\font\glyphicons-halflings-regular.ttf" />
+    <Content Include="stylesheets\font\glyphicons-halflings-regular.woff" />
+    <Content Include="stylesheets\font\glyphicons-halflings-regular.woff2" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -287,6 +291,7 @@
     <Content Include="plugins\webupload\webuploader.css" />
     <Content Include="plugins\webupload\webuploader.js" />
     <Content Include="stylesheets\bootstrap.css" />
+    <Content Include="stylesheets\font\glyphicons-halflings-regular.svg" />
     <Content Include="Web.config" />
     <Content Include="widgets.html" />
   </ItemGroup>

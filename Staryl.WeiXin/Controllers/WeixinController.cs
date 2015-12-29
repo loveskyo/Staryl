@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Staryl.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Staryl.WeiXin.Controllers
 {
-    public class WeixinController : Controller
+    public class WeixinController : ControllerBase
     {
         //
         // GET: /Weixin/
@@ -49,5 +50,46 @@ namespace Staryl.WeiXin.Controllers
                 file.WriteLine(text);// 直接追加文件末尾，换行   
             }
         }
+
+        [HttpPost]
+        public ActionResult Undergo(FormCollection col)
+        {
+            int pageIndex = int.Parse(col["pageIndex"]);
+            int pageSize = int.Parse(col["pageSize"]);
+            int StarUserId = int.Parse(col["StarUserId"]);
+            string where = "StarUserId=" + StarUserId;
+            string orderBy = string.Empty;
+            int recordCount = 0;
+            List<ViewUndergo> undergoList = null;
+            List<UndergoInfo> list = mUndergoMgr.GetPageList(pageIndex, pageSize, where, orderBy, out recordCount, false);
+            if (list != null && list.Count > 0)
+            {
+                undergoList = new List<ViewUndergo>();
+                foreach (UndergoInfo info in list)
+                {
+                    undergoList.Add(new ViewUndergo
+                    {
+                        Content = info.Content,
+                        CreateDate = info.CreateDate,
+                        CreateIP = info.CreateIP,
+                        Id = info.Id,
+                        StarUserId = info.StarUserId,
+                        UndergoType = info.UndergoType,
+                        PhotoList = string.IsNullOrEmpty(info.Photos) ? null : info.Photos.Split(',').ToList()
+                    });
+                }
+            }
+
+            ReturnData returnData = new ReturnData
+            {
+                Data = undergoList,
+                PageSize = pageSize,
+                TotalCount = recordCount,
+                CurrPage = pageIndex
+            };
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(returnData);
+            return Content(json);
+        }
+
 	}
 }
