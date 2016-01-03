@@ -34,7 +34,7 @@
 
         var _confirm = function (options) {
             alr.html(ahtml); // 复原
-            alr.find('.ok').removeClass('btn-primary').addClass('btn-success');
+            alr.find('.ok').removeClass('btn-success').addClass('btn-primary');
             alr.find('.cancel').show();
             _dialog(options);
 

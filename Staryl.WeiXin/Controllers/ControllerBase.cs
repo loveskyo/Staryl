@@ -206,7 +206,7 @@ namespace Staryl.WeiXin.Controllers
 
         #endregion
 
-        public string SaveImg(int accountId, string subpath, HttpFileCollectionBase uploadedFiles)
+        public string SaveImg(int accountId, string subpath,Stream stream)
         {
             string filePathName = string.Empty;
             string urlPath = this.UploadRoot;
@@ -220,23 +220,19 @@ namespace Staryl.WeiXin.Controllers
             
             string fileName = string.Empty;
             string fileNames=string.Empty;
-            for (int i = 0; i < uploadedFiles.Count; i++)
+            if (stream.Length > 0)
             {
-                HttpPostedFileBase fileInfo = uploadedFiles[i];
                 int round = new Random(Guid.NewGuid().GetHashCode()).Next(10000, 99999);
-                if (fileInfo != null && fileInfo.ContentLength > 0)
+                fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + round + ".jpg";
+                filePathName = localPath + "/" + subpath + "/" + accountId + "/" + fileName;//"/App_Upload/" + fileInfo.FileName;//自行处理保存
+                System.Drawing.Image ResourceImage = System.Drawing.Image.FromStream(stream);
+                ResourceImage.Save(filePathName);
+                if (string.IsNullOrEmpty(fileNames))
                 {
-                    fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + round + ".jpg";
-                    filePathName = localPath + "/" + subpath + "/" + accountId + "/" + fileName;//"/App_Upload/" + fileInfo.FileName;//自行处理保存
-                    fileInfo.SaveAs(filePathName);
-                    if (string.IsNullOrEmpty(fileNames))
-                    {
-                        fileNames = fileName;
-                    }
-                    else
-                        fileNames += "," + fileName;
-
+                    fileNames = fileName;
                 }
+                else
+                    fileNames += "," + fileName;
 
             }
             return fileNames;//返回路径以备后用

@@ -13,8 +13,9 @@ namespace Staryl.WeiXin.Controllers
         // GET: /Upload/
         public ActionResult Index()
         {
-            HttpFileCollectionBase uploadedFiles = Request.Files;
-            if (uploadedFiles == null || uploadedFiles.Count <= 0)
+            //HttpFileCollectionBase uploadedFiles = Request.Files;
+           // if (uploadedFiles == null || uploadedFiles.Count <= 0)
+            if (Request.InputStream.Length <= 0)
             {
                 return Json(new { jsonrpc = 2.0, error = new { code = 102, message = "保存失败" }, id = "id" });
             }
@@ -22,7 +23,7 @@ namespace Staryl.WeiXin.Controllers
             string imgurl = string.Empty;
             try
             {
-                imgurl = SaveImg(this.AccountId, this.AvatrUrl, uploadedFiles);
+                imgurl = SaveImg(this.AccountId, this.AvatrUrl, Request.InputStream);
             }
             catch (Exception ex)
             {

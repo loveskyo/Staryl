@@ -18,17 +18,18 @@ namespace Staryl.WeiXin.Controllers
         [HttpPost]
         public ActionResult Index(int starUserId)
         {
-            HttpFileCollectionBase uploadedFiles = Request.Files;
+            //HttpFileCollectionBase uploadedFiles = Request.Files;
             string imgurls = string.Empty;
 
-            if (uploadedFiles == null || uploadedFiles.Count <= 0)
+            //if (uploadedFiles == null || uploadedFiles.Count <= 0)
+            if (Request.InputStream.Length<=0)
             {
                 return Json(new { jsonrpc = 2.0, error = new { code = 102, message = "保存失败" }, id = "id" });
             }
             string imgurl = string.Empty;
             try
             {
-                imgurl = SaveImg(starUserId, this.UndergoUrl, uploadedFiles);
+                imgurl = SaveImg(starUserId, this.UndergoUrl, Request.InputStream);
             }
             catch (Exception ex)
             {
