@@ -30,6 +30,7 @@ namespace Staryl.Entity
       /// <summary>
       /// 创建时间
       /// </summary> 
+      // DateTimeKind.Local
       public DateTime CreateDate{get;set;}
 
       /// <summary>

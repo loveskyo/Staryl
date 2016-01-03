@@ -70,7 +70,7 @@ namespace Staryl.WeiXin.Controllers
                     undergoList.Add(new ViewUndergo
                     {
                         Content = info.Content,
-                        CreateDate = info.CreateDate,
+                        CreateDate = info.CreateDate.ToUniversalTime(),
                         CreateIP = info.CreateIP,
                         Id = info.Id,
                         StarUserId = info.StarUserId,
