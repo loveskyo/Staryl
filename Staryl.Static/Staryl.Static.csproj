@@ -118,6 +118,7 @@
     <Content Include="images\icon-user-setup.png" />
     <Content Include="images\icon-user-vip.png" />
     <Content Include="images\icon-w.png" />
+    <Content Include="images\icons.png" />
     <Content Include="images\imgs\img1.jpg" />
     <Content Include="images\imgs\img2.jpg" />
     <Content Include="images\imgs\img3.jpg" />
@@ -140,10 +141,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="images\navbar.psd" />
     <Content Include="stylesheets\bootstrap.css.map" />
+    <Content Include="stylesheets\bootstrapValidator.min.css" />
     <Content Include="stylesheets\font\glyphicons-halflings-regular.eot" />
     <Content Include="stylesheets\font\glyphicons-halflings-regular.ttf" />
     <Content Include="stylesheets\font\glyphicons-halflings-regular.woff" />
     <Content Include="stylesheets\font\glyphicons-halflings-regular.woff2" />
+    <Content Include="stylesheets\jsui\mobiscroll.css.map" />
+    <Content Include="stylesheets\jsui\swipebox.css.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -292,6 +296,8 @@
     <Content Include="plugins\webupload\webuploader.js" />
     <Content Include="stylesheets\bootstrap.css" />
     <Content Include="stylesheets\font\glyphicons-halflings-regular.svg" />
+    <Content Include="stylesheets\jsui\mobiscroll.css" />
+    <Content Include="stylesheets\jsui\swipebox.css" />
     <Content Include="Web.config" />
     <Content Include="widgets.html" />
   </ItemGroup>
