@@ -23,7 +23,7 @@ namespace Staryl.DAL
         {
             string name = this.SMSAccount;
             string pwd = this.SMSPassword;
-            string sign = "[Ð¡Í¯ÐÇ]";
+            string sign = "Ð¡Í¯ÐÇ¾ãÀÖ²¿";
             StringBuilder arge = new StringBuilder();
 
             arge.AppendFormat("name={0}", name);

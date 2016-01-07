@@ -17,6 +17,7 @@ namespace Staryl.WeiXin.Controllers
         // GET: /Register/
         public ActionResult Index()
         {
+            Session["Staryl"] = "2016";
             return View();
         }
         [HttpPost]
@@ -104,9 +105,9 @@ namespace Staryl.WeiXin.Controllers
             SMSHelperManager smsHelperMgr = new SMSHelperManager();
             Random rd = new Random(Guid.NewGuid().GetHashCode());
             int code = rd.Next(100000, 999999);
-            string msgConten = "尊敬的用户，您的验证码是：" + code + "，请在10分钟内输入【小童星】";
-            CacheHelper.Add2("code_" + Session.SessionID, code, new TimeSpan(0, 10, 0));
-            //smsHelperMgr.SendSMS(mobile, msgConten);
+            string msgConten = string.Format(SMSContent, code);// "您的验证码为" + code + "切勿泄露给他人，有效期为5分钟（小童星俱乐部）";
+            CacheHelper.Add2("code_" + Session.SessionID, code, new TimeSpan(0, 5, 0));
+            smsHelperMgr.SendSMS(mobile, msgConten);
             return Json(true);
         }
     }

@@ -76,6 +76,7 @@
     <Compile Include="SystemAreaDAL.cs" />
     <Compile Include="SystemFunctionDAL2.cs" />
     <Compile Include="SystemFunctionDAL.cs" />
+    <Compile Include="SystemLogDAL.cs" />
     <Compile Include="SystemMenuDAL2.cs" />
     <Compile Include="SystemMenuDAL.cs" />
     <Compile Include="SystemPrivilegesDAL.cs" />

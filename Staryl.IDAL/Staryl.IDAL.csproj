@@ -49,6 +49,7 @@
     <Compile Include="SystemAccountInfo.cs" />
     <Compile Include="SystemAreaInfo.cs" />
     <Compile Include="SystemFunctionInfo.cs" />
+    <Compile Include="SystemLogInfo.cs" />
     <Compile Include="SystemMenuInfo2.cs" />
     <Compile Include="SystemMenuInfo.cs" />
     <Compile Include="SystemPrivilegesInfo.cs" />

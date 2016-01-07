@@ -16,6 +16,7 @@ namespace Staryl.WeiXin.Controllers
         // GET: /Login/
         public ActionResult Index()
         {
+            Session["Staryl"] = "2016";
             ViewBag.City = this.GetCity;
             return View();
         }

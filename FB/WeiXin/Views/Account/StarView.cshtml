@@ -420,15 +420,18 @@
 
             // 相册
             $('.swipe-album').swipebox({
-                hideCloseButtonOnMobile: false
+                useSVG: false
+                //        hideCloseButtonOnMobile: false
             });
 
             $('.swipe-album-1').swipebox({
-                hideCloseButtonOnMobile: false
+                useSVG: false
+                //        hideCloseButtonOnMobile: false
             });
 
             // 视频
             $('.swipe-video').swipebox({
+                useSVG: false,
                 videoMaxWidth: 1140, // 视频最大宽度
                 beforeOpen: function () {
                 }, // 被叫开幕前

@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Table\SystemLogInfo.cs" />
     <Compile Include="Table\StarUserInfo.cs" />
     <Compile Include="Table\SystemAreaInfo.cs" />
     <Compile Include="Table\UndergoInfo.cs" />

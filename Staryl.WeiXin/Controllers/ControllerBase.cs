@@ -69,6 +69,13 @@ namespace Staryl.WeiXin.Controllers
             }
         }
 
+        protected string SMSContent
+        {
+            get {
+                return ConfigurationManager.AppSettings["SMSContent"];
+            }
+        }
+
         private string GetCityByIP(string ip)
         {
             if (string.IsNullOrEmpty(ip) || ip == "::1")

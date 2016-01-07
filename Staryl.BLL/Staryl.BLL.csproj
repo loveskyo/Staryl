@@ -48,6 +48,7 @@
     <Compile Include="SystemAccountManager.cs" />
     <Compile Include="SystemAreaManager.cs" />
     <Compile Include="SystemFunctionManager.cs" />
+    <Compile Include="SystemLogManager.cs" />
     <Compile Include="SystemMenuManager2.cs" />
     <Compile Include="SystemMenuManager.cs" />
     <Compile Include="SystemPrivilegesManager.cs" />
