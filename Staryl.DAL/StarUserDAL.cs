@@ -21,9 +21,9 @@ public int Create(StarUserInfo model)
         {         Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
          sb.Append("insert into StarUser(");
-         sb.Append("Gender,RealName,Birthday,City,Province,Area,Avatar,Height,Weight,Hobby,Greeting ,CreateDate,CreateIP,NickName,ParentId");
+         sb.Append("Gender,RealName,Birthday,City,Province,Area,Avatar,Height,Weight,Hobby,Greeting,CreateDate,CreateIP,NickName,ParentId");
          sb.Append(") values(");
-         sb.Append("@Gender,@RealName,@Birthday,@City,@Province,@Area,@Avatar,@Height,@Weight,@Hobby,@Greeting ,@CreateDate,@CreateIP,@NickName,@ParentId);SELECT @@IDENTITY;");
+         sb.Append("@Gender,@RealName,@Birthday,@City,@Province,@Area,@Avatar,@Height,@Weight,@Hobby,@Greeting,@CreateDate,@CreateIP,@NickName,@ParentId);SELECT @@IDENTITY;");
          DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
             db.AddInParameter(dbCommand, "@Gender", DbType.Int32, model.Gender);
             db.AddInParameter(dbCommand, "@RealName", DbType.String, model.RealName);
@@ -35,7 +35,7 @@ public int Create(StarUserInfo model)
             db.AddInParameter(dbCommand, "@Height", DbType.Int32, model.Height);
             db.AddInParameter(dbCommand, "@Weight", DbType.Int32, model.Weight);
             db.AddInParameter(dbCommand, "@Hobby", DbType.String, model.Hobby);
-            db.AddInParameter(dbCommand, "@Greeting ", DbType.String, model.Greeting );
+            db.AddInParameter(dbCommand, "@Greeting", DbType.String, model.Greeting);
             db.AddInParameter(dbCommand, "@CreateDate", DbType.DateTime, model.CreateDate);
             db.AddInParameter(dbCommand, "@CreateIP", DbType.String, model.CreateIP);
             db.AddInParameter(dbCommand, "@NickName", DbType.String, model.NickName);
@@ -50,7 +50,7 @@ public int Create(StarUserInfo model)
          Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
          sb.Append("update StarUser set ");
-         sb.Append("Gender=@Gender,RealName=@RealName,Birthday=@Birthday,City=@City,Province=@Province,Area=@Area,Avatar=@Avatar,Height=@Height,Weight=@Weight,Hobby=@Hobby,Greeting =@Greeting ,CreateDate=@CreateDate,CreateIP=@CreateIP,NickName=@NickName,ParentId=@ParentId");
+         sb.Append("Gender=@Gender,RealName=@RealName,Birthday=@Birthday,City=@City,Province=@Province,Area=@Area,Avatar=@Avatar,Height=@Height,Weight=@Weight,Hobby=@Hobby,Greeting=@Greeting,CreateDate=@CreateDate,CreateIP=@CreateIP,NickName=@NickName,ParentId=@ParentId");
          sb.Append(" where Id=@Id");
          DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
          db.AddInParameter(dbCommand, "@Id", DbType.Int32, model.Id);
@@ -64,7 +64,7 @@ public int Create(StarUserInfo model)
          db.AddInParameter(dbCommand, "@Height", DbType.Int32, model.Height);
          db.AddInParameter(dbCommand, "@Weight", DbType.Int32, model.Weight);
          db.AddInParameter(dbCommand, "@Hobby", DbType.String, model.Hobby);
-         db.AddInParameter(dbCommand, "@Greeting ", DbType.String, model.Greeting );
+         db.AddInParameter(dbCommand, "@Greeting", DbType.String, model.Greeting);
          db.AddInParameter(dbCommand, "@CreateDate", DbType.DateTime, model.CreateDate);
          db.AddInParameter(dbCommand, "@CreateIP", DbType.String, model.CreateIP);
          db.AddInParameter(dbCommand, "@NickName", DbType.String, model.NickName);
@@ -237,10 +237,10 @@ public int Create(StarUserInfo model)
             {
                 model.Hobby = ( string)(ojb);
             }
-            ojb = dataReader["Greeting "]; 
+            ojb = dataReader["Greeting"]; 
             if (ojb != null && ojb != DBNull.Value)
             {
-                model.Greeting  = ( string)(ojb);
+                model.Greeting = ( string)(ojb);
             }
             ojb = dataReader["CreateDate"]; 
             if (ojb != null && ojb != DBNull.Value)
@@ -283,7 +283,7 @@ bool suc = BaseDAL.ExecuteTransactionScopeInsert(this.ToDataTable(list), 250, "S
             if (list.Count > 0)
             {
 
-                string columnNameList = "?Id??Gender??RealName??Birthday??City??Province??Area??Avatar??Height??Weight??Hobby??Greeting ??CreateDate??CreateIP??NickName??ParentId?"; 
+                string columnNameList = "?Id??Gender??RealName??Birthday??City??Province??Area??Avatar??Height??Weight??Hobby??Greeting??CreateDate??CreateIP??NickName??ParentId?"; 
 
                 PropertyInfo[] propertys = list[0].GetType().GetProperties();
                 foreach (PropertyInfo pi in propertys)
@@ -326,7 +326,7 @@ bool suc = BaseDAL.ExecuteTransactionScopeInsert(this.ToDataTable(list), 250, "S
                  else 
                     dr["Weight"] = list[i].Weight; 
                 dr["Hobby"] = list[i].Hobby; 
-                dr["Greeting "] = list[i].Greeting ; 
+                dr["Greeting"] = list[i].Greeting; 
                 dr["CreateDate"] = list[i].CreateDate; 
                 dr["CreateIP"] = list[i].CreateIP; 
                 dr["NickName"] = list[i].NickName; 

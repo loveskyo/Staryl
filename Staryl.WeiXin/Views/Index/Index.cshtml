@@ -88,17 +88,18 @@
             </a>
         </div>
         <div class="col-xs-9">
-            <p class="nm">宝贝</p>
-
+            <p class="nm">{{item.RealName}}</p>
             <p>
-                <span class="tag-btn wm-bg"><i class="icon icon-w"></i>7</span>
-                <span class="tag-btn tag-ht-bg">120cm</span>
+                {{if item.Gender==1}}
+                <span class="tag-btn man-bg"><i class="icon icon-m"></i>{{item.Age}}</span>
+                {{else}}
+                <span class="tag-btn wm-bg"><i class="icon icon-w"></i>{{item.Age}}</span>
+                {{/if}}
+                <span class="tag-btn tag-ht-bg">{{item.Height}} cm</span>
             </p>
-
-            <p>人见人爱的洋娃娃</p>
-
+            <p>{{item.Greeting}}</p>
             <a href="###" class="agree-btn">
-                <i class="glyphicon glyphicon-thumbs-up"><span>123</span></i>
+                <i class="glyphicon glyphicon-thumbs-up"><span>0</span></i>
             </a>
         </div>
     </div>

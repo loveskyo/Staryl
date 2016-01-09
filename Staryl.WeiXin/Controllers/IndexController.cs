@@ -36,6 +36,11 @@ namespace Staryl.WeiXin.Controllers
             string orderBy = "order by Id desc";
             int recordCount = 0;
             IEnumerable<ViewStarUserInfo> accountList = mStarUserMgr.GetByPage(pageIndex, pageSize, where, orderBy, out recordCount, true);
+            if (accountList != null && accountList.Count() > 0)
+            {
+                foreach (var info in accountList)
+                    info.Age = DateTime.Now.Year - info.Birthday.Year;
+            }
             ReturnData returnData = new ReturnData
             {
                 Data = accountList,

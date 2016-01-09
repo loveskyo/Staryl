@@ -11,7 +11,7 @@
     [Height] INT NULL, 
     [Weight] INT NULL, 
     [Hobby] NVARCHAR(1000) NULL, 
-    [Greeting ] NVARCHAR(50) NULL, 
+    [Greeting] NVARCHAR(500) NULL, 
     [CreateDate] DATETIME NOT NULL, 
     [CreateIP] NVARCHAR(50) NOT NULL, 
     [NickName] NVARCHAR(50) NULL, 
@@ -120,7 +120,7 @@ EXEC sp_addextendedproperty @name = N'MS_Description',
     @level1type = N'TABLE',
     @level1name = N'StarUser',
     @level2type = N'COLUMN',
-    @level2name = N'Greeting '
+    @level2name = N'Greeting'
 
 GO
 EXEC sp_addextendedproperty @name = N'MS_Description',

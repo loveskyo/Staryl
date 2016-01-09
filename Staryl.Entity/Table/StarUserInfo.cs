@@ -13,7 +13,7 @@ namespace Staryl.Entity
       public int Id{get;set;}
 
       /// <summary>
-      /// 性别
+      /// 性别 1男 2女
       /// </summary> 
       public int Gender{get;set;}
 
@@ -65,7 +65,7 @@ namespace Staryl.Entity
       /// <summary>
       /// 个性签名
       /// </summary> 
-      public string  Greeting {get;set;}
+      public string  Greeting{get;set;}
 
       /// <summary>
       /// 

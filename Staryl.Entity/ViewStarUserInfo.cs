@@ -12,5 +12,6 @@ namespace Staryl.Entity
     public class ViewStarUserInfo : StarUserInfo
     {
         public string IsVIP { get; set; }
+        public int Age { get; set; }
     }
 }
