@@ -45,6 +45,7 @@
     <Compile Include="Table\UndergoInfo.cs" />
     <Compile Include="UserStatusEnum.cs" />
     <Compile Include="UserTypeEnum.cs" />
+    <Compile Include="ViewStarUserInfo.cs" />
     <Compile Include="ViewMenuInfo.cs" />
     <Compile Include="ViewAccountInfo.cs" />
     <Compile Include="Table\AlbumInfo.cs" />

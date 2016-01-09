@@ -177,6 +177,7 @@ namespace Staryl.DAL
     /// </summary>
     public class Fabricate
     {
+
         /// <summary>
         /// 判断某列是否存在并且有无数据
         /// </summary>
@@ -216,7 +217,17 @@ namespace Staryl.DAL
                 {
                     try
                     {
-                        item.SetValue(t, Convert.ChangeType(reader[item.Name], item.PropertyType), null);
+                        Type type = typeof(T).GetProperty(item.Name).PropertyType;
+                        Type underlyingType = Nullable.GetUnderlyingType(type);
+
+
+                        if (reader[item.Name] != null)
+                            //item.SetValue(t, Convert.ChangeType(reader[item.Name], item.PropertyType), null);
+                            item.SetValue(t, Convert.ChangeType(reader[item.Name], underlyingType ?? type), null);
+
+                        
+
+
                     }
                     catch
                     {

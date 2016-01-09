@@ -70,6 +70,7 @@
     <Compile Include="PhotoDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SMSHelper.cs" />
+    <Compile Include="StarUserDAL2.cs" />
     <Compile Include="StarUserDAL.cs" />
     <Compile Include="SystemAccountDAL2.cs" />
     <Compile Include="SystemAccountDAL.cs" />

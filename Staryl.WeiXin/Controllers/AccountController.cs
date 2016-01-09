@@ -53,12 +53,34 @@ namespace Staryl.WeiXin.Controllers
         [HttpPost]
         public ActionResult StarCreate(StarUserInfo model)
         {
-            model.CreateDate = DateTime.Now;
-            model.CreateIP = this.GetIP;
-            model.ParentId = this.AccountId;
-            int id = mStarUserMgr.Create(model);
-            if (id > 0)
-                return Json(1);
+            if (model.Id > 0) {
+                StarUserInfo _model = mStarUserMgr.Get(model.Id);
+                if (_model == null)
+                    return Json(-1);
+                _model.Avatar = model.Avatar;
+                _model.RealName = model.RealName;
+                _model.Height = model.Height;
+                _model.Hobby = model.Hobby;
+                _model.Greeting = model.Greeting;
+                _model.Gender = model.Gender;
+                _model.Weight = model.Weight;
+                _model.Birthday = model.Birthday;
+                _model.Province = model.Province;
+                _model.City = model.City;
+                _model.Area = model.Area;
+                bool res = mStarUserMgr.Update(_model);
+                if (res)
+                    return Json(1);
+            }
+            else
+            {
+                model.CreateDate = DateTime.Now;
+                model.CreateIP = this.GetIP;
+                model.ParentId = this.AccountId;
+                int id = mStarUserMgr.Create(model);
+                if (id > 0)
+                    return Json(1);
+            }
             return Json(0);
         }
 	}

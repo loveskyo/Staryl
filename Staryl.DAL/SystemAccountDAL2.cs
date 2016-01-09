@@ -57,6 +57,16 @@ namespace Staryl.DAL
             return JsonConvert.SerializeObject(msgInfo);
         }
 
+        /// <summary>
+        /// 获取分页数据，视图
+        /// </summary>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="where"></param>
+        /// <param name="orderBy"></param>
+        /// <param name="recordCount"></param>
+        /// <param name="doCount"></param>
+        /// <returns></returns>
         public IEnumerable<ViewAccountInfo> GetByPage(int pageIndex, int pageSize, string where, string orderBy, out int recordCount, bool doCount)
         {
             Database db = DBHelper.CreateDataBase();

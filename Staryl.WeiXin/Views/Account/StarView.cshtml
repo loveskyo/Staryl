@@ -344,7 +344,7 @@
                 {{each item.PhotoList as undergo}}
                 <div class="col-xs-4 col-md-4">
                     <a href="@(StaticDomain)Upload/@ViewBag.undergoPath/@Model.starUserInfo.Id/{{undergo}}" class="swipe-album-1 thumbnail" title="快乐小童星">
-                        <img class="lazy-img" src="@(StaticDomain)Upload/@ViewBag.undergoPath/@Model.starUserInfo.Id/{{undergo}}" alt="快乐小童星">
+                        <img class="lazy-img" src="@(StaticDomain)images/loading2.gif" data-original="@(StaticDomain)Upload/@ViewBag.undergoPath/@Model.starUserInfo.Id/{{undergo}}" alt="快乐小童星">
                     </a>
                 </div>
                 {{/each}}
