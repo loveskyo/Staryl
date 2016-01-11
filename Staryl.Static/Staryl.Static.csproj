@@ -141,6 +141,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="images\navbar.psd" />
+    <Content Include="js\isScroll.js" />
     <Content Include="stylesheets\bootstrap.css.map" />
     <Content Include="stylesheets\bootstrapValidator.min.css" />
     <Content Include="stylesheets\font\glyphicons-halflings-regular.eot" />

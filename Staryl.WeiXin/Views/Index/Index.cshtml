@@ -8,24 +8,24 @@
     <a class="dlt-a pull-left" href="javascript:history.go(-1);"><i class="glyphicon glyphicon-menu-left"></i><span>返回</span></a>
     <h4>童星库</h4>
 </header>
-<form id="pagerForm" action="index/gets" method="post">
+<form id="pagerForm" action="/index/gets" method="post">
     <input type="hidden" id="txtPage" name="txtPage" value="1" />
     <input type="hidden" name="txtPageSize" value="10" />
     <input type="hidden" id="txtGender" name="txtGender" value="-1" />
 </form>
 <div id="tabMember" class="member-tag-list">
     <div class="hd clearfix">
-        <ul class="tag-list-line list-unstyled">
+        <ul id="taglist" class="tag-list-line list-unstyled">
             <li><a href="#" data-gender="-1">推荐童星</a></li>
             <li><a href="#" data-gender="1">Child boy</a></li>
-            <li><a href="#" data-gender="0">Child girl</a></li>
-            <li><a href="#">童星榜</a></li>
+            <li><a href="#" data-gender="2">Child girl</a></li>
+            <li><a href="#" data-gender="-1">童星榜</a></li>
         </ul>
     </div>
     <div id="tabMemberBd" class="bd">
         <div class="con">
             <div id="datacontent0" class="member-list bgfdf5f2">
-
+                
             </div>
         </div>
         <div class="con">
@@ -50,13 +50,13 @@
     <div class="affix main-nav">
         <div class="row">
             <div class="col-md-3 col-xs-3">
-                <a href="###" class="current">
+                <a href="/Index" class="current">
                     <i><img src="@(StaticDomain)images/icon-group.png" width="30%"></i>
                     童星库
                 </a>
             </div>
             <div class="col-md-3 col-xs-3">
-                <a href="###">
+                <a href="/Activity">
                     <i><img src="@(StaticDomain)images/icon-notice.png" width="30%"></i>
                     活动通告
                 </a>
@@ -68,7 +68,7 @@
                 </a>
             </div>
             <div class="col-md-3 col-xs-3">
-                <a href="###">
+                <a href="/Account">
                     <i><img src="@(StaticDomain)images/logo.png" width="30%"></i>
                     我的
                 </a>
@@ -125,6 +125,8 @@
                 endFun: function (i) { //高度自适应
                     indextab = i;
                     $("#txtPage").val(1);
+                    console.log($("#taglist li:eq(" + i + ") a").attr("data-gender"));
+                    $("#txtGender").val($("#taglist li:eq(" + i + ") a").attr("data-gender"));
                     init();
                     var bd = document.querySelector("#tabMemberBd");
                     bd.parentNode.style.height = bd.children[i].children[0].offsetHeight + "px";
