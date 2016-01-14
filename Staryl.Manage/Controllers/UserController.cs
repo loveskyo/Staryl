@@ -75,7 +75,7 @@ namespace Staryl.Manage.Controllers
             if (issuc)
             {
                 msgInfo.IsError = false;
-                msgInfo.Msg = "操作成功！";
+                msgInfo.Msg = id.ToString();
                 msgInfo.MsgNo = (int)ErrorEnum.成功;
             }
             else
@@ -191,8 +191,24 @@ namespace Staryl.Manage.Controllers
         [HttpPost]
         public ActionResult UploadImg()
         {
+            string userId = Request["userid"];
+            int uid = 0;
+            int.TryParse(userId, out uid);
+            if (Request.InputStream.Length <= 0)
+            {
+                return Json(new { jsonrpc = 2.0, error = new { code = 102, message = "保存失败" }, id = "id" });
+            }
 
-            return Content("");
+            string imgurl = string.Empty;
+            try
+            {
+                imgurl = SaveImg(uid, this.AvatrUrl, Request.InputStream);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { jsonrpc = 2.0, error = new { code = 103, message = "保存失败" }, id = "id" });
+            }
+            return Json(new { jsonrpc = 2.0, filepath = imgurl, id = "id" });
         }
 
         [HttpPost]

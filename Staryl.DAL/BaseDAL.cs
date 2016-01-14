@@ -219,15 +219,9 @@ namespace Staryl.DAL
                     {
                         Type type = typeof(T).GetProperty(item.Name).PropertyType;
                         Type underlyingType = Nullable.GetUnderlyingType(type);
-
-
                         if (reader[item.Name] != null)
                             //item.SetValue(t, Convert.ChangeType(reader[item.Name], item.PropertyType), null);
                             item.SetValue(t, Convert.ChangeType(reader[item.Name], underlyingType ?? type), null);
-
-                        
-
-
                     }
                     catch
                     {

@@ -1,7 +1,9 @@
 ﻿using Staryl.BLL;
+using Staryl.Entity;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -17,6 +19,7 @@ namespace Staryl.Manage.Controllers
         protected SystemPrivilegesManager privilegesMgr = new SystemPrivilegesManager();
         protected SystemFunctionManager functionMgr = new SystemFunctionManager();
         protected UserManager userMgr = new UserManager();
+        protected SystemAreaManager mSystemAreaMgr = new SystemAreaManager();
 
         /// <summary>
         /// 获取客户端的 IP地址
@@ -76,6 +79,76 @@ namespace Staryl.Manage.Controllers
             {
                 return ConfigurationManager.AppSettings["UploadRoot"];
             }
+        }
+
+        #region 上传图片文件夹
+        /// <summary>
+        /// 头像
+        /// </summary>
+        protected string AvatrUrl
+        {
+            get
+            {
+                return "Avatr";
+            }
+        }
+
+        /// <summary>
+        /// 相片
+        /// </summary>
+        protected string PhotoUrl
+        {
+            get
+            {
+                return "Photo";
+            }
+        }
+
+        /// <summary>
+        /// 经历图片
+        /// </summary>
+        protected string UndergoUrl
+        {
+            get
+            {
+                return "Undergo";
+            }
+        }
+
+
+        #endregion
+
+
+        public string SaveImg(int accountId, string subpath, Stream stream)
+        {
+            string filePathName = string.Empty;
+            string urlPath = this.UploadRoot;
+            string localPath = this.UploadRoot;
+
+            string upPath = localPath + "/" + subpath + "/" + accountId;
+            if (!Directory.Exists(upPath))
+            {
+                Directory.CreateDirectory(upPath);
+            }
+
+            string fileName = string.Empty;
+            string fileNames = string.Empty;
+            if (stream.Length > 0)
+            {
+                int round = new Random(Guid.NewGuid().GetHashCode()).Next(10000, 99999);
+                fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + round + ".jpg";
+                filePathName = localPath + "/" + subpath + "/" + accountId + "/" + fileName;//"/App_Upload/" + fileInfo.FileName;//自行处理保存
+                System.Drawing.Image ResourceImage = System.Drawing.Image.FromStream(stream);
+                ResourceImage.Save(filePathName);
+                if (string.IsNullOrEmpty(fileNames))
+                {
+                    fileNames = fileName;
+                }
+                else
+                    fileNames += "," + fileName;
+
+            }
+            return fileNames;//返回路径以备后用
         }
 
     }

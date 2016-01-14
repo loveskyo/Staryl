@@ -15,6 +15,7 @@ namespace Staryl.WeiXin.Controllers
         {
             //HttpFileCollectionBase uploadedFiles = Request.Files;
            // if (uploadedFiles == null || uploadedFiles.Count <= 0)
+            
             if (Request.InputStream.Length <= 0)
             {
                 return Json(new { jsonrpc = 2.0, error = new { code = 102, message = "保存失败" }, id = "id" });

@@ -1,20 +1,21 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Create";
     string StaticDomain = Staryl.Manage.Controllers.ControllerBase.StaticDomain;
 }
 @section style {
-<link href="@(StaticDomain)plugins/webupload/webuploader.css" rel="stylesheet" />
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="@(StaticDomain)plugins/datepicker/datepicker3.css">
     <style>
         #upimg {
-        width:100%;
+            width: 100%;
         }
+
             #upimg .webuploader-pick {
-            width:100%;
+                width: 100%;
             }
     </style>
 }
-    <!-- Content Header (Page header) -->
+<!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
         新增会员
@@ -28,393 +29,285 @@
 </section>
 <!-- Main content -->
 <section class="content">
-    <div class="row">
-        <div class="col-md-3">
-            <!-- Profile Image -->
-            <div class="box box-primary">
-                <div class="box-body box-profile">
-                    <img id="userAvatar" class="profile-user-img img-responsive img-circle" src="@(StaticDomain)img/user2-160x160.jpg" alt="User profile picture">
-                    <h3 class="profile-username text-center">Nina Mcintire</h3>
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title"></h3>
+        </div>
+        <div class="box-body">
 
-                    <ul class="list-group list-group-unbordered">
-                        <li class="list-group-item">
-                            <b>相册数量</b> <a class="pull-right">1,322</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>相片数量</b> <a class="pull-right">543</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>视频数量</b> <a class="pull-right">13,287</a>
-                        </li>
+            <!-- /.col -->
+            <div class="col-md-6">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#settings" data-toggle="tab">会员信息</a></li>
+                        <li><a href="#txinfo" data-toggle="tab">童星信息</a></li>
                     </ul>
-                    <div id="upimg"><b>上传头像</b></div>
-                    @*<a href="#" class="btn btn-primary btn-block"><b>上传头像</b></a>*@
-                </div>
-                <!-- /.box-body -->
-            </div>
-            <!-- /.box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-9">
-            <div class="nav-tabs-custom">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#settings" data-toggle="tab">会员信息</a></li>
-                    <li><a href="#txinfo" data-toggle="tab">童星信息</a></li>
-                    <li><a href="#timeline" data-toggle="tab">演艺经历</a></li>
-                </ul>
-                <div class="tab-content">
-                    <!-- /.tab-pane -->
-                    <div class="active tab-pane" id="settings">
-                        <form id="userform" class="form-horizontal">
-                            <div class="form-group">
-                                <label for="inputExperience" class="col-sm-2 control-label">用户类型</label>
-                                <div class="col-sm-10">
-                                    <select class="select2" id="UserType" name="UserType" style="width:100px;">
-                                        <option value="@((int)Staryl.Entity.UserTypeEnum.个人用户)">个人用户</option>
-                                        <option value="@((int)Staryl.Entity.UserTypeEnum.机构用户)">机构用户</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="inputName" class="col-sm-2 control-label">邮箱</label>
-                                <div class="col-sm-10">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                        <input type="email" class="form-control" id="Email" name="Email" placeholder="邮箱">
+                    <div class="tab-content">
+                        <!-- /.tab-pane -->
+                        <div class="active tab-pane" id="settings">
+                            <form id="userform" method="post" action="/user/Create" class="form-horizontal">
+                                <input type="hidden" name="Id" id="Id" value="" />
+                                <div class="form-group">
+                                    <label for="inputExperience" class="col-sm-2 control-label">用户类型</label>
+                                    <div class="col-sm-10">
+                                        <select class="select2" id="UserType" name="UserType" style="width:100px;">
+                                            <option value="@((int)Staryl.Entity.UserTypeEnum.个人用户)">个人用户</option>
+                                            <option value="@((int)Staryl.Entity.UserTypeEnum.机构用户)">机构用户</option>
+                                        </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail" class="col-sm-2 control-label">手机号</label>
-                                <div class="col-sm-10">
 
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-phone"></i>
+                                <div class="form-group">
+                                    <label for="inputName" class="col-sm-2 control-label">邮箱</label>
+                                    <div class="col-sm-10">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                            <input type="email" class="form-control" id="Email" name="Email" placeholder="邮箱">
                                         </div>
-                                        <input type="text" class="form-control" id="Mobile" name="Mobile" placeholder="手机号">
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail" class="col-sm-2 control-label">手机号</label>
+                                    <div class="col-sm-10">
+
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-phone"></i>
+                                            </div>
+                                            <input type="text" class="form-control" id="Mobile" name="Mobile" placeholder="手机号">
+                                        </div>
 
 
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputSkills" class="col-sm-2 control-label">密码</label>
-                                <div class="col-sm-10">
-                                    <input type="password" class="form-control" id="Password" name="Password" placeholder="密码">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputSkills" class="col-sm-2 control-label">真实姓名</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="RealName" name="RealName" placeholder="真实姓名">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputSkills" class="col-sm-2 control-label">是否VIP</label>
-                                <div class="col-sm-10">
-                                    <input type="checkbox" id="IsEnable" name="IsEnable" checked="false" value="true" data-on-text="是" data-off-text="否" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputSkills" class="col-sm-2 control-label">推荐人</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="RecommendUser" name="RecommendUser" placeholder="推荐人">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" id="submitbut" class="btn btn-primary">保存</button>
-                                    <button type="button" id="nextbut" class="btn btn-default">下一步</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <!-- /.tab-pane -->
-                    <div id="txinfo" class="tab-pane">
-                        <form id="txform" class="form-horizontal">
-                            <div class="form-group">
-                                <label for="inputName" class="col-sm-2 control-label">童星姓名</label>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputName" placeholder="童星姓名">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputName" class="col-sm-2 control-label">昵称</label>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputName" placeholder="昵称">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail" class="col-sm-2 control-label">性别</label>
-                                <div class="col-sm-10">
-                                    <select class="select2" style="width:100px;">
-                                        <option value="0">未知</option>
-                                        <option value="1">男</option>
-                                        <option value="2">女</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputSkills" class="col-sm-2 control-label">出生年月</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inputSkills" placeholder="出生年月">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputSkills" class="col-sm-2 control-label">身高</label>
-                                <div class="col-sm-3">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="inputSkills" placeholder="身高">
-                                        <div class="input-group-addon">cm</div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputSkills" class="col-sm-2 control-label">体重</label>
-                                <div class="col-sm-3">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="Weight" placeholder="体重">
-                                        <div class="input-group-addon">kg </div>
+                                <div class="form-group">
+                                    <label for="inputSkills" class="col-sm-2 control-label">密码</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control" id="Password" name="Password" placeholder="密码">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputSkills" class="col-sm-2 control-label">所在地</label>
-                                <div class="col-sm-10">
-                                    <select class="select2">
-                                        <option>省</option>
-                                    </select>
-                                    <select class="select2">
-                                        <option>市</option>
-                                    </select>
-                                    <select class="select2">
-                                        <option>区</option>
-                                    </select>
+                                <div class="form-group">
+                                    <label for="inputSkills" class="col-sm-2 control-label">真实姓名</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="RealName" name="RealName" placeholder="真实姓名">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputSkills" class="col-sm-2 control-label">兴趣爱好 </label>
-                                <div class="col-sm-10">
-                                    <select multiple class="select2" style="width:100%;">
-                                        <option>乐器</option>
-                                        <option>声乐</option>
-                                        <option>表演</option>
-                                        <option>主持</option>
-                                        <option>模特</option>
-                                        <option>舞蹈</option>
-                                        <option>其他</option>
-                                    </select>
+                                <div class="form-group">
+                                    <label for="inputSkills" class="col-sm-2 control-label">是否VIP</label>
+                                    <div class="col-sm-10">
+                                        <input type="checkbox" id="IsEnable" name="IsEnable" checked="false" value="true" data-on-text="是" data-off-text="否" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputSkills" class="col-sm-2 control-label">个性签名 </label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inputSkills" placeholder="个性签名">
+                                <div class="form-group">
+                                    <label for="inputSkills" class="col-sm-2 control-label">推荐人</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="RecommendUser" name="RecommendUser" placeholder="推荐人">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" id="txsubmit" class="btn btn-primary">保存</button>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <input type="hidden" name="Avatar" id="Avatar" value="" />
+                                        <button type="submit" id="submitbut" class="btn btn-primary">保存</button>
+                                        <button type="button" id="nextbut" class="btn btn-default">下一步</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
+                        <!-- /.tab-pane -->
+                        <div id="txinfo" class="tab-pane">
+                            <form id="txform" method="post" action="#" class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="inputName" class="col-sm-2 control-label">童星姓名</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="RealName" id="RealName" placeholder="童星姓名">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputName" class="col-sm-2 control-label">昵称</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="NickName" id="NickName" placeholder="昵称">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail" class="col-sm-2 control-label">性别</label>
+                                    <div class="col-sm-3">
+                                        <select class="select2" name="Gender" style="width:100%;">
+                                            <option value="0">未知</option>
+                                            <option value="1">男</option>
+                                            <option value="2">女</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputSkills" class="col-sm-2 control-label">出生年月</label>
+                                    <div class="col-sm-3">
+
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" class="form-control date" name="Birthday" id="Birthday"  placeholder="出生年月">
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputSkills" class="col-sm-2 control-label">身高</label>
+                                    <div class="col-sm-2">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="Height" id="Height" placeholder="身高">
+                                            <div class="input-group-addon">cm</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputSkills" class="col-sm-2 control-label">体重</label>
+                                    <div class="col-sm-2">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="Weight" id="Weight" placeholder="体重">
+                                            <div class="input-group-addon">kg </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputSkills" class="col-sm-2 control-label">所在地</label>
+                                    <div class="col-sm-10">
+                                        <select class="select2" name="Province" id="Province" style="width:150px;">
+                                            <option value="-1">省</option>
+                                        </select>
+                                        <select class="select2" name="City" id="City" style="width:150px;">
+                                            <option value="-1">市</option>
+                                        </select>
+                                        <select class="select2" name="Area" id="Area" style="width:150px;">
+                                            <option value="-1">区/县</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputSkills" class="col-sm-2 control-label">兴趣爱好 </label>
+                                    <div class="col-sm-10">
+                                        <select multiple class="select2" name="Hobby" style="width:100%;">
+                                            <option>乐器</option>
+                                            <option>声乐</option>
+                                            <option>表演</option>
+                                            <option>主持</option>
+                                            <option>模特</option>
+                                            <option>舞蹈</option>
+                                            <option>其他</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputSkills" class="col-sm-2 control-label">个性签名 </label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="Greeting" placeholder="个性签名">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="button" id="txsubmit" class="btn btn-primary">保存</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
 
                     </div>
-                    <!-- /.tab-pane -->
-                    <div class="tab-pane" id="timeline">
-                        <!-- The timeline -->
-                        <ul class="timeline timeline-inverse">
-                            <!-- timeline time label -->
-                            <li class="time-label">
-                                <span class="bg-red">
-                                    10 Feb. 2014
-                                </span>
-                            </li>
-                            <!-- /.timeline-label -->
-                            <!-- timeline item -->
-                            <li>
-                                <i class="fa fa-envelope bg-blue"></i>
-                                <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-                                    <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-                                    <div class="timeline-body">
-                                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                                        weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                        jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                        quora plaxo ideeli hulu weebly balihoo...
-                                    </div>
-                                    <div class="timeline-footer">
-                                        <a class="btn btn-primary btn-xs">Read more</a>
-                                        <a class="btn btn-danger btn-xs">Delete</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <!-- END timeline item -->
-                            <!-- timeline item -->
-                            <li>
-                                <i class="fa fa-user bg-aqua"></i>
-                                <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
-                                    <h3 class="timeline-header no-border">
-                                        <a href="#">Sarah Young</a> accepted your friend request
-                                    </h3>
-                                </div>
-                            </li>
-                            <!-- END timeline item -->
-                            <!-- timeline item -->
-                            <li>
-                                <i class="fa fa-comments bg-yellow"></i>
-                                <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
-                                    <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-                                    <div class="timeline-body">
-                                        Take me to your leader!
-                                        Switzerland is small and neutral!
-                                        We are more like Germany, ambitious and misunderstood!
-                                    </div>
-                                    <div class="timeline-footer">
-                                        <a class="btn btn-warning btn-flat btn-xs">View comment</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <!-- END timeline item -->
-                            <!-- timeline time label -->
-                            <li class="time-label">
-                                <span class="bg-green">
-                                    3 Jan. 2014
-                                </span>
-                            </li>
-                            <!-- /.timeline-label -->
-                            <!-- timeline item -->
-                            <li>
-                                <i class="fa fa-camera bg-purple"></i>
-                                <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
-                                    <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-                                    <div class="timeline-body">
-                                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                        <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                    </div>
-                                </div>
-                            </li>
-                            <!-- END timeline item -->
-                            <li>
-                                <i class="fa fa-clock-o bg-gray"></i>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- /.tab-pane -->
+                    <!-- /.tab-content -->
                 </div>
-                <!-- /.tab-content -->
+                <!-- /.nav-tabs-custom -->
             </div>
-            <!-- /.nav-tabs-custom -->
+            <!-- /.col -->
         </div>
-        <!-- /.col -->
     </div>
     <!-- /.row -->
+    <input type="text" id="isvali" />
 </section>
 <!-- /.content -->
 
 @section scripts {
     <script src="@(StaticDomain)js/bootstrapValidator.min.js"></script>
     <script src="@(StaticDomain)js/language/zh_CN.js"></script>
-    <script src="@(StaticDomain)plugins/webupload/webuploader.js"></script>
+    <script src="@(StaticDomain)plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="@(StaticDomain)plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
     <script type="text/javascript">
         var BASE_URL = "@(StaticDomain)";
+        var city = "-1";
+        var area = "-1";
         $(function () {
-            parent.$.SetMenu("user/create");
+            //parent.$.SetMenu("user/create");
             $(".select2").select2();
-
             $("#IsEnable").bootstrapSwitch();
 
+            $(".date").datepicker({ clearBtn: true, format: "yyyy-mm-dd", language: "zh-CN" });
 
 
-            // 优化retina, 在retina下这个值是2
-            ratio = window.devicePixelRatio || 1,
-
-            // 缩略图大小
-            thumbnailWidth = 156 * ratio,
-            thumbnailHeight = 156 * ratio;
-
-            var uploader = WebUploader.create({
-
-                // swf文件路径
-                swf: BASE_URL + 'plugins/webupload/Uploader.swf',
-
-                // 文件接收服务端。
-                server: '/user/UploadImg',
-
-                // 选择文件的按钮。可选。
-                // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-                pick: '#upimg',
-
-                // 只允许选择图片文件。
-                accept: {
-                    title: 'Images',
-                    extensions: 'gif,jpg,jpeg,bmp,png',
-                    mimeTypes: 'image/*'
-                }
-            });
-            // 当有文件被添加进队列的时候
-            uploader.on('fileQueued', function (file) {
-                var $li = $(
-                        '<div id="' + file.id + '" class="file-item thumbnail">' +
-                            '<img>' +
-                            '<div class="info">' + file.name + '</div>' +
-                        '</div>'
-                        ),
-                    $img = $("#userAvatar"); //$li.find('img');
-
-
-                // $list为容器jQuery实例
-                //$list.append($li);
-
-                // 创建缩略图
-                // 如果为非图片文件，可以不用调用此方法。
-                // thumbnailWidth x thumbnailHeight 为 100 x 100
-                uploader.makeThumb(file, function (error, src) {
-                    if (error) {
-                        $img.replaceWith('<span>不能预览</span>');
-                        return;
+            Province = function () {
+                var param = { "parentId": 0 };
+                jsonAjax({
+                    url: "/area/GetAreaByParentId", param: param, callback: function (result) {
+                        bindSelect(result, $("#Province"));
                     }
+                });
+            }
 
-                    $img.attr('src', src);
-                }, thumbnailWidth, thumbnailHeight);
+            $("#Province").change(function () {
+                if ($(this).val() == "-1") {
+                    bindSelect(null, $("#City"));
+                    bindSelect(null, $("#Area"));
+                    return;
+                }
+                var param = { "parentId": $(this).val() };
+                jsonAjax({
+                    url: "/area/GetAreaByParentId", param: param, callback: function (result) {
+                        bindSelect(result, $("#City"));
+                    }
+                });
             });
 
-            // 文件上传过程中创建进度条实时显示。
-            uploader.on('uploadProgress', function (file, percentage) {
-                var $li = $('#' + file.id),
-                    $percent = $li.find('.progress .progress-bar');
+            $("#City").change(function () {
+                if ($(this).val() == "-1") {
+                    bindSelect(null, $("#Area"));
+                    return;
+                }
+                var param = { "parentId": $(this).val() };
+                jsonAjax({
+                    url: "/area/GetAreaByParentId", param: param, callback: function (result) {
+                        bindSelect(result, $("#Area"));
+                    }
+                });
+            });
 
-                // 避免重复创建
-                if (!$percent.length) {
-                    $percent = $('<div class="progress progress-striped active">' +
-                      '<div class="progress-bar" role="progressbar" style="width: 0%">' +
-                      '</div>' +
-                    '</div>').appendTo($li).find('.progress-bar');
+            bindSelect = function (result, obj) {
+                var selectval = "-1";
+                var text = "省";
+                if (obj.attr("id") == "City") {
+                    selectval = city;
+                    city = "-1";
+                    text = "市";
+                } else if (obj.attr("id") == "Area") {
+                    selectval = area;
+                    area = "-1";
+                    text = "区/县";
+
                 }
 
-                $li.find('p.state').text('上传中');
+                var s = obj.get(0);
+                s.options.length = 0;
+                s.options.add(new Option(text, "-1"));
+                if (result != null) {
+                    $.each(result, function (idx, item) {
+                        s.options.add(new Option(item.text, item.id));
+                    });
+                }
 
-                $percent.css('width', percentage * 100 + '%');
-            });
-
-            uploader.on('uploadSuccess', function (file) {
-                $('#' + file.id).find('p.state').text('已上传');
-            });
-
-            uploader.on('uploadError', function (file) {
-                $('#' + file.id).find('p.state').text('上传出错');
-            });
-
-            uploader.on('uploadComplete', function (file) {
-                $('#' + file.id).find('.progress').fadeOut();
-            });
+                obj.val(selectval).trigger("change");
+                if (obj.attr("id") == "City")
+                    $("#City").change();
+            }
+            Province();
 
             $("#userform").bootstrapValidator({
                 message: 'This value is not valid',
@@ -432,7 +325,7 @@
                             remote: {
                                 url: '/user/CheckMobileOrEmail',
                                 type: 'POST',
-                                message:'该邮箱已被注册，请使用其他邮箱地址'
+                                message: '该邮箱已被注册，请使用其他邮箱地址'
                             },
                         }
                     },
@@ -466,32 +359,116 @@
 
                 }
             })
-        .on('success.form.bv', function (e) {
-            e.preventDefault();
-            
+           .on('success.form.bv', function (e) {
+               e.preventDefault();
 
-        });
+               // Get the form instance
+               var $form = $(e.target);
 
+               // Get the BootstrapValidator instance
+               var bv = $form.data('bootstrapValidator');
 
+               // Use Ajax to submit form data
+               $.post($form.attr('action'), $form.serialize(), function (result) {
+                   parent.$.CheckLogin(result);
+                   if (result.MsgNo == 1) {
+                       $("#Id").val(result.Msg);
 
+                       $("a[href='#txinfo']").click();
+                   } else {
+                       Modal.alert({
+                           msg: result.Msg
+                       })
+                   }
+               }, 'json');
+           });
 
+            $("#txform").bootstrapValidator({
+                message: 'This value is not valid',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    RealName: {
+                        validators: {
+                            notEmpty: {
+                                message: '请输入小童星真实姓名'
+                            }
+                        }
+                    },
+                    Gender: {
+                        validators: {
+                            notEmpty: {
+                                message: '请选择小童星性别'
+                            }
+                        }
+                    },
+                    Birthday: {
+                        validators: {
+                            notEmpty: {
+                                message: '请输入小童星的生日'
+                            },
+                            date: {
+                                format: 'YYYY-MM-DD'
+                            }
+                        }
+                    }
 
-            $("#submitbut").click(function () {
+                }
+            }).on('success.form.bv', function (e) {
+                e.preventDefault();
 
-                //if (uploader.state === 'ready') {
-                //    uploader.upload();
-                //} else if (uploader.state === 'paused') {
-                //    uploader.upload();
-                //} else if (uploader.state === 'uploading') {
-                //    uploader.stop();
-                //}
-                //return false;
+                // Get the form instance
+                //var $form = $(e.target);
+
+                //// Get the BootstrapValidator instance
+                //var bv = $form.data('bootstrapValidator');
+
+                //// Use Ajax to submit form data
+                //$.post($form.attr('action'), $form.serialize(), function (result) {
+                //    parent.$.CheckLogin(result);
+                //    if (result.MsgNo == 1) {
+                //        $("#Id").val(result.Msg);
+
+                //        $("a[href='#txinfo']").click();
+                //    } else {
+                //        Modal.alert({
+                //            msg: result.Msg
+                //        })
+                //    }
+                //}, 'json');
+                return false;
             });
 
+            $(".date").on('dp.change dp.show', function (e) {
+                // Validate the date when user change it
+                $('#txform')
+                    // Get the bootstrapValidator instance
+                    .data('bootstrapValidator')
+                    // Mark the field as not validated, so it'll be re-validated when the user change date
+                    .updateStatus('revalidateField', 'NOT_VALIDATED', null)
+                    // Validate the field
+                    .validateField('Birthday');
+            });
+
+            
             $("#nextbut").click(function () {
+                $('#userform').bootstrapValidator('validate');
+                var isvalid = $("#userform").data('bootstrapValidator').isValid();
+                $("#isvali").val(isvalid);
                 $("a[href='#txinfo']").click();
             });
 
+            $("#txsubmit").click(function () {
+                
+
+                $('#txform').bootstrapValidator('validate');
+
+                alert($("#txform").data('bootstrapValidator').isValid());
+
+            });
 
 
 

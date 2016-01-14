@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\AdminLTE.min.css" />
+    <Content Include="css\CustomStyle.css" />
     <Content Include="css\skins\skin-black-light.css" />
     <Content Include="css\skins\skin-black-light.min.css" />
     <Content Include="css\skins\skin-black.css" />
@@ -142,6 +143,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="images\navbar.psd" />
     <Content Include="js\isScroll.js" />
+    <Content Include="plugins\datepicker\bootstrap-datepicker.js" />
+    <Content Include="plugins\datepicker\datepicker3.css" />
+    <Content Include="plugins\datepicker\locales\bootstrap-datepicker.zh-CN.js" />
+    <Content Include="plugins\daterangepicker\daterangepicker-bs3.css" />
+    <Content Include="plugins\daterangepicker\daterangepicker.js" />
+    <Content Include="plugins\daterangepicker\moment.js" />
+    <Content Include="plugins\daterangepicker\moment.min.js" />
     <Content Include="plugins\iCheck\square\aero%402x.png" />
     <Content Include="plugins\iCheck\square\aero.css" />
     <Content Include="plugins\iCheck\square\aero.png" />
@@ -227,9 +235,6 @@
     <Content Include="js\template-date.js" />
     <Content Include="js\template.js" />
     <Content Include="js\touchslide.js" />
-    <Content Include="plugins\datepicker\bootstrap-datetimepicker.min.css" />
-    <Content Include="plugins\datepicker\bootstrap-datetimepicker.min.js" />
-    <Content Include="plugins\datepicker\bootstrap-datetimepicker.zh-CN.js" />
     <Content Include="plugins\datepicker\mobiscroll_002.js" />
     <Content Include="plugins\iCheck\all.css" />
     <Content Include="plugins\iCheck\icheck.js" />

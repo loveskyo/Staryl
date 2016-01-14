@@ -31,6 +31,11 @@ namespace Staryl.Manage.Models
         public PageControl PageHtml { get; set; }
     }
 
+    public class Select2Info {
+        public int id { get; set; }
+        public string text { get; set; }
+    }
+
     public class ReturnData
     {
         public object Data { get; set; }
