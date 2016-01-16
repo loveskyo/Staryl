@@ -20,6 +20,7 @@ namespace Staryl.Manage.Controllers
         protected SystemFunctionManager functionMgr = new SystemFunctionManager();
         protected UserManager userMgr = new UserManager();
         protected SystemAreaManager mSystemAreaMgr = new SystemAreaManager();
+        protected StarUserManager starUserMgr = new StarUserManager();
 
         /// <summary>
         /// 获取客户端的 IP地址

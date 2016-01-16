@@ -18,11 +18,6 @@ namespace Staryl.Entity
       public string Email{get;set;}
 
       /// <summary>
-      /// 性别
-      /// </summary> 
-      public int Gender{get;set;}
-
-      /// <summary>
       /// 手机号码
       /// </summary> 
       public string Mobile{get;set;}
@@ -41,11 +36,6 @@ namespace Staryl.Entity
       /// 真实性名
       /// </summary> 
       public string  RealName{get;set;}
-
-      /// <summary>
-      /// 出生年月
-      /// </summary> 
-      public DateTime Birthday{get;set;}
 
       /// <summary>
       /// 头像

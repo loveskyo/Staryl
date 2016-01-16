@@ -34,7 +34,7 @@ namespace Staryl.Manage.Controllers
             string key = Convert.ToString(RouteData.Values["txtKey"]);
             ViewBag.key = key;
             string where = string.Empty;
-            where = "1=1";
+            where = "id>0";
             where += string.IsNullOrEmpty(key) ? string.Empty : " and RealName like'%" + key + "%'";
             string orderBy = "order by Id desc";
             int recordCount = 0;
@@ -87,6 +87,36 @@ namespace Staryl.Manage.Controllers
             return Content(JsonConvert.SerializeObject(msgInfo));
         }
 
+        [AuthAttribute(FunCode = "Add", ReturnType = "json")]
+        [HttpPost]
+        public ActionResult CreateStarUser(StarUserInfo model)
+        {
+            bool issuc = false;
+            model.Hobby = Request["Hobby"];
+            model.CreateDate = DateTime.Now;
+            model.CreateIP = this.GetIP;
+            model.Avatar = "";
+            int id = starUserMgr.Create(model);
+            if (id > 0)
+            {
+                issuc = true;
+            }
+            MsgInfo msgInfo = new MsgInfo();
+            if (issuc)
+            {
+                msgInfo.IsError = false;
+                msgInfo.Msg = id.ToString();
+                msgInfo.MsgNo = (int)ErrorEnum.成功;
+            }
+            else
+            {
+                msgInfo.IsError = true;
+                msgInfo.Msg = "操作失败！";
+                msgInfo.MsgNo = (int)ErrorEnum.失败;
+            }
+            return Content(JsonConvert.SerializeObject(msgInfo));
+        }
+
         [AuthAttribute(FunCode = "Modify")]
         public ActionResult Modify(int id)
         {
@@ -104,8 +134,6 @@ namespace Staryl.Manage.Controllers
             if (_model != null)
             {
                 _model.Avatar = model.Avatar;
-                _model.Birthday = model.Birthday;
-                _model.Gender = model.Gender;
                 _model.IsVIP = model.IsVIP;
                 _model.Mobile = model.Mobile;
                 _model.RealName = model.RealName;
