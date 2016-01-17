@@ -66,6 +66,7 @@ namespace Staryl.Manage.Controllers
             model.Password = Security.DESEncrypt(model.Password);
             model.CreateDate = DateTime.Now;
             model.CreateIP = this.GetIP;
+            model.Status = (int)UserStatusEnum.正常;
             int id = userMgr.Create(model);
             if (id > 0)
             {

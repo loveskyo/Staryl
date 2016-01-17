@@ -46,7 +46,6 @@ namespace Staryl.WeiXin.Controllers
                 CreateIP = this.GetIP,
                 Mobile = value.Mobile,
                 Email = Guid.NewGuid().ToString(),
-                Birthday = DateTime.Parse("1900/01/01"),
                 Status = (int)UserStatusEnum.正常,
                 UserType = value.UserType,
                 Password = Security.DESEncrypt(value.Password)
