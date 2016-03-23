@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivityApplyInfo.cs" />
+    <Compile Include="ActivityInfo.cs" />
     <Compile Include="AlbumInfo.cs" />
     <Compile Include="ISMSHelperService.cs" />
     <Compile Include="Class1.cs" />

@@ -64,6 +64,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivityApplyDAL.cs" />
+    <Compile Include="ActivityDAL.cs" />
     <Compile Include="AlbumDAL.cs" />
     <Compile Include="BaseDAL.cs" />
     <Compile Include="DBHelper.cs" />

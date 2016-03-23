@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Table\ActivityApplyInfo.cs" />
+    <Compile Include="Table\ActivityInfo.cs" />
     <Compile Include="IndexQueue.cs" />
     <Compile Include="Table\SystemLogInfo.cs" />
     <Compile Include="Table\StarUserInfo.cs" />

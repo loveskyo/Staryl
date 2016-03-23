@@ -23,7 +23,6 @@ namespace Staryl.API.Controllers
                 CreateIP = "",
                 Mobile = value.Mobile,
                 Email = Guid.NewGuid().ToString(),
-                Birthday = DateTime.Parse("1900/01/01"),
                 Status = (int)UserStatusEnum.正常,
                 Password = Security.DESEncrypt(value.Password)
             };

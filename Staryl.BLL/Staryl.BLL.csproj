@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivityApplyManager.cs" />
+    <Compile Include="ActivityManager.cs" />
     <Compile Include="AlbumManager.cs" />
     <Compile Include="BaseManager.cs" />
     <Compile Include="PhotoManager.cs" />
