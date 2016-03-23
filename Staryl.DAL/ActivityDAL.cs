@@ -21,9 +21,9 @@ public int Create(ActivityInfo model)
         {         Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
          sb.Append("insert into Activity(");
-         sb.Append("Title,BriefIntroduction,Content,TypeId,ChargeLevel,OrderBy,CreateDate,CreateIP");
+         sb.Append("Title,BriefIntroduction,Content,TypeId,ChargeLevel,OrderBy,Status,IsActive,CreateDate,CreateIP");
          sb.Append(") values(");
-         sb.Append("@Title,@BriefIntroduction,@Content,@TypeId,@ChargeLevel,@OrderBy,@CreateDate,@CreateIP);SELECT @@IDENTITY;");
+         sb.Append("@Title,@BriefIntroduction,@Content,@TypeId,@ChargeLevel,@OrderBy,@Status,@IsActive,@CreateDate,@CreateIP);SELECT @@IDENTITY;");
          DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
             db.AddInParameter(dbCommand, "@Title", DbType.String, model.Title);
             db.AddInParameter(dbCommand, "@BriefIntroduction", DbType.String, model.BriefIntroduction);
@@ -31,6 +31,8 @@ public int Create(ActivityInfo model)
             db.AddInParameter(dbCommand, "@TypeId", DbType.Int32, model.TypeId);
             db.AddInParameter(dbCommand, "@ChargeLevel", DbType.Int32, model.ChargeLevel);
             db.AddInParameter(dbCommand, "@OrderBy", DbType.Int32, model.OrderBy);
+            db.AddInParameter(dbCommand, "@Status", DbType.Int32, model.Status);
+            db.AddInParameter(dbCommand, "@IsActive", DbType.Boolean, model.IsActive);
             db.AddInParameter(dbCommand, "@CreateDate", DbType.DateTime, model.CreateDate);
             db.AddInParameter(dbCommand, "@CreateIP", DbType.String, model.CreateIP);
             int id = Convert.ToInt32(db.ExecuteScalar(dbCommand));  
@@ -43,7 +45,7 @@ public int Create(ActivityInfo model)
          Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
          sb.Append("update Activity set ");
-         sb.Append("Title=@Title,BriefIntroduction=@BriefIntroduction,Content=@Content,TypeId=@TypeId,ChargeLevel=@ChargeLevel,OrderBy=@OrderBy,CreateDate=@CreateDate,CreateIP=@CreateIP");
+         sb.Append("Title=@Title,BriefIntroduction=@BriefIntroduction,Content=@Content,TypeId=@TypeId,ChargeLevel=@ChargeLevel,OrderBy=@OrderBy,Status=@Status,IsActive=@IsActive,CreateDate=@CreateDate,CreateIP=@CreateIP");
          sb.Append(" where Id=@Id");
          DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
          db.AddInParameter(dbCommand, "@Id", DbType.Int32, model.Id);
@@ -53,6 +55,8 @@ public int Create(ActivityInfo model)
          db.AddInParameter(dbCommand, "@TypeId", DbType.Int32, model.TypeId);
          db.AddInParameter(dbCommand, "@ChargeLevel", DbType.Int32, model.ChargeLevel);
          db.AddInParameter(dbCommand, "@OrderBy", DbType.Int32, model.OrderBy);
+         db.AddInParameter(dbCommand, "@Status", DbType.Int32, model.Status);
+         db.AddInParameter(dbCommand, "@IsActive", DbType.Boolean, model.IsActive);
          db.AddInParameter(dbCommand, "@CreateDate", DbType.DateTime, model.CreateDate);
          db.AddInParameter(dbCommand, "@CreateIP", DbType.String, model.CreateIP);
          return db.ExecuteNonQuery(dbCommand) < 1 ? false : true; 
@@ -203,6 +207,16 @@ public int Create(ActivityInfo model)
             {
                 model.OrderBy = ( int)(ojb);
             }
+            ojb = dataReader["Status"]; 
+            if (ojb != null && ojb != DBNull.Value)
+            {
+                model.Status = ( int)(ojb);
+            }
+            ojb = dataReader["IsActive"]; 
+            if (ojb != null && ojb != DBNull.Value)
+            {
+                model.IsActive = ( bool)(ojb);
+            }
             ojb = dataReader["CreateDate"]; 
             if (ojb != null && ojb != DBNull.Value)
             {
@@ -234,7 +248,7 @@ bool suc = BaseDAL.ExecuteTransactionScopeInsert(this.ToDataTable(list), 250, "A
             if (list.Count > 0)
             {
 
-                string columnNameList = "?Id??Title??BriefIntroduction??Content??TypeId??ChargeLevel??OrderBy??CreateDate??CreateIP?"; 
+                string columnNameList = "?Id??Title??BriefIntroduction??Content??TypeId??ChargeLevel??OrderBy??Status??IsActive??CreateDate??CreateIP?"; 
 
                 PropertyInfo[] propertys = list[0].GetType().GetProperties();
                 foreach (PropertyInfo pi in propertys)
@@ -265,6 +279,8 @@ bool suc = BaseDAL.ExecuteTransactionScopeInsert(this.ToDataTable(list), 250, "A
                 dr["TypeId"] = list[i].TypeId; 
                 dr["ChargeLevel"] = list[i].ChargeLevel; 
                 dr["OrderBy"] = list[i].OrderBy; 
+                dr["Status"] = list[i].Status; 
+                dr["IsActive"] = list[i].IsActive; 
                 dr["CreateDate"] = list[i].CreateDate; 
                 dr["CreateIP"] = list[i].CreateIP; 
 

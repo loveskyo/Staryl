@@ -46,6 +46,7 @@
     <Compile Include="Table\StarUserInfo.cs" />
     <Compile Include="Table\SystemAreaInfo.cs" />
     <Compile Include="Table\UndergoInfo.cs" />
+    <Compile Include="ActivityEnum.cs" />
     <Compile Include="UserStatusEnum.cs" />
     <Compile Include="UserTypeEnum.cs" />
     <Compile Include="ViewStarUserInfo.cs" />

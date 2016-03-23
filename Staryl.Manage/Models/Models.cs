@@ -30,6 +30,8 @@ namespace Staryl.Manage.Models
 
         public StarUserInfo StarUser { get; set; }
 
+        public ActivityInfo Activity { get; set; }
+
         public PageControl PageHtml { get; set; }
     }
 

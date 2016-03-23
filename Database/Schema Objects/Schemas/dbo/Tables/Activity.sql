@@ -7,6 +7,8 @@
     [TypeId] INT NOT NULL, 
     [ChargeLevel] INT NOT NULL,
 	[OrderBy] INT NOT NULL, 
+	[Status] INT NOT NULL,
+	[IsActive] bit Not NULL,
 	[CreateDate] DATETIME NOT NULL, 
     [CreateIP] NVARCHAR(50) NOT NULL
 )
@@ -101,3 +103,21 @@ EXEC sp_addextendedproperty @name = N'MS_Description',
     @level1name = N'Activity',
     @level2type = NULL,
     @level2name = NULL
+GO
+EXEC sp_addextendedproperty @name = N'MS_Description',
+    @value = N'是否发布',
+    @level0type = N'SCHEMA',
+    @level0name = N'dbo',
+    @level1type = N'TABLE',
+    @level1name = N'Activity',
+    @level2type = N'COLUMN',
+    @level2name = N'IsActive'
+GO
+EXEC sp_addextendedproperty @name = N'MS_Description',
+    @value = N'活动状态',
+    @level0type = N'SCHEMA',
+    @level0name = N'dbo',
+    @level1type = N'TABLE',
+    @level1name = N'Activity',
+    @level2type = N'COLUMN',
+    @level2name = N'Status'

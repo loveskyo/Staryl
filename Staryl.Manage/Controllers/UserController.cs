@@ -194,7 +194,7 @@ namespace Staryl.Manage.Controllers
         {
             string ids = col["Ids"];
 
-            bool res = accountMgr.Deletes(string.Join(",", ids));
+            bool res = accountMgr.Deletes(ids);
             MsgInfo msgInfo = new MsgInfo();
             if (res)
             {

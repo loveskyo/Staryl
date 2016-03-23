@@ -43,6 +43,16 @@ namespace Staryl.Entity
       public int OrderBy{get;set;}
 
       /// <summary>
+      /// 活动状态
+      /// </summary> 
+      public int Status{get;set;}
+
+      /// <summary>
+      /// 是否发布
+      /// </summary> 
+      public bool IsActive{get;set;}
+
+      /// <summary>
       /// 创建时间
       /// </summary> 
       public DateTime CreateDate{get;set;}
