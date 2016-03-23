@@ -50,6 +50,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Staryl.Aop", "Staryl.Aop\St
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Staryl.IndexManager", "Staryl.IndexManager\Staryl.IndexManager.csproj", "{DDEA2572-88AF-46A5-9619-95A9452DB8A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{56AE1EB1-4D81-4351-A261-20F3A1D7A820}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -110,6 +112,10 @@ Global
 		{DDEA2572-88AF-46A5-9619-95A9452DB8A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDEA2572-88AF-46A5-9619-95A9452DB8A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDEA2572-88AF-46A5-9619-95A9452DB8A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56AE1EB1-4D81-4351-A261-20F3A1D7A820}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56AE1EB1-4D81-4351-A261-20F3A1D7A820}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56AE1EB1-4D81-4351-A261-20F3A1D7A820}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56AE1EB1-4D81-4351-A261-20F3A1D7A820}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

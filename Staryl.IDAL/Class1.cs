@@ -9,4 +9,6 @@ namespace Staryl.IDAL
     public class Class1
     {
     }
+
+
 }

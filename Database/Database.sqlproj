@@ -186,6 +186,8 @@
     <Build Include="Schema Objects\Schemas\dbo\Tables\Undergo.sql" />
     <Build Include="Schema Objects\Schemas\dbo\Tables\SystemLog.sql" />
     <Build Include="Schema Objects\Schemas\dbo\Views\UserStarUserView.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Activity.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\ActivityApply.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Debug.publish.xml" />

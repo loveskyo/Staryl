@@ -26,7 +26,9 @@ namespace Staryl.Manage.Models
 
         public IEnumerable<SystemFunctionInfo> FunctionList{get;set;}
 
-        public UserInfo userInfo { get; set; }
+        public UserInfo UserInfo { get; set; }
+
+        public StarUserInfo StarUser { get; set; }
 
         public PageControl PageHtml { get; set; }
     }

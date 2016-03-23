@@ -1,7 +1,8 @@
 ﻿@{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "会员编辑";
     string StaticDomain = Staryl.Manage.Controllers.ControllerBase.StaticDomain;
 }
+@model Staryl.Manage.Models.ViewModels
 @section style {
     <!-- daterange picker -->
     <link rel="stylesheet" href="@(StaticDomain)plugins/datepicker/datepicker3.css">
@@ -18,13 +19,13 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        新增会员
-        <small>新增一个会员</small>
+        编辑会员
+        <small>修改一个会员的资料</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i> 首页</a></li>
         <li><a href="/user">会员管理</a></li>
-        <li class="active">新增会员</li>
+        <li class="active">编辑会员</li>
     </ol>
 </section>
 <!-- Main content -->
@@ -45,13 +46,14 @@
                     <div class="tab-content">
                         <!-- /.tab-pane -->
                         <div class="active tab-pane" id="settings">
-                            <form id="userform" method="post" action="/user/Create" class="form-horizontal">
+                            <form id="userform" method="post" action="/user/Modify" class="form-horizontal">
+                                <input type="hidden" id="Id" name="Id" value="@Model.UserInfo.Id" />
                                 <div class="form-group">
                                     <label for="inputExperience" class="col-sm-2 control-label">用户类型</label>
                                     <div class="col-sm-10">
                                         <select class="select2" id="UserType" name="UserType" style="width:100px;">
-                                            <option value="@((int)Staryl.Entity.UserTypeEnum.个人用户)">个人用户</option>
-                                            <option value="@((int)Staryl.Entity.UserTypeEnum.机构用户)">机构用户</option>
+                                            <option value="@((int)Staryl.Entity.UserTypeEnum.个人用户)" @(Model.UserInfo.UserType == (int)Staryl.Entity.UserTypeEnum.个人用户 ? "selected='selected'" : "")>个人用户</option>
+                                            <option value="@((int)Staryl.Entity.UserTypeEnum.机构用户)" @(Model.UserInfo.UserType == (int)Staryl.Entity.UserTypeEnum.机构用户 ? "selected='selected'" : "")>机构用户</option>
                                         </select>
                                     </div>
                                 </div>
@@ -61,7 +63,7 @@
                                     <div class="col-sm-10">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                                            <input type="email" class="form-control" id="Email" name="Email" placeholder="邮箱">
+                                            <input type="email" class="form-control" id="Email" name="Email" value="@Model.UserInfo.Email" placeholder="邮箱">
                                         </div>
                                     </div>
                                 </div>
@@ -73,7 +75,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-phone"></i>
                                             </div>
-                                            <input type="text" class="form-control" id="Mobile" name="Mobile" placeholder="手机号">
+                                            <input type="text" class="form-control" id="Mobile" name="Mobile" value="@Model.UserInfo.Mobile" placeholder="手机号">
                                         </div>
 
 
@@ -82,25 +84,25 @@
                                 <div class="form-group">
                                     <label for="inputSkills" class="col-sm-2 control-label">密码</label>
                                     <div class="col-sm-10">
-                                        <input type="password" class="form-control" id="Password" name="Password" placeholder="密码">
+                                        <input type="password" class="form-control" id="Password" name="Password" placeholder="密码"> 注：不修改则为空
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputSkills" class="col-sm-2 control-label">真实姓名</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="RealName" name="RealName" placeholder="真实姓名">
+                                        <input type="text" class="form-control" id="RealName" name="RealName" value="@Model.UserInfo.RealName" placeholder="真实姓名">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputSkills" class="col-sm-2 control-label">是否VIP</label>
                                     <div class="col-sm-10">
-                                        <input type="checkbox" id="IsVIP" name="IsVIP" checked="checked" value="true" data-on-text="是" data-off-text="否" />
+                                        <input type="checkbox" id="IsVIP" name="IsVIP" checked="@(Model.UserInfo.IsVIP)" value="true" data-on-text="是" data-off-text="否" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputSkills" class="col-sm-2 control-label">推荐人</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="RecommendUser" name="RecommendUser" placeholder="推荐人">
+                                        <input type="text" class="form-control" id="RecommendUser" name="RecommendUser" value="@Model.UserInfo.RecommendUser" placeholder="推荐人">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -113,27 +115,28 @@
                         </div>
                         <!-- /.tab-pane -->
                         <div id="txinfo" class="tab-pane">
-                            <form id="txform" method="post" action="/user/CreateStarUser" class="form-horizontal">
+                            <form id="txform" method="post" action="/user/ModifyStarUser" class="form-horizontal">
+                                <input type="hidden" name="Id" value="@Model.StarUser.Id" />
                                 <div class="form-group">
                                     <label for="inputName" class="col-sm-2 control-label">童星姓名</label>
                                     <div class="col-sm-10">
                                         <input type="hidden" name="ParentId" id="ParentId" value="" />
-                                        <input type="text" class="form-control" name="RealName" id="RealName" placeholder="童星姓名">
+                                        <input type="text" class="form-control" name="RealName" id="RealName" value="@Model.StarUser.RealName" placeholder="童星姓名">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputName" class="col-sm-2 control-label">昵称</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="NickName" id="NickName" placeholder="昵称">
+                                        <input type="text" class="form-control" name="NickName" id="NickName" value="@Model.StarUser.NickName" placeholder="昵称">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputEmail" class="col-sm-2 control-label">性别</label>
                                     <div class="col-sm-3">
                                         <select class="select2" name="Gender" style="width:100%;">
-                                            <option value="0">未知</option>
-                                            <option value="1">男</option>
-                                            <option value="2">女</option>
+                                            <option value="0" @(Model.StarUser.Gender == 0 ? "selected='selected'" : "")>未知</option>
+                                            <option value="1" @(Model.StarUser.Gender == 1 ? "selected='selected'" : "")>男</option>
+                                            <option value="2" @(Model.StarUser.Gender == 2 ? "selected='selected'" : "")>女</option>
                                         </select>
                                     </div>
                                 </div>
@@ -145,7 +148,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control date" name="Birthday" id="Birthday" placeholder="出生年月">
+                                            <input type="text" class="form-control date" name="Birthday" id="Birthday" value="@Model.StarUser.Birthday.ToString("yyyy-MM-dd")" placeholder="出生年月">
                                         </div>
 
 
@@ -156,7 +159,7 @@
                                     <label for="inputSkills" class="col-sm-2 control-label">身高</label>
                                     <div class="col-sm-2">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" name="Height" id="Height" placeholder="身高">
+                                            <input type="text" class="form-control" name="Height" id="Height" value="@(Model.StarUser.Height.HasValue ? Model.StarUser.Height.Value : 0)" placeholder="身高">
                                             <div class="input-group-addon">cm</div>
                                         </div>
                                     </div>
@@ -165,7 +168,7 @@
                                     <label for="inputSkills" class="col-sm-2 control-label">体重</label>
                                     <div class="col-sm-2">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" name="Weight" id="Weight" placeholder="体重">
+                                            <input type="text" class="form-control" name="Weight" id="Weight" value="@(Model.StarUser.Weight.HasValue ? Model.StarUser.Weight.Value : 0)" placeholder="体重">
                                             <div class="input-group-addon">kg </div>
                                         </div>
                                     </div>
@@ -188,20 +191,20 @@
                                     <label for="inputSkills" class="col-sm-2 control-label">兴趣爱好 </label>
                                     <div class="col-sm-10">
                                         <select multiple class="select2" name="Hobby" id="Hobby" style="width:100%;">
-                                            <option>乐器</option>
-                                            <option>声乐</option>
-                                            <option>表演</option>
-                                            <option>主持</option>
-                                            <option>模特</option>
-                                            <option>舞蹈</option>
-                                            <option>其他</option>
+                                            <option @(Model.StarUser.Hobby.Contains("乐器") ? "selected='selected'" : "")>乐器</option>
+                                            <option @(Model.StarUser.Hobby.Contains("声乐") ? "selected='selected'" : "")>声乐</option>
+                                            <option @(Model.StarUser.Hobby.Contains("表演") ? "selected='selected'" : "")>表演</option>
+                                            <option @(Model.StarUser.Hobby.Contains("主持") ? "selected='selected'" : "")>主持</option>
+                                            <option @(Model.StarUser.Hobby.Contains("模特") ? "selected='selected'" : "")>模特</option>
+                                            <option @(Model.StarUser.Hobby.Contains("舞蹈") ? "selected='selected'" : "")>舞蹈</option>
+                                            <option @(Model.StarUser.Hobby.Contains("其他") ? "selected='selected'" : "")>其他</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="inputSkills" class="col-sm-2 control-label">个性签名 </label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="Greeting" id="Greeting" placeholder="个性签名">
+                                        <input type="text" class="form-control" name="Greeting" id="Greeting" value="@(Model.StarUser.Greeting)" placeholder="个性签名">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -224,7 +227,6 @@
     <!-- /.row -->
 </section>
 <!-- /.content -->
-
 @section scripts {
     <script src="@(StaticDomain)js/bootstrapValidator.min.js"></script>
     <script src="@(StaticDomain)js/language/zh_CN.js"></script>
@@ -232,8 +234,9 @@
     <script src="@(StaticDomain)plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
     <script type="text/javascript">
         var BASE_URL = "@(StaticDomain)";
-        var city = "-1";
-        var area = "-1";
+        var province = "@(Model.StarUser.Province)";
+        var city = "@(Model.StarUser.City)";
+        var area = "@(Model.StarUser.Area)";
         $(function () {
             //parent.$.SetMenu("user/create");
             $(".select2").select2();
@@ -281,7 +284,10 @@
             bindSelect = function (result, obj) {
                 var selectval = "-1";
                 var text = "省";
-                if (obj.attr("id") == "City") {
+                if (obj.attr("id") == "Province") {
+                    selectval = province;
+                    province = "-1";
+                } else if (obj.attr("id") == "City") {
                     selectval = city;
                     city = "-1";
                     text = "市";
@@ -300,10 +306,7 @@
                         s.options.add(new Option(item.text, item.id));
                     });
                 }
-
                 obj.val(selectval).trigger("change");
-                if (obj.attr("id") == "City")
-                    $("#City").change();
             }
             Province();
 

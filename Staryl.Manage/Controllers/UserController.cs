@@ -122,7 +122,12 @@ namespace Staryl.Manage.Controllers
         public ActionResult Modify(int id)
         {
             ViewModels viewmodels = new ViewModels();
-            viewmodels.userInfo = userMgr.Get(id);
+            viewmodels.UserInfo = userMgr.Get(id);
+            if (viewmodels.UserInfo != null)
+            {
+                List<StarUserInfo> list = starUserMgr.GetByParentId(viewmodels.UserInfo.Id);
+                viewmodels.StarUser = list != null && list.Count > 0 ? list.First() : new StarUserInfo();
+            }
             return View(viewmodels);
         }
 
