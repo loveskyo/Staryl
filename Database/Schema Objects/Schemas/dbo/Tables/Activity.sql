@@ -10,7 +10,8 @@
 	[Status] INT NOT NULL,
 	[IsActive] bit Not NULL,
 	[CreateDate] DATETIME NOT NULL, 
-    [CreateIP] NVARCHAR(50) NOT NULL
+    [CreateIP] NVARCHAR(50) NOT NULL, 
+    [AcivityArea] NVARCHAR(50) NOT NULL
 )
 
 GO
@@ -121,3 +122,12 @@ EXEC sp_addextendedproperty @name = N'MS_Description',
     @level1name = N'Activity',
     @level2type = N'COLUMN',
     @level2name = N'Status'
+GO
+EXEC sp_addextendedproperty @name = N'MS_Description',
+    @value = N'活动所在地区，用于判断会员和活动是否同一地区',
+    @level0type = N'SCHEMA',
+    @level0name = N'dbo',
+    @level1type = N'TABLE',
+    @level1name = N'Activity',
+    @level2type = N'COLUMN',
+    @level2name = N'AcivityArea'
