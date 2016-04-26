@@ -172,5 +172,35 @@ namespace Staryl.Manage.Controllers
             return Content(JsonConvert.SerializeObject(msgInfo));
         }
 
+        [HttpPost]
+        public ActionResult UploadImg()
+        {
+          string cbfun =  Request["CKEditorFuncNum"];
+
+            if (Request.InputStream.Length <= 0)
+            {
+                return Json(new { jsonrpc = 2.0, error = new { code = 102, message = "保存失败" }, id = "id" });
+            }
+
+            string imgurl = string.Empty;
+            try
+            {
+                var f = Request.Files;
+                if (f.Count <= 0)
+                    return Json(new { jsonrpc = 2.0, error = new { code = 104, message = "图片为空" }, id = "id" });
+
+                imgurl = SaveImg(0, this.CKEditUrl, f[0].InputStream);
+
+                imgurl = StaticDomain + "/" + this.UploadDomainRoot + "/" + this.CKEditUrl + "/" + imgurl;
+
+                //return Json(new { jsonrpc = 2.0, filepath = imgurl, id = "id" });
+                return Content("<script>window.parent.upimg('" + cbfun + "','" + imgurl + "')</script>");
+            }
+            catch (Exception ex)
+            {
+                return Json(new { jsonrpc = 2.0, error = new { code = 103, message = "保存失败" }, id = "id" });
+            }
+            
+        }
     }
 }

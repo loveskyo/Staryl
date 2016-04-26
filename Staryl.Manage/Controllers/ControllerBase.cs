@@ -83,6 +83,16 @@ namespace Staryl.Manage.Controllers
             }
         }
 
+        /// <summary>
+        /// 上传根目录虚拟路径，用于URL读取
+        /// </summary>
+        protected string UploadDomainRoot
+        {
+            get {
+                return UploadRoot.Split('\\').Last();
+            }
+        }
+
         #region 上传图片文件夹
         /// <summary>
         /// 头像
@@ -116,7 +126,25 @@ namespace Staryl.Manage.Controllers
                 return "Undergo";
             }
         }
+        /// <summary>
+        /// 活动图片
+        /// </summary>
+        protected string ActivityUrl
+        {
+            get {
+                return "Activity";
+            }
+        }
 
+        /// <summary>
+        /// 编辑器图片
+        /// </summary>
+        protected string CKEditUrl
+        {
+            get {
+                return "CKEdit";
+            }
+        }
 
         #endregion
 
@@ -127,7 +155,8 @@ namespace Staryl.Manage.Controllers
             string urlPath = this.UploadRoot;
             string localPath = this.UploadRoot;
 
-            string upPath = localPath + "/" + subpath + "/" + accountId;
+            string upPath = localPath + "/" + subpath + (accountId > 0 ? "/" + accountId : "");
+
             if (!Directory.Exists(upPath))
             {
                 Directory.CreateDirectory(upPath);
@@ -139,7 +168,7 @@ namespace Staryl.Manage.Controllers
             {
                 int round = new Random(Guid.NewGuid().GetHashCode()).Next(10000, 99999);
                 fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + round + ".jpg";
-                filePathName = localPath + "/" + subpath + "/" + accountId + "/" + fileName;//"/App_Upload/" + fileInfo.FileName;//自行处理保存
+                filePathName = localPath + "/" + subpath + (accountId > 0 ? "/" + accountId : "") + "/" + fileName;//"/App_Upload/" + fileInfo.FileName;//自行处理保存
                 System.Drawing.Image ResourceImage = System.Drawing.Image.FromStream(stream);
                 ResourceImage.Save(filePathName);
                 if (string.IsNullOrEmpty(fileNames))

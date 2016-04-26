@@ -194,6 +194,7 @@
     <None Include="Release.publish.xml" />
     <None Include="Database.publish.xml" />
     <None Include="Database.Star.publish.xml" />
+    <None Include="Database_1.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <PreDeploy Include="Scripts\Pre-Deployment\Script.PreDeployment.sql" />

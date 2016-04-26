@@ -11,7 +11,10 @@
 	[IsActive] bit Not NULL,
 	[CreateDate] DATETIME NOT NULL, 
     [CreateIP] NVARCHAR(50) NOT NULL, 
-    [AcivityArea] NVARCHAR(50) NOT NULL
+    [City] INT NOT NULL, 
+    [Province] INT NOT NULL, 
+    [Area] INT NOT NULL, 
+    [Images] NVARCHAR(500) NULL
 )
 
 GO
@@ -124,10 +127,37 @@ EXEC sp_addextendedproperty @name = N'MS_Description',
     @level2name = N'Status'
 GO
 EXEC sp_addextendedproperty @name = N'MS_Description',
-    @value = N'活动所在地区，用于判断会员和活动是否同一地区',
+    @value = N'活动图片，多个以“,”分隔',
     @level0type = N'SCHEMA',
     @level0name = N'dbo',
     @level1type = N'TABLE',
     @level1name = N'Activity',
     @level2type = N'COLUMN',
-    @level2name = N'AcivityArea'
+    @level2name = N'Images'
+GO
+EXEC sp_addextendedproperty @name = N'MS_Description',
+    @value = N'地区区域',
+    @level0type = N'SCHEMA',
+    @level0name = N'dbo',
+    @level1type = N'TABLE',
+    @level1name = N'Activity',
+    @level2type = N'COLUMN',
+    @level2name = N'Area'
+GO
+EXEC sp_addextendedproperty @name = N'MS_Description',
+    @value = N'省',
+    @level0type = N'SCHEMA',
+    @level0name = N'dbo',
+    @level1type = N'TABLE',
+    @level1name = N'Activity',
+    @level2type = N'COLUMN',
+    @level2name = N'Province'
+GO
+EXEC sp_addextendedproperty @name = N'MS_Description',
+    @value = N'市',
+    @level0type = N'SCHEMA',
+    @level0name = N'dbo',
+    @level1type = N'TABLE',
+    @level1name = N'Activity',
+    @level2type = N'COLUMN',
+    @level2name = N'City'

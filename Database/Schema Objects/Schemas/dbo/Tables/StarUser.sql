@@ -16,6 +16,7 @@
     [CreateIP] NVARCHAR(50) NOT NULL, 
     [NickName] NVARCHAR(50) NULL, 
     [ParentId] INT NOT NULL, 
+    [IsRecommend] BIT NOT NULL DEFAULT 0, 
     CONSTRAINT [FK_StarUser_User] FOREIGN KEY ([ParentId]) REFERENCES [User]([Id]), 
     CONSTRAINT [PK_StarUser] PRIMARY KEY ([Id])
 )
@@ -143,3 +144,13 @@ EXEC sp_addextendedproperty @name = N'MS_Description',
 GO
 
 CREATE INDEX [IX_StarUser_ParentId] ON [dbo].[StarUser] (ParentId)
+
+GO
+EXEC sp_addextendedproperty @name = N'MS_Description',
+    @value = N'是否推荐',
+    @level0type = N'SCHEMA',
+    @level0name = N'dbo',
+    @level1type = N'TABLE',
+    @level1name = N'StarUser',
+    @level2type = N'COLUMN',
+    @level2name = N'IsRecommend'

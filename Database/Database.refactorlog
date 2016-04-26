@@ -56,4 +56,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="[IX_ActivityApply_ActivityId_StarId]" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="54b1dbce-37e0-4449-8389-9632a7682016" ChangeDateTime="04/26/2016 08:04:33">
+    <Property Name="ElementName" Value="[dbo].[Activity].[Image]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Activity]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Images" />
+  </Operation>
 </Operations>

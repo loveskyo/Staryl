@@ -136,6 +136,7 @@
     <Content Include="Views\User\Create - 复制.cshtml" />
     <Content Include="Views\User\Modify.cshtml" />
     <Content Include="Views\Activity\Index.cshtml" />
+    <Content Include="Views\Activity\Create.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

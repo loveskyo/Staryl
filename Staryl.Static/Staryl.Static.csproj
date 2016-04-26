@@ -88,6 +88,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="images\bg-input-focus.png" />
     <Content Include="images\bg-input.png" />
+    <Content Include="img\cp_img_tj.png" />
     <Content Include="images\icon-ad.png" />
     <Content Include="images\icon-add-pic.png" />
     <Content Include="images\icon-all.png" />
