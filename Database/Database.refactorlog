@@ -63,4 +63,32 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Images" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="97614c3e-f6e9-4bdb-8d43-a53becf57b2b" ChangeDateTime="04/27/2016 10:36:06">
+    <Property Name="ElementName" Value="[dbo].[Fans].[IX_Fans_Column]" />
+    <Property Name="ElementType" Value="SqlIndex" />
+    <Property Name="ParentElementName" Value="[dbo].[Fans]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[IX_Fans_StarId_FansId]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="75e2a8e7-a1bd-4a05-9e62-6f4d7ee1bcb5" ChangeDateTime="04/27/2016 10:39:47">
+    <Property Name="ElementName" Value="[dbo].[LikeRecord].[Liked]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LikeRecord]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Praiser" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b0bb7a67-999f-4b96-b6e3-9955da3f8f54" ChangeDateTime="04/27/2016 10:40:21">
+    <Property Name="ElementName" Value="[dbo].[LikeRecord].[Praiser]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[LikeRecord]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PraiserId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="80b14305-9320-481d-9e07-541d35721ea1" ChangeDateTime="04/27/2016 10:48:30">
+    <Property Name="ElementName" Value="[dbo].[PraiserRecord].[IX_PraiserRecord_StarId_PraiserId]" />
+    <Property Name="ElementType" Value="SqlIndex" />
+    <Property Name="ParentElementName" Value="[dbo].[PraiserRecord]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[IX_PraiserRecord_StarId_PraiserId_CreateDate]" />
+  </Operation>
 </Operations>

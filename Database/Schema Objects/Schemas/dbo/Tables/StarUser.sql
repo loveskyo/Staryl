@@ -17,6 +17,8 @@
     [NickName] NVARCHAR(50) NULL, 
     [ParentId] INT NOT NULL, 
     [IsRecommend] BIT NOT NULL DEFAULT 0, 
+    [FansNumber] INT NOT NULL DEFAULT 0, 
+    [LikeNumber] INT NOT NULL DEFAULT 0, 
     CONSTRAINT [FK_StarUser_User] FOREIGN KEY ([ParentId]) REFERENCES [User]([Id]), 
     CONSTRAINT [PK_StarUser] PRIMARY KEY ([Id])
 )
@@ -154,3 +156,21 @@ EXEC sp_addextendedproperty @name = N'MS_Description',
     @level1name = N'StarUser',
     @level2type = N'COLUMN',
     @level2name = N'IsRecommend'
+GO
+EXEC sp_addextendedproperty @name = N'MS_Description',
+    @value = N'粉丝数（关注数）',
+    @level0type = N'SCHEMA',
+    @level0name = N'dbo',
+    @level1type = N'TABLE',
+    @level1name = N'StarUser',
+    @level2type = N'COLUMN',
+    @level2name = N'FansNumber'
+GO
+EXEC sp_addextendedproperty @name = N'MS_Description',
+    @value = N'点赞数',
+    @level0type = N'SCHEMA',
+    @level0name = N'dbo',
+    @level1type = N'TABLE',
+    @level1name = N'StarUser',
+    @level2type = N'COLUMN',
+    @level2name = N'LikeNumber'

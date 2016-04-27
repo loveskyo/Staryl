@@ -188,6 +188,9 @@
     <Build Include="Schema Objects\Schemas\dbo\Views\UserStarUserView.sql" />
     <Build Include="Schema Objects\Schemas\dbo\Tables\Activity.sql" />
     <Build Include="Schema Objects\Schemas\dbo\Tables\ActivityApply.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Fans.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\PraiserRecord.sql" />
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Ticket.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Debug.publish.xml" />
