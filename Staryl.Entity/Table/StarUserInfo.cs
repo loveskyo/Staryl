@@ -87,5 +87,20 @@ namespace Staryl.Entity
       /// </summary> 
       public int ParentId{get;set;}
 
+      /// <summary>
+      /// 是否推荐
+      /// </summary> 
+      public bool IsRecommend{get;set;}
+
+      /// <summary>
+      /// 粉丝数（关注数）
+      /// </summary> 
+      public int FansNumber{get;set;}
+
+      /// <summary>
+      /// 点赞数
+      /// </summary> 
+      public int LikeNumber{get;set;}
+
     }
 }

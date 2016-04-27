@@ -62,5 +62,25 @@ namespace Staryl.Entity
       /// </summary> 
       public string CreateIP{get;set;}
 
+      /// <summary>
+      /// 市
+      /// </summary> 
+      public int City{get;set;}
+
+      /// <summary>
+      /// 省
+      /// </summary> 
+      public int Province{get;set;}
+
+      /// <summary>
+      /// 地区区域
+      /// </summary> 
+      public int Area{get;set;}
+
+      /// <summary>
+      /// 活动图片，多个以“,”分隔
+      /// </summary> 
+      public string  Images{get;set;}
+
     }
 }

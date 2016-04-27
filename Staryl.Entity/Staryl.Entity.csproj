@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Table\FansInfo.cs" />
+    <Compile Include="Table\PraiserRecordInfo.cs" />
+    <Compile Include="Table\TicketInfo.cs" />
     <Compile Include="TicketEnum.cs" />
     <Compile Include="Table\ActivityApplyInfo.cs" />
     <Compile Include="Table\ActivityInfo.cs" />

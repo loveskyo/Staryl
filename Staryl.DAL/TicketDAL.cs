@@ -14,63 +14,57 @@ using Staryl.Entity;
 namespace Staryl.DAL
 {
              
-    public partial class UserDAL:BaseDAL, IUserDAL
+    public partial class TicketDAL:BaseDAL, ITicketDAL
     {
         
-public int Create(UserInfo model)
+public int Create(TicketInfo model)
         {         Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
-         sb.Append("insert into User(");
-         sb.Append("Email,Mobile,UserType,RecommendUser,RealName,Avatar,CreateDate,CreateIP,IsVIP,Password,Status,IsLogin");
+         sb.Append("insert into Ticket(");
+         sb.Append("TicketNo,UserId,StarDate,EndDate,CreateDate,CreateIP,Creator,TicketValue,TicketType");
          sb.Append(") values(");
-         sb.Append("@Email,@Mobile,@UserType,@RecommendUser,@RealName,@Avatar,@CreateDate,@CreateIP,@IsVIP,@Password,@Status,@IsLogin);SELECT @@IDENTITY;");
+         sb.Append("@TicketNo,@UserId,@StarDate,@EndDate,@CreateDate,@CreateIP,@Creator,@TicketValue,@TicketType);SELECT @@IDENTITY;");
          DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
-            db.AddInParameter(dbCommand, "@Email", DbType.String, model.Email);
-            db.AddInParameter(dbCommand, "@Mobile", DbType.String, model.Mobile);
-            db.AddInParameter(dbCommand, "@UserType", DbType.Int32, model.UserType);
-            db.AddInParameter(dbCommand, "@RecommendUser", DbType.String, model.RecommendUser);
-            db.AddInParameter(dbCommand, "@RealName", DbType.String, model.RealName);
-            db.AddInParameter(dbCommand, "@Avatar", DbType.String, model.Avatar);
+            db.AddInParameter(dbCommand, "@TicketNo", DbType.String, model.TicketNo);
+            db.AddInParameter(dbCommand, "@UserId", DbType.Int32, model.UserId);
+            db.AddInParameter(dbCommand, "@StarDate", DbType.DateTime, model.StarDate);
+            db.AddInParameter(dbCommand, "@EndDate", DbType.DateTime, model.EndDate);
             db.AddInParameter(dbCommand, "@CreateDate", DbType.DateTime, model.CreateDate);
             db.AddInParameter(dbCommand, "@CreateIP", DbType.String, model.CreateIP);
-            db.AddInParameter(dbCommand, "@IsVIP", DbType.Boolean, model.IsVIP);
-            db.AddInParameter(dbCommand, "@Password", DbType.String, model.Password);
-            db.AddInParameter(dbCommand, "@Status", DbType.Int32, model.Status);
-            db.AddInParameter(dbCommand, "@IsLogin", DbType.Boolean, model.IsLogin);
+            db.AddInParameter(dbCommand, "@Creator", DbType.Int32, model.Creator);
+            db.AddInParameter(dbCommand, "@TicketValue", DbType.Int32, model.TicketValue);
+            db.AddInParameter(dbCommand, "@TicketType", DbType.Int32, model.TicketType);
             int id = Convert.ToInt32(db.ExecuteScalar(dbCommand));  
             return id; 
       }
 
 
-      public bool Update(UserInfo model) 
+      public bool Update(TicketInfo model) 
       { 
          Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
-         sb.Append("update User set ");
-         sb.Append("Email=@Email,Mobile=@Mobile,UserType=@UserType,RecommendUser=@RecommendUser,RealName=@RealName,Avatar=@Avatar,CreateDate=@CreateDate,CreateIP=@CreateIP,IsVIP=@IsVIP,Password=@Password,Status=@Status,IsLogin=@IsLogin");
+         sb.Append("update Ticket set ");
+         sb.Append("TicketNo=@TicketNo,UserId=@UserId,StarDate=@StarDate,EndDate=@EndDate,CreateDate=@CreateDate,CreateIP=@CreateIP,Creator=@Creator,TicketValue=@TicketValue,TicketType=@TicketType");
          sb.Append(" where Id=@Id");
          DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
          db.AddInParameter(dbCommand, "@Id", DbType.Int32, model.Id);
-         db.AddInParameter(dbCommand, "@Email", DbType.String, model.Email);
-         db.AddInParameter(dbCommand, "@Mobile", DbType.String, model.Mobile);
-         db.AddInParameter(dbCommand, "@UserType", DbType.Int32, model.UserType);
-         db.AddInParameter(dbCommand, "@RecommendUser", DbType.String, model.RecommendUser);
-         db.AddInParameter(dbCommand, "@RealName", DbType.String, model.RealName);
-         db.AddInParameter(dbCommand, "@Avatar", DbType.String, model.Avatar);
+         db.AddInParameter(dbCommand, "@TicketNo", DbType.String, model.TicketNo);
+         db.AddInParameter(dbCommand, "@UserId", DbType.Int32, model.UserId);
+         db.AddInParameter(dbCommand, "@StarDate", DbType.DateTime, model.StarDate);
+         db.AddInParameter(dbCommand, "@EndDate", DbType.DateTime, model.EndDate);
          db.AddInParameter(dbCommand, "@CreateDate", DbType.DateTime, model.CreateDate);
          db.AddInParameter(dbCommand, "@CreateIP", DbType.String, model.CreateIP);
-         db.AddInParameter(dbCommand, "@IsVIP", DbType.Boolean, model.IsVIP);
-         db.AddInParameter(dbCommand, "@Password", DbType.String, model.Password);
-         db.AddInParameter(dbCommand, "@Status", DbType.Int32, model.Status);
-         db.AddInParameter(dbCommand, "@IsLogin", DbType.Boolean, model.IsLogin);
+         db.AddInParameter(dbCommand, "@Creator", DbType.Int32, model.Creator);
+         db.AddInParameter(dbCommand, "@TicketValue", DbType.Int32, model.TicketValue);
+         db.AddInParameter(dbCommand, "@TicketType", DbType.Int32, model.TicketType);
          return db.ExecuteNonQuery(dbCommand) < 1 ? false : true; 
       }
 
-      public bool Delete(UserInfo model)
+      public bool Delete(TicketInfo model)
       { 
          Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
-         sb.Append("delete from User");
+         sb.Append("delete from Ticket");
          sb.Append(" where Id=@Id");
             DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
             db.AddInParameter(dbCommand, "@Id", DbType.Int32, model.Id); 
@@ -80,21 +74,21 @@ public int Create(UserInfo model)
       { 
          Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
-         sb.Append("delete from User");
+         sb.Append("delete from Ticket");
          sb.Append(" where ID in(" + ids + ")");
             DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
             return db.ExecuteNonQuery(dbCommand) < 1 ? false : true; 
       }
 
-      public UserInfo  Get( int  Id ) 
+      public TicketInfo  Get( int  Id ) 
       {
          Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
-         sb.Append("select * from User where Id=@Id");
+         sb.Append("select * from Ticket where Id=@Id");
             DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
             db.AddInParameter(dbCommand, "@Id",  DbType.Int32,  Id); 
 
-           UserInfo model = null;
+           TicketInfo model = null;
             using (IDataReader dataReader = db.ExecuteReader(dbCommand))
             {
                 if (dataReader.Read())
@@ -106,13 +100,13 @@ public int Create(UserInfo model)
       }
 
 
-      public  List<UserInfo>  GetList(  ) 
+      public  List<TicketInfo>  GetList(  ) 
       {
          Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
-         sb.Append("select * from User order by Id desc");
+         sb.Append("select * from Ticket order by Id desc");
             DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
-            List<UserInfo> list =  new List<UserInfo>();
+            List<TicketInfo> list =  new List<TicketInfo>();
             using (IDataReader dataReader = db.ExecuteReader(dbCommand))
             {
                 while (dataReader.Read())
@@ -124,11 +118,11 @@ public int Create(UserInfo model)
       }
 
 
-      public  List<UserInfo>  GetPageList( int pageIndex, int pageSize, string where, string orderBy, out int recordCount, bool doCount  ) 
+      public  List<TicketInfo>  GetPageList( int pageIndex, int pageSize, string where, string orderBy, out int recordCount, bool doCount  ) 
       {
          Database db = DBHelper.CreateDataBase();
             DbCommand dbCommand = db.GetStoredProcCommand("sp_Pager2005");  
-            db.AddInParameter(dbCommand, "tblName", DbType.String, "User");
+            db.AddInParameter(dbCommand, "tblName", DbType.String, "Ticket");
              db.AddInParameter(dbCommand, "strGetFields", DbType.String, "*");
             db.AddInParameter(dbCommand, "strOrder", DbType.String, orderBy);
             db.AddInParameter(dbCommand, "strWhere", DbType.String, where.Trim());
@@ -136,7 +130,7 @@ public int Create(UserInfo model)
             db.AddInParameter(dbCommand, "pageSize", DbType.Int32, pageSize);
             db.AddOutParameter(dbCommand, "recordCount", DbType.Int32, 8);
             db.AddInParameter(dbCommand, "doCount", DbType.Boolean, doCount); 
-            List<UserInfo> list =  new List<UserInfo>();
+            List<TicketInfo> list =  new List<TicketInfo>();
             using (IDataReader dataReader = db.ExecuteReader(dbCommand))
             {
                 while (dataReader.Read())
@@ -149,7 +143,7 @@ public int Create(UserInfo model)
       }
 
 
-      public  List<UserInfo>  GetListByWhere(int count, string where=null, string fields=null, string orderBy = null ) 
+      public  List<TicketInfo>  GetListByWhere(int count, string where=null, string fields=null, string orderBy = null ) 
       {
          Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
@@ -158,9 +152,9 @@ public int Create(UserInfo model)
          if(string.IsNullOrEmpty(fields)) fields="*";
          if(string.IsNullOrEmpty(orderBy)) orderBy=" order by Id desc";
          if(!string.IsNullOrEmpty(where)) where=" where " + where + "";
-         sb.Append("select"+top+" "+fields+" from User"+where+""+orderBy+"");
+         sb.Append("select"+top+" "+fields+" from Ticket"+where+""+orderBy+"");
             DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
-            List<UserInfo> list =  new List<UserInfo>();
+            List<TicketInfo> list =  new List<TicketInfo>();
             using (IDataReader dataReader = db.ExecuteReader(dbCommand))
             {
                 while (dataReader.Read())
@@ -172,44 +166,34 @@ public int Create(UserInfo model)
       }
 
 
-      private UserInfo  FillList(  IDataReader dataReader  )
+      private TicketInfo  FillList(  IDataReader dataReader  )
       { 
-            UserInfo model = new UserInfo();
+            TicketInfo model = new TicketInfo();
             object ojb;
             ojb = dataReader["Id"]; 
             if (ojb != null && ojb != DBNull.Value)
             {
                 model.Id = ( int)(ojb);
             }
-            ojb = dataReader["Email"]; 
+            ojb = dataReader["TicketNo"]; 
             if (ojb != null && ojb != DBNull.Value)
             {
-                model.Email = ( string)(ojb);
+                model.TicketNo = ( string)(ojb);
             }
-            ojb = dataReader["Mobile"]; 
+            ojb = dataReader["UserId"]; 
             if (ojb != null && ojb != DBNull.Value)
             {
-                model.Mobile = ( string)(ojb);
+                model.UserId = ( int)(ojb);
             }
-            ojb = dataReader["UserType"]; 
+            ojb = dataReader["StarDate"]; 
             if (ojb != null && ojb != DBNull.Value)
             {
-                model.UserType = ( int)(ojb);
+                model.StarDate = ( DateTime)(ojb);
             }
-            ojb = dataReader["RecommendUser"]; 
+            ojb = dataReader["EndDate"]; 
             if (ojb != null && ojb != DBNull.Value)
             {
-                model.RecommendUser = ( string)(ojb);
-            }
-            ojb = dataReader["RealName"]; 
-            if (ojb != null && ojb != DBNull.Value)
-            {
-                model.RealName = ( string)(ojb);
-            }
-            ojb = dataReader["Avatar"]; 
-            if (ojb != null && ojb != DBNull.Value)
-            {
-                model.Avatar = ( string)(ojb);
+                model.EndDate = ( DateTime)(ojb);
             }
             ojb = dataReader["CreateDate"]; 
             if (ojb != null && ojb != DBNull.Value)
@@ -221,38 +205,33 @@ public int Create(UserInfo model)
             {
                 model.CreateIP = ( string)(ojb);
             }
-            ojb = dataReader["IsVIP"]; 
+            ojb = dataReader["Creator"]; 
             if (ojb != null && ojb != DBNull.Value)
             {
-                model.IsVIP = ( bool)(ojb);
+                model.Creator = ( int)(ojb);
             }
-            ojb = dataReader["Password"]; 
+            ojb = dataReader["TicketValue"]; 
             if (ojb != null && ojb != DBNull.Value)
             {
-                model.Password = ( string)(ojb);
+                model.TicketValue = ( int)(ojb);
             }
-            ojb = dataReader["Status"]; 
+            ojb = dataReader["TicketType"]; 
             if (ojb != null && ojb != DBNull.Value)
             {
-                model.Status = ( int)(ojb);
-            }
-            ojb = dataReader["IsLogin"]; 
-            if (ojb != null && ojb != DBNull.Value)
-            {
-                model.IsLogin = ( bool)(ojb);
+                model.TicketType = ( int)(ojb);
             }
 
             return model;
         }
 
 
-        public  bool Create(List<UserInfo> list)
+        public  bool Create(List<TicketInfo> list)
         { 
-bool suc = BaseDAL.ExecuteTransactionScopeInsert(this.ToDataTable(list), 250, "User"); return suc; }
+bool suc = BaseDAL.ExecuteTransactionScopeInsert(this.ToDataTable(list), 250, "Ticket"); return suc; }
 
 
 
-         private    DataTable  ToDataTable(List<UserInfo> list)
+         private    DataTable  ToDataTable(List<TicketInfo> list)
         { 
             if (list == null || list.Count <1)
             {
@@ -262,7 +241,7 @@ bool suc = BaseDAL.ExecuteTransactionScopeInsert(this.ToDataTable(list), 250, "U
             if (list.Count > 0)
             {
 
-                string columnNameList = "?Id??Email??Mobile??UserType??RecommendUser??RealName??Avatar??CreateDate??CreateIP??IsVIP??Password??Status??IsLogin?"; 
+                string columnNameList = "?Id??TicketNo??UserId??StarDate??EndDate??CreateDate??CreateIP??Creator??TicketValue??TicketType?"; 
 
                 PropertyInfo[] propertys = list[0].GetType().GetProperties();
                 foreach (PropertyInfo pi in propertys)
@@ -287,18 +266,15 @@ bool suc = BaseDAL.ExecuteTransactionScopeInsert(this.ToDataTable(list), 250, "U
                 DataRow dr = result.NewRow();
             
                 dr["Id"] = list[i].Id; 
-                dr["Email"] = list[i].Email; 
-                dr["Mobile"] = list[i].Mobile; 
-                dr["UserType"] = list[i].UserType; 
-                dr["RecommendUser"] = list[i].RecommendUser; 
-                dr["RealName"] = list[i].RealName; 
-                dr["Avatar"] = list[i].Avatar; 
+                dr["TicketNo"] = list[i].TicketNo; 
+                dr["UserId"] = list[i].UserId; 
+                dr["StarDate"] = list[i].StarDate; 
+                dr["EndDate"] = list[i].EndDate; 
                 dr["CreateDate"] = list[i].CreateDate; 
                 dr["CreateIP"] = list[i].CreateIP; 
-                dr["IsVIP"] = list[i].IsVIP; 
-                dr["Password"] = list[i].Password; 
-                dr["Status"] = list[i].Status; 
-                dr["IsLogin"] = list[i].IsLogin; 
+                dr["Creator"] = list[i].Creator; 
+                dr["TicketValue"] = list[i].TicketValue; 
+                dr["TicketType"] = list[i].TicketType; 
 
                 result.Rows.Add(dr );
             }
@@ -310,32 +286,13 @@ bool suc = BaseDAL.ExecuteTransactionScopeInsert(this.ToDataTable(list), 250, "U
 
 
 
-        public UserInfo  GetByEmail(string Email)
+        public TicketInfo  GetByTicketNo(string TicketNo)
         {         Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
-         sb.Append("select * from User where Email=@Email");
+         sb.Append("select * from Ticket where TicketNo=@TicketNo");
             DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
-            db.AddInParameter(dbCommand, "@Email",  DbType.String,  Email); 
-            UserInfo model = null;
-            using (IDataReader dataReader = db.ExecuteReader(dbCommand))
-            {
-                if (dataReader.Read())
-                {
-                    model = FillList(dataReader);
-                }
-            }
-            return model; 
-      }
-
-
-
-        public UserInfo  GetByMobile(string Mobile)
-        {         Database db = DBHelper.CreateDataBase();
-         StringBuilder sb = new StringBuilder();
-         sb.Append("select * from User where Mobile=@Mobile");
-            DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
-            db.AddInParameter(dbCommand, "@Mobile",  DbType.String,  Mobile); 
-            UserInfo model = null;
+            db.AddInParameter(dbCommand, "@TicketNo",  DbType.String,  TicketNo); 
+            TicketInfo model = null;
             using (IDataReader dataReader = db.ExecuteReader(dbCommand))
             {
                 if (dataReader.Read())

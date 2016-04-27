@@ -14,63 +14,47 @@ using Staryl.Entity;
 namespace Staryl.DAL
 {
              
-    public partial class UserDAL:BaseDAL, IUserDAL
+    public partial class FansDAL:BaseDAL, IFansDAL
     {
         
-public int Create(UserInfo model)
+public int Create(FansInfo model)
         {         Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
-         sb.Append("insert into User(");
-         sb.Append("Email,Mobile,UserType,RecommendUser,RealName,Avatar,CreateDate,CreateIP,IsVIP,Password,Status,IsLogin");
+         sb.Append("insert into Fans(");
+         sb.Append("StarId,FansId,CreateDate,CreateIP");
          sb.Append(") values(");
-         sb.Append("@Email,@Mobile,@UserType,@RecommendUser,@RealName,@Avatar,@CreateDate,@CreateIP,@IsVIP,@Password,@Status,@IsLogin);SELECT @@IDENTITY;");
+         sb.Append("@StarId,@FansId,@CreateDate,@CreateIP);SELECT @@IDENTITY;");
          DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
-            db.AddInParameter(dbCommand, "@Email", DbType.String, model.Email);
-            db.AddInParameter(dbCommand, "@Mobile", DbType.String, model.Mobile);
-            db.AddInParameter(dbCommand, "@UserType", DbType.Int32, model.UserType);
-            db.AddInParameter(dbCommand, "@RecommendUser", DbType.String, model.RecommendUser);
-            db.AddInParameter(dbCommand, "@RealName", DbType.String, model.RealName);
-            db.AddInParameter(dbCommand, "@Avatar", DbType.String, model.Avatar);
+            db.AddInParameter(dbCommand, "@StarId", DbType.Int32, model.StarId);
+            db.AddInParameter(dbCommand, "@FansId", DbType.Int32, model.FansId);
             db.AddInParameter(dbCommand, "@CreateDate", DbType.DateTime, model.CreateDate);
             db.AddInParameter(dbCommand, "@CreateIP", DbType.String, model.CreateIP);
-            db.AddInParameter(dbCommand, "@IsVIP", DbType.Boolean, model.IsVIP);
-            db.AddInParameter(dbCommand, "@Password", DbType.String, model.Password);
-            db.AddInParameter(dbCommand, "@Status", DbType.Int32, model.Status);
-            db.AddInParameter(dbCommand, "@IsLogin", DbType.Boolean, model.IsLogin);
             int id = Convert.ToInt32(db.ExecuteScalar(dbCommand));  
             return id; 
       }
 
 
-      public bool Update(UserInfo model) 
+      public bool Update(FansInfo model) 
       { 
          Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
-         sb.Append("update User set ");
-         sb.Append("Email=@Email,Mobile=@Mobile,UserType=@UserType,RecommendUser=@RecommendUser,RealName=@RealName,Avatar=@Avatar,CreateDate=@CreateDate,CreateIP=@CreateIP,IsVIP=@IsVIP,Password=@Password,Status=@Status,IsLogin=@IsLogin");
+         sb.Append("update Fans set ");
+         sb.Append("StarId=@StarId,FansId=@FansId,CreateDate=@CreateDate,CreateIP=@CreateIP");
          sb.Append(" where Id=@Id");
          DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
          db.AddInParameter(dbCommand, "@Id", DbType.Int32, model.Id);
-         db.AddInParameter(dbCommand, "@Email", DbType.String, model.Email);
-         db.AddInParameter(dbCommand, "@Mobile", DbType.String, model.Mobile);
-         db.AddInParameter(dbCommand, "@UserType", DbType.Int32, model.UserType);
-         db.AddInParameter(dbCommand, "@RecommendUser", DbType.String, model.RecommendUser);
-         db.AddInParameter(dbCommand, "@RealName", DbType.String, model.RealName);
-         db.AddInParameter(dbCommand, "@Avatar", DbType.String, model.Avatar);
+         db.AddInParameter(dbCommand, "@StarId", DbType.Int32, model.StarId);
+         db.AddInParameter(dbCommand, "@FansId", DbType.Int32, model.FansId);
          db.AddInParameter(dbCommand, "@CreateDate", DbType.DateTime, model.CreateDate);
          db.AddInParameter(dbCommand, "@CreateIP", DbType.String, model.CreateIP);
-         db.AddInParameter(dbCommand, "@IsVIP", DbType.Boolean, model.IsVIP);
-         db.AddInParameter(dbCommand, "@Password", DbType.String, model.Password);
-         db.AddInParameter(dbCommand, "@Status", DbType.Int32, model.Status);
-         db.AddInParameter(dbCommand, "@IsLogin", DbType.Boolean, model.IsLogin);
          return db.ExecuteNonQuery(dbCommand) < 1 ? false : true; 
       }
 
-      public bool Delete(UserInfo model)
+      public bool Delete(FansInfo model)
       { 
          Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
-         sb.Append("delete from User");
+         sb.Append("delete from Fans");
          sb.Append(" where Id=@Id");
             DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
             db.AddInParameter(dbCommand, "@Id", DbType.Int32, model.Id); 
@@ -80,21 +64,21 @@ public int Create(UserInfo model)
       { 
          Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
-         sb.Append("delete from User");
+         sb.Append("delete from Fans");
          sb.Append(" where ID in(" + ids + ")");
             DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
             return db.ExecuteNonQuery(dbCommand) < 1 ? false : true; 
       }
 
-      public UserInfo  Get( int  Id ) 
+      public FansInfo  Get( int  Id ) 
       {
          Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
-         sb.Append("select * from User where Id=@Id");
+         sb.Append("select * from Fans where Id=@Id");
             DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
             db.AddInParameter(dbCommand, "@Id",  DbType.Int32,  Id); 
 
-           UserInfo model = null;
+           FansInfo model = null;
             using (IDataReader dataReader = db.ExecuteReader(dbCommand))
             {
                 if (dataReader.Read())
@@ -106,13 +90,13 @@ public int Create(UserInfo model)
       }
 
 
-      public  List<UserInfo>  GetList(  ) 
+      public  List<FansInfo>  GetList(  ) 
       {
          Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
-         sb.Append("select * from User order by Id desc");
+         sb.Append("select * from Fans order by Id desc");
             DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
-            List<UserInfo> list =  new List<UserInfo>();
+            List<FansInfo> list =  new List<FansInfo>();
             using (IDataReader dataReader = db.ExecuteReader(dbCommand))
             {
                 while (dataReader.Read())
@@ -124,11 +108,11 @@ public int Create(UserInfo model)
       }
 
 
-      public  List<UserInfo>  GetPageList( int pageIndex, int pageSize, string where, string orderBy, out int recordCount, bool doCount  ) 
+      public  List<FansInfo>  GetPageList( int pageIndex, int pageSize, string where, string orderBy, out int recordCount, bool doCount  ) 
       {
          Database db = DBHelper.CreateDataBase();
             DbCommand dbCommand = db.GetStoredProcCommand("sp_Pager2005");  
-            db.AddInParameter(dbCommand, "tblName", DbType.String, "User");
+            db.AddInParameter(dbCommand, "tblName", DbType.String, "Fans");
              db.AddInParameter(dbCommand, "strGetFields", DbType.String, "*");
             db.AddInParameter(dbCommand, "strOrder", DbType.String, orderBy);
             db.AddInParameter(dbCommand, "strWhere", DbType.String, where.Trim());
@@ -136,7 +120,7 @@ public int Create(UserInfo model)
             db.AddInParameter(dbCommand, "pageSize", DbType.Int32, pageSize);
             db.AddOutParameter(dbCommand, "recordCount", DbType.Int32, 8);
             db.AddInParameter(dbCommand, "doCount", DbType.Boolean, doCount); 
-            List<UserInfo> list =  new List<UserInfo>();
+            List<FansInfo> list =  new List<FansInfo>();
             using (IDataReader dataReader = db.ExecuteReader(dbCommand))
             {
                 while (dataReader.Read())
@@ -149,7 +133,7 @@ public int Create(UserInfo model)
       }
 
 
-      public  List<UserInfo>  GetListByWhere(int count, string where=null, string fields=null, string orderBy = null ) 
+      public  List<FansInfo>  GetListByWhere(int count, string where=null, string fields=null, string orderBy = null ) 
       {
          Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
@@ -158,9 +142,9 @@ public int Create(UserInfo model)
          if(string.IsNullOrEmpty(fields)) fields="*";
          if(string.IsNullOrEmpty(orderBy)) orderBy=" order by Id desc";
          if(!string.IsNullOrEmpty(where)) where=" where " + where + "";
-         sb.Append("select"+top+" "+fields+" from User"+where+""+orderBy+"");
+         sb.Append("select"+top+" "+fields+" from Fans"+where+""+orderBy+"");
             DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
-            List<UserInfo> list =  new List<UserInfo>();
+            List<FansInfo> list =  new List<FansInfo>();
             using (IDataReader dataReader = db.ExecuteReader(dbCommand))
             {
                 while (dataReader.Read())
@@ -172,44 +156,24 @@ public int Create(UserInfo model)
       }
 
 
-      private UserInfo  FillList(  IDataReader dataReader  )
+      private FansInfo  FillList(  IDataReader dataReader  )
       { 
-            UserInfo model = new UserInfo();
+            FansInfo model = new FansInfo();
             object ojb;
             ojb = dataReader["Id"]; 
             if (ojb != null && ojb != DBNull.Value)
             {
                 model.Id = ( int)(ojb);
             }
-            ojb = dataReader["Email"]; 
+            ojb = dataReader["StarId"]; 
             if (ojb != null && ojb != DBNull.Value)
             {
-                model.Email = ( string)(ojb);
+                model.StarId = ( int)(ojb);
             }
-            ojb = dataReader["Mobile"]; 
+            ojb = dataReader["FansId"]; 
             if (ojb != null && ojb != DBNull.Value)
             {
-                model.Mobile = ( string)(ojb);
-            }
-            ojb = dataReader["UserType"]; 
-            if (ojb != null && ojb != DBNull.Value)
-            {
-                model.UserType = ( int)(ojb);
-            }
-            ojb = dataReader["RecommendUser"]; 
-            if (ojb != null && ojb != DBNull.Value)
-            {
-                model.RecommendUser = ( string)(ojb);
-            }
-            ojb = dataReader["RealName"]; 
-            if (ojb != null && ojb != DBNull.Value)
-            {
-                model.RealName = ( string)(ojb);
-            }
-            ojb = dataReader["Avatar"]; 
-            if (ojb != null && ojb != DBNull.Value)
-            {
-                model.Avatar = ( string)(ojb);
+                model.FansId = ( int)(ojb);
             }
             ojb = dataReader["CreateDate"]; 
             if (ojb != null && ojb != DBNull.Value)
@@ -221,38 +185,18 @@ public int Create(UserInfo model)
             {
                 model.CreateIP = ( string)(ojb);
             }
-            ojb = dataReader["IsVIP"]; 
-            if (ojb != null && ojb != DBNull.Value)
-            {
-                model.IsVIP = ( bool)(ojb);
-            }
-            ojb = dataReader["Password"]; 
-            if (ojb != null && ojb != DBNull.Value)
-            {
-                model.Password = ( string)(ojb);
-            }
-            ojb = dataReader["Status"]; 
-            if (ojb != null && ojb != DBNull.Value)
-            {
-                model.Status = ( int)(ojb);
-            }
-            ojb = dataReader["IsLogin"]; 
-            if (ojb != null && ojb != DBNull.Value)
-            {
-                model.IsLogin = ( bool)(ojb);
-            }
 
             return model;
         }
 
 
-        public  bool Create(List<UserInfo> list)
+        public  bool Create(List<FansInfo> list)
         { 
-bool suc = BaseDAL.ExecuteTransactionScopeInsert(this.ToDataTable(list), 250, "User"); return suc; }
+bool suc = BaseDAL.ExecuteTransactionScopeInsert(this.ToDataTable(list), 250, "Fans"); return suc; }
 
 
 
-         private    DataTable  ToDataTable(List<UserInfo> list)
+         private    DataTable  ToDataTable(List<FansInfo> list)
         { 
             if (list == null || list.Count <1)
             {
@@ -262,7 +206,7 @@ bool suc = BaseDAL.ExecuteTransactionScopeInsert(this.ToDataTable(list), 250, "U
             if (list.Count > 0)
             {
 
-                string columnNameList = "?Id??Email??Mobile??UserType??RecommendUser??RealName??Avatar??CreateDate??CreateIP??IsVIP??Password??Status??IsLogin?"; 
+                string columnNameList = "?Id??StarId??FansId??CreateDate??CreateIP?"; 
 
                 PropertyInfo[] propertys = list[0].GetType().GetProperties();
                 foreach (PropertyInfo pi in propertys)
@@ -287,18 +231,10 @@ bool suc = BaseDAL.ExecuteTransactionScopeInsert(this.ToDataTable(list), 250, "U
                 DataRow dr = result.NewRow();
             
                 dr["Id"] = list[i].Id; 
-                dr["Email"] = list[i].Email; 
-                dr["Mobile"] = list[i].Mobile; 
-                dr["UserType"] = list[i].UserType; 
-                dr["RecommendUser"] = list[i].RecommendUser; 
-                dr["RealName"] = list[i].RealName; 
-                dr["Avatar"] = list[i].Avatar; 
+                dr["StarId"] = list[i].StarId; 
+                dr["FansId"] = list[i].FansId; 
                 dr["CreateDate"] = list[i].CreateDate; 
                 dr["CreateIP"] = list[i].CreateIP; 
-                dr["IsVIP"] = list[i].IsVIP; 
-                dr["Password"] = list[i].Password; 
-                dr["Status"] = list[i].Status; 
-                dr["IsLogin"] = list[i].IsLogin; 
 
                 result.Rows.Add(dr );
             }
@@ -310,32 +246,14 @@ bool suc = BaseDAL.ExecuteTransactionScopeInsert(this.ToDataTable(list), 250, "U
 
 
 
-        public UserInfo  GetByEmail(string Email)
+        public FansInfo  GetByStarId_FansId(int StarId,int FansId)
         {         Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
-         sb.Append("select * from User where Email=@Email");
+         sb.Append("select * from Fans where StarId=@StarId and FansId=@FansId");
             DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
-            db.AddInParameter(dbCommand, "@Email",  DbType.String,  Email); 
-            UserInfo model = null;
-            using (IDataReader dataReader = db.ExecuteReader(dbCommand))
-            {
-                if (dataReader.Read())
-                {
-                    model = FillList(dataReader);
-                }
-            }
-            return model; 
-      }
-
-
-
-        public UserInfo  GetByMobile(string Mobile)
-        {         Database db = DBHelper.CreateDataBase();
-         StringBuilder sb = new StringBuilder();
-         sb.Append("select * from User where Mobile=@Mobile");
-            DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
-            db.AddInParameter(dbCommand, "@Mobile",  DbType.String,  Mobile); 
-            UserInfo model = null;
+            db.AddInParameter(dbCommand, "@StarId",  DbType.Int32,  StarId); 
+            db.AddInParameter(dbCommand, "@FansId",  DbType.Int32,  FansId); 
+            FansInfo model = null;
             using (IDataReader dataReader = db.ExecuteReader(dbCommand))
             {
                 if (dataReader.Read())

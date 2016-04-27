@@ -5,14 +5,20 @@
 @section style {
     <!-- daterange picker -->
     <link rel="stylesheet" href="@(StaticDomain)plugins/datepicker/datepicker3.css">
+    <link href="@(StaticDomain)plugins/webupload/webuploader.css" rel="stylesheet" />
+
     <style>
-        #upimg {
-            width: 100%;
-        }
+
 
             #upimg .webuploader-pick {
                 width: 100%;
+        height:100%;
+        background:none;padding:0px;
+
             }
+        #upimg .webuploader-pick:hover{
+        background:none;
+        }
         .imgadd {
             width: 91px;
             height: 91px;
@@ -21,6 +27,8 @@
             margin-right: 16px;
             background: url(@(StaticDomain)/img/cp_img_tj.png) no-repeat;
         }
+        #fileLists{width:91px; height:91px;}
+        .send-img-item a{ position: absolute;}
     </style>
 }
 <!-- Content Header (Page header) -->
@@ -114,12 +122,21 @@
                         </div>
                     </div>
 
+
                     <div class="form-group">
                         <label class="col-sm-2 control-label">活动图片</label>
                         <div class="col-sm-10">
-                                <div id="fileLists">
-                                </div>
-                                <div class="imgadd" id="filePickers"></div>
+                            <div class="imgadd" id="upimg"></div>
+                            <div id="fileLists">
+                            </div>
+                            <input type="hidden" id="Images" name="Images" value="" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">排序</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="OrderBy" name="OrderBy" placeholder="输入数字，数字越小越往前排" />
                         </div>
                     </div>
 
@@ -131,8 +148,6 @@
                             </div>
                         </div>
                     </div>
-
-
                     <div class="form-group">
                         <label class="col-sm-2 control-label">
                             &nbsp;
@@ -158,9 +173,11 @@
     <script src="@(StaticDomain)js/language/zh_CN.js"></script>
     <script src="@(StaticDomain)plugins/datepicker/bootstrap-datepicker.js"></script>
     <script src="@(StaticDomain)plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
-<script src="//cdn.ckeditor.com/4.5.8/standard/ckeditor.js"></script>
+    <script src="@(StaticDomain)plugins/webupload/webuploader.js"></script>
 
-        <script type="text/javascript">
+    <script src="//cdn.ckeditor.com/4.5.8/standard/ckeditor.js"></script>
+
+    <script type="text/javascript">
         var BASE_URL = "@(StaticDomain)";
         var city = "-1";
         var area = "-1";
@@ -172,7 +189,7 @@
             $(".date").datepicker({ clearBtn: true, format: "yyyy-mm-dd", language: "zh-CN" });
 
             CKEDITOR.replace('Content', {
-                //图片上传发送路径，returnURL为参数,到服务器后跳转回来的页面  
+                //图片上传发送路径，returnURL为参数,到服务器后跳转回来的页面
                 filebrowserImageUploadUrl: '/activity/UploadImg'
             });
 
@@ -241,117 +258,45 @@
             }
             Province();
 
-            $("#userform").bootstrapValidator({
-                message: 'This value is not valid',
+            $('#addform').bootstrapValidator({
+                message: '',
                 feedbackIcons: {
                     valid: 'glyphicon glyphicon-ok',
                     invalid: 'glyphicon glyphicon-remove',
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-                    Email: {
-                        validators: {
-                            emailAddress: {
-                                message: '请输入正确的邮箱地址'
-                            },
-                            remote: {
-                                url: '/user/CheckMobileOrEmail',
-                                type: 'POST',
-                                message: '该邮箱已被注册，请使用其他邮箱地址'
-                            },
-                        }
-                    },
-                    Mobile: {
+                    
+                    Title: {
                         validators: {
                             notEmpty: {
-                                message: '手机号不可为空'
-                            },
-                            regexp: {
-                                regexp: /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/,
-                                message: '请输入正确的手机号码'
-                            },
-                            remote: {
-                                url: '/user/CheckMobileOrEmail',
-                                type: 'POST',
-                                message: '该手机已被注册，请使用其他手机号码'
+                                message: '活动主题不可为空'
                             }
                         }
                     },
-                    Password: {
+                    BriefIntroduction: {
                         validators: {
                             notEmpty: {
-                                message: '请输入用户密码'
-                            }, stringLength: {
-                                min: 6,
-                                max: 20,
-                                message: '密码为6到20个字符'
+                                message: '活动简介不可为空'
+                            }
+                        }
+                    },
+                    Content: {
+                        validators: {
+                            notEmpty: {
+                                message: '经历内容不能为空'
+                            }
+                        }
+                    }, Images: {
+                        validators: {
+                            notEmpty: {
+                                message: '活动图片不能为空'
                             }
                         }
                     }
-
-                }
-            })
-           .on('success.form.bv', function (e) {
-               e.preventDefault();
-
-               // Get the form instance
-               var $form = $(e.target);
-
-               // Get the BootstrapValidator instance
-               var bv = $form.data('bootstrapValidator');
-
-               // Use Ajax to submit form data
-               $.post($form.attr('action'), $form.serialize(), function (result) {
-                   parent.$.CheckLogin(result);
-                   if (result.MsgNo == 1) {
-                       $("#ParentId").val(result.Msg);
-                       $("a[href='#txinfo']").click();
-                       //$("#txsubmit").click();
-                       //$("a[href='#txinfo']").click();
-
-                   } else {
-                       Modal.alert({
-                           msg: result.Msg
-                       })
-                   }
-               }, 'json');
-           });
-
-            $("#txform").bootstrapValidator({
-                message: 'This value is not valid',
-                feedbackIcons: {
-                    valid: 'glyphicon glyphicon-ok',
-                    invalid: 'glyphicon glyphicon-remove',
-                    validating: 'glyphicon glyphicon-refresh'
-                },
-                fields: {
-                    RealName: {
-                        validators: {
-                            notEmpty: {
-                                message: '请输入小童星真实姓名'
-                            }
-                        }
-                    },
-                    Gender: {
-                        validators: {
-                            notEmpty: {
-                                message: '请选择小童星性别'
-                            }
-                        }
-                    },
-                    Birthday: {
-                        validators: {
-                            notEmpty: {
-                                message: '请输入小童星的生日'
-                            },
-                            date: {
-                                format: 'YYYY-MM-DD'
-                            }
-                        }
-                    }
-
                 }
             }).on('success.form.bv', function (e) {
+                // Prevent form submission
                 e.preventDefault();
 
                 // Get the form instance
@@ -359,52 +304,158 @@
 
                 // Get the BootstrapValidator instance
                 var bv = $form.data('bootstrapValidator');
-
                 // Use Ajax to submit form data
-                $.post($form.attr('action'), $form.serialize(), function (result) {
-                    parent.$.CheckLogin(result);
-                    if (result.MsgNo == 1) {
-                        location = "/user";
-                    } else {
-                        Modal.alert({
-                            msg: result.Msg
-                        })
-                    }
-                }, 'json');
-                return false;
-            });
-
-            $(".date").on('dp.change dp.show', function (e) {
-                // Validate the date when user change it
-                $('#txform')
-                    // Get the bootstrapValidator instance
-                    .data('bootstrapValidator')
-                    // Mark the field as not validated, so it'll be re-validated when the user change date
-                    .updateStatus('revalidateField', 'NOT_VALIDATED', null)
-                    // Validate the field
-                    .validateField('Birthday');
+                uploader.upload();
             });
 
 
-            $("#txsubmit").click(function () {
-                if ($("#ParentId").val().length <= 0) {
-                    Modal.alert({
-                        msg: "请选填写会员基本信息"
-                    });
-                    $("a[href='#settings']").click();
-                } else {
-                    $('#txform').bootstrapValidator('validate');
-                    if ($("#txform").data('bootstrapValidator').isValid()) {
-                        //$("#txform").submit();
+
+            /*上传插件*/
+            $list = $('#fileLists'),
+            // 优化retina, 在retina下这个值是2
+            ratio = window.devicePixelRatio || 1,
+
+            // 缩略图大小
+            thumbnailWidth = 91 * ratio,
+            thumbnailHeight = 91 * ratio,
+
+
+            // 初始化Web Uploader
+         uploader = WebUploader.create({
+
+             // 自动上传。
+             //auto: true,
+
+             // swf文件路径
+             swf: BASE_URL + 'plugins/webupload/Uploader.swf',
+
+             // 文件接收服务端。
+             server: '/CreateUpload',
+
+             // 选择文件的按钮。可选。
+             // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+             pick: '#upimg',
+             formData: {},
+             //二进制上传
+             sendAsBinary: true,
+             // 只允许选择文件，可选。
+             accept: {
+                 title: 'Images',
+                 extensions: 'gif,jpg,jpeg,bmp,png',
+                 mimeTypes: 'image/*'
+             },
+             fileNumLimit: 1,
+             fileSingleSizeLimit: 10500000,
+         });
+
+            // 当有文件添加进来的时候
+            uploader.on('fileQueued', function (file) {
+                var $li = $(
+                        '<div id="' + file.id + '" class="send-img-item">' +
+                            '<a href="#" class="glyphicon glyphicon-remove dlt-a remove-this"></a><img alt=' + file.name + '>' +
+                        '</div>'
+                        ),
+
+                    $img = $li.find('img');
+
+                $list.append($li);
+                $("#upimg").hide();
+
+                // 创建缩略图
+                uploader.makeThumb(file, function (error, src) {
+                    if (error) {
+                        $img.replaceWith('<span>不能预览</span>');
+                        return;
                     }
+
+                    $img.attr('src', src);
+                }, thumbnailWidth, thumbnailHeight);
+
+                $li.on('click', '.remove-this', function () {
+                    uploader.removeFile(file, true);
+                    $li.remove();
+                    $("#upimg").show();
+                    return false;
+                })
+
+
+            });
+
+            // 文件上传过程中创建进度条实时显示。
+            uploader.on('uploadProgress', function (file, percentage) {
+                var $li = $('#' + file.id),
+                    $percent = $li.find('.progress span');
+
+                // 避免重复创建
+                if (!$percent.length) {
+                    $percent = $('<p class="progress"><span></span></p>')
+                            .appendTo($li)
+                            .find('span');
+                }
+
+                $percent.css('width', percentage * 100 + '%');
+            });
+
+            // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+            uploader.on('uploadSuccess', function (file, response) {
+                var photos = $("#Images").val();
+                if (photos.length <= 0)
+                    photos = response.filepath;
+                else
+                    photos += "," + response.filepath;
+                $("#Images").val(photos);
+
+                $('#' + file.id).addClass('upload-state-done');
+            });
+
+            // 文件上传失败，现实上传出错。
+            uploader.on('uploadError', function (file) {
+                var $li = $('#' + file.id),
+                    $error = $li.find('div.error');
+
+                // 避免重复创建
+                if (!$error.length) {
+                    $error = $('<div class="error"></div>').appendTo($li);
+                }
+
+                $error.text('上传失败');
+            });
+
+            // 完成上传完了，成功或者失败，先删除进度条。
+            uploader.on('uploadComplete', function (file) {
+                $('#' + file.id).find('.progress').remove();
+            });
+
+            uploader.on('error', function (type) {
+                switch (type) {
+                    case "Q_EXCEED_NUM_LIMIT":
+                        Modal.alert({ title: "错误提示", msg: "一次最多只能上传 1 张图片" });
+                        break;
+                    case "F_EXCEED_SIZE":
+                        Modal.alert({ title: "错误提示", msg: "上传图片大小不能超过 10M" });
+                        break;
+
                 }
             });
 
+            uploader.on("uploadFinished", function () {
+
+                $.post($("#addform").attr('action'), $("#addform").serializeJson(), function (result) {
+                    if (Number(result) == 1) {
+                        //location = "/account/starview";
+                    } else {
+                        Modal.alert({
+                            msg: result.Msg
+                        });
+                    }
+                }, 'json');
+            });
+            /*上传插件结束*/
 
 
         });
 
-        function upimg(cbfun, str) {//上传文件页面上传成功后将返回图片的完整路径名，然后我们就可以将其插入编辑其中 
+        function upimg(cbfun, str) {//上传文件页面上传成功后将返回图片的完整路径名，然后我们就可以将其插入编辑其中
 
             if (str == "undefined" || str == "") {
                 return;
@@ -415,7 +466,7 @@
             CKEDITOR.tools.callFunction(cbfun, str, '')
 
 
-            //CKEDITOR.instances.Content.insertHtml(str);//调用CKEditor的JS接口将图片插入 
+            //CKEDITOR.instances.Content.insertHtml(str);//调用CKEditor的JS接口将图片插入
             //close();
         }
 
