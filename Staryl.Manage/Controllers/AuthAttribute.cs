@@ -70,7 +70,6 @@ namespace Staryl.Manage.Controllers
         /// <param name="filterContext"></param>
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            return;
             if (AnonymousPage.Contains( filterContext.ActionDescriptor.ControllerDescriptor.ControllerName))
                 return;
             //如果存在身份信息

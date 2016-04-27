@@ -21,9 +21,11 @@ namespace Staryl.Entity
     /// </summary>
     public enum ActivityTypeEnum
     {
-        亲子活动 = 0,
-        公益活动 = 1,
-        其他活动 = 2
+        其他 = 0,
+        演出通告 = 1,
+        公益活动 = 2,
+        亲子活动 = 3,
+        第三方活动 = 4
     }
 
     /// <summary>
