@@ -59,7 +59,7 @@
         <table id="list" class="table table-hover">
             <tr>
                 <th><input type="checkbox" class="minimal" id="selectAll" /></th>
-                <th>活动主题</th>
+                <th style="width:30%;">活动主题</th>
                 <th>所在城市</th>
                 <th>活动类型</th>
                 <th>收费类型</th>
@@ -69,12 +69,13 @@
             </tr>
             {{each Data as item}}
             <tr>
-                <td>{<input type="checkbox" name="id" value="{{item.Id}}" class="minimal" /></td>
+                <td><input type="checkbox" name="id" value="{{item.Id}}" class="minimal" /></td>
                 <td>{{item.Title}}</td>
-                <td>{{item.Type}}</td>
-                <td>{{item.ChargeLevel}}</td>
+                <td>{{item.City}}</td>
+                <td>{{item.TypeId | TypeFormat}}</td>
+                <td>{{item.ChargeLevel | ChargeLevelFormat}}</td>
                 <td>{{item.Count}}</td>
-                <td>{{item.CreateDate}}</td>
+                <td>{{item.CreateDate | dateFormat:'yyyy-MM-dd HH:mm'}}</td>
                 <td>
                     <button type="button" data-id="{{item.Id}}" class="btn btn-default btn-xs modify" title="编辑"><i class="fa fa-edit"></i></button>
                     <button type="button" data-id="{{item.Id}}" class="btn btn-default btn-xs delete" title="删除"><i class="fa fa-trash-o"></i></button>
@@ -89,6 +90,49 @@
     <script src="@(StaticDomain)js/jquery.page.js"></script>
 
     <script type="text/javascript">
+
+        template.helper('TypeFormat', function (type) {
+            var str = "其他";
+            switch (type)
+            {
+                case 1:
+                    str = "演出通告";
+                    break;
+                case 2:
+                    str = "公益活动";
+                    break;
+                case 3:
+                    str = "亲子活动";
+                    break;
+                case 4:
+                    str = "第三方活动";
+                    break;
+            }
+            return str;
+        });
+
+        template.helper('ChargeLevelFormat', function (type) {
+            var str = "全部免费";
+            switch (type) {
+                case 0:
+                    str = "全部免费";
+                    break;
+                case 1:
+                    str = "会员免费";
+                    break;
+                case 2:
+                    str = "VIP免费";
+                    break;
+                case 3:
+                    str = "全部收费";
+                    break;
+            }
+            return str;
+        });
+
+
+
+
         $(function () {
             $(document).ajaxStart(function () { Pace.restart(); });
             parent.$.SetMenu("activity");

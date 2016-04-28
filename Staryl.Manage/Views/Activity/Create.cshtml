@@ -6,7 +6,6 @@
     <!-- daterange picker -->
     <link rel="stylesheet" href="@(StaticDomain)plugins/datepicker/datepicker3.css">
     <link href="@(StaticDomain)plugins/webupload/webuploader.css" rel="stylesheet" />
-
     <style>
 
 
@@ -76,7 +75,6 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="col-sm-2 control-label">活动主题</label>
                         <div class="col-sm-6">
@@ -92,9 +90,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">活动内容</label>
                         <div class="col-sm-10">
-                            <textarea id="Content" name="Content" rows="10" cols="80">
-                                这里录入活动的详细内容
-                            </textarea>
+                            <textarea id="Content" name="Content" rows="10" cols="80"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -122,7 +118,6 @@
                         </div>
                     </div>
 
-
                     <div class="form-group">
                         <label class="col-sm-2 control-label">活动图片</label>
                         <div class="col-sm-10">
@@ -132,14 +127,12 @@
                             <input type="hidden" id="Images" name="Images" value="" />
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="col-sm-2 control-label">排序</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" id="OrderBy" name="OrderBy" placeholder="输入数字，数字越小越往前排" />
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="col-sm-2 control-label">是否发布</label>
                         <div class="col-sm-10">
@@ -161,9 +154,7 @@
                 </div>
             </div>
             <!-- /.box-body -->
-
         </form>
-
 
     </div>
 </section>
@@ -174,9 +165,9 @@
     <script src="@(StaticDomain)plugins/datepicker/bootstrap-datepicker.js"></script>
     <script src="@(StaticDomain)plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
     <script src="@(StaticDomain)plugins/webupload/webuploader.js"></script>
-
     <script src="//cdn.ckeditor.com/4.5.8/standard/ckeditor.js"></script>
-
+    @*<script src="//cdn.ckeditor.com/4.4.3/basic/ckeditor.js"></script>*@
+    <script src="//cdn.ckeditor.com/4.5.8/standard/adapters/jquery.js"></script>
     <script type="text/javascript">
         var BASE_URL = "@(StaticDomain)";
         var city = "-1";
@@ -188,10 +179,8 @@
 
             $(".date").datepicker({ clearBtn: true, format: "yyyy-mm-dd", language: "zh-CN" });
 
-            CKEDITOR.replace('Content', {
-                //图片上传发送路径，returnURL为参数,到服务器后跳转回来的页面
-                filebrowserImageUploadUrl: '/activity/UploadImg'
-            });
+
+
 
             Province = function () {
                 var param = { "parentId": 0 };
@@ -257,8 +246,17 @@
                     $("#City").change();
             }
             Province();
+            var intcon = $("#Content").ckeditor().editor;
+            CKEDITOR.config.filebrowserImageUploadUrl = '/activity/UploadImg';
+            intcon.on('change', function () {
+                $('#addform')
+                    .data('bootstrapValidator')                 // Get plugin instance
+                    .updateStatus('Content', 'NOT_VALIDATED')  // Update field status
+                    .validateField('Content');                 // and re-validate it
 
+            });
             $('#addform').bootstrapValidator({
+                excluded: ':disabled',
                 message: '',
                 feedbackIcons: {
                     valid: 'glyphicon glyphicon-ok',
@@ -266,7 +264,7 @@
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-                    
+
                     Title: {
                         validators: {
                             notEmpty: {
@@ -284,13 +282,20 @@
                     Content: {
                         validators: {
                             notEmpty: {
-                                message: '经历内容不能为空'
-                            }
-                        }
-                    }, Images: {
-                        validators: {
-                            notEmpty: {
-                                message: '活动图片不能为空'
+                                message: '活动内容不可为空'
+                            },
+                            callback: {
+                                message: '请至少输入20个字',
+                                callback: function (value, validator) {
+                                    if (value === '') {
+                                        return true;
+                                    }
+                                    // Get the plain text without HTML
+                                    var div = $('<div/>').html(value).get(0),
+                                        text = div.textContent || div.innerText;
+
+                                    return text.length >= 20;
+                                }
                             }
                         }
                     }
@@ -305,9 +310,22 @@
                 // Get the BootstrapValidator instance
                 var bv = $form.data('bootstrapValidator');
                 // Use Ajax to submit form data
-                uploader.upload();
+                //uploader.upload();
+                uploadifySub();
             });
 
+
+
+            uploadifySub = function () {
+                var aa = $(".send-img-item", "#fileLists");
+                if (aa.length > 0) {
+                    //$("#FileMsg").css('display', 'none');
+                    uploader.upload();
+                } else {
+                    //$("#FileMsg").css('display', '');
+                    Modal.alert({ title: "错误提示", msg: "请选择活动的图片" });
+                }
+            }
 
 
             /*上传插件*/
@@ -330,7 +348,7 @@
              swf: BASE_URL + 'plugins/webupload/Uploader.swf',
 
              // 文件接收服务端。
-             server: '/CreateUpload',
+             server: '/activity/ActivityImage',
 
              // 选择文件的按钮。可选。
              // 内部根据当前运行是创建，可能是input元素，也可能是flash.
@@ -360,6 +378,9 @@
 
                 $list.append($li);
                 $("#upimg").hide();
+
+                $('#addform').data('bootstrapValidator').resetForm();
+
 
                 // 创建缩略图
                 uploader.makeThumb(file, function (error, src) {
@@ -398,6 +419,9 @@
 
             // 文件上传成功，给item添加成功class, 用样式标记上传成功。
             uploader.on('uploadSuccess', function (file, response) {
+                console.log(response);
+                console.log(response.filepath);
+
                 var photos = $("#Images").val();
                 if (photos.length <= 0)
                     photos = response.filepath;
@@ -405,7 +429,7 @@
                     photos += "," + response.filepath;
                 $("#Images").val(photos);
 
-                $('#' + file.id).addClass('upload-state-done');
+                //$('#' + file.id).addClass('upload-state-done');
             });
 
             // 文件上传失败，现实上传出错。
@@ -432,23 +456,27 @@
                         Modal.alert({ title: "错误提示", msg: "一次最多只能上传 1 张图片" });
                         break;
                     case "F_EXCEED_SIZE":
-                        Modal.alert({ title: "错误提示", msg: "上传图片大小不能超过 10M" });
+                        Modal.alert({ title: "错误提示", msg: "上传图片大小不能超过 1M" });
                         break;
 
                 }
             });
 
             uploader.on("uploadFinished", function () {
+                
+                var $form = $("#addform");
 
-                $.post($("#addform").attr('action'), $("#addform").serializeJson(), function (result) {
-                    if (Number(result) == 1) {
-                        //location = "/account/starview";
+                $.post($form.attr('action'), $form.serialize(), function (result) {
+                    parent.$.CheckLogin(result);
+                    if (result.MsgNo == 1) {
+                        location = "/Activity";
                     } else {
                         Modal.alert({
                             msg: result.Msg
-                        });
+                        })
                     }
                 }, 'json');
+
             });
             /*上传插件结束*/
 

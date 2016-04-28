@@ -57,6 +57,7 @@ namespace Staryl.Manage.Controllers
         }
 
         [AuthAttribute(FunCode = "Add", ReturnType = "json")]
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Create(ActivityInfo model)
         {
@@ -94,6 +95,7 @@ namespace Staryl.Manage.Controllers
         }
 
         [AuthAttribute(FunCode = "Modify", ReturnType = "json")]
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Modify(ActivityInfo model)
         {
@@ -201,6 +203,26 @@ namespace Staryl.Manage.Controllers
                 return Json(new { jsonrpc = 2.0, error = new { code = 103, message = "保存失败" }, id = "id" });
             }
             
+        }
+
+        public ActionResult ActivityImage()
+        {
+            if (Request.InputStream.Length <= 0)
+            {
+                return Json(new { jsonrpc = 2.0, error = new { code = 102, message = "保存失败" }, id = "id" });
+            }
+
+            string imgurl = string.Empty;
+            try
+            {
+                imgurl = SaveImg(0, this.ActivityUrl, Request.InputStream);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { jsonrpc = 2.0, error = new { code = 103, message = "保存失败" }, id = "id" });
+            }
+            return Json(new { jsonrpc = 2.0, filepath = imgurl, id = "id" });
+
         }
     }
 }
