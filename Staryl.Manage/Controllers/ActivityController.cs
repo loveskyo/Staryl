@@ -90,6 +90,8 @@ namespace Staryl.Manage.Controllers
         public ActionResult Modify(int id)
         {
             ViewModels viewmodels = new ViewModels();
+            viewmodels.ActivityUrl= this.ActivityUrl;
+            viewmodels.UploadDomainRoot = this.UploadDomainRoot;
             viewmodels.Activity = activityMgr.Get(id);
             return View(viewmodels);
         }
@@ -109,6 +111,13 @@ namespace Staryl.Manage.Controllers
                 _model.OrderBy = model.OrderBy;
                 _model.Title = model.Title;
                 _model.TypeId = model.TypeId;
+                _model.Images = model.Images;
+                _model.IsActive = model.IsActive;
+                _model.Province = model.Province;
+                _model.City = model.City;
+                _model.Area = model.Area;
+                _model.Status = model.Status;
+
                 issuc = activityMgr.Update(_model);
             }
             MsgInfo msgInfo = new MsgInfo();

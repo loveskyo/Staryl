@@ -33,6 +33,15 @@ namespace Staryl.Manage.Models
         public ActivityInfo Activity { get; set; }
 
         public PageControl PageHtml { get; set; }
+
+
+        public string ActivityUrl
+        {
+            get;
+            set;
+        }
+
+        public string UploadDomainRoot { get; set; }
     }
 
     public class Select2Info {
