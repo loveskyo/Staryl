@@ -20,7 +20,7 @@ namespace Staryl.DAL
 public int Create(UserInfo model)
         {         Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
-         sb.Append("insert into User(");
+         sb.Append("insert into [User](");
          sb.Append("Email,Mobile,UserType,RecommendUser,RealName,Avatar,CreateDate,CreateIP,IsVIP,Password,Status,IsLogin");
          sb.Append(") values(");
          sb.Append("@Email,@Mobile,@UserType,@RecommendUser,@RealName,@Avatar,@CreateDate,@CreateIP,@IsVIP,@Password,@Status,@IsLogin);SELECT @@IDENTITY;");
@@ -46,7 +46,7 @@ public int Create(UserInfo model)
       { 
          Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
-         sb.Append("update User set ");
+         sb.Append("update [User] set ");
          sb.Append("Email=@Email,Mobile=@Mobile,UserType=@UserType,RecommendUser=@RecommendUser,RealName=@RealName,Avatar=@Avatar,CreateDate=@CreateDate,CreateIP=@CreateIP,IsVIP=@IsVIP,Password=@Password,Status=@Status,IsLogin=@IsLogin");
          sb.Append(" where Id=@Id");
          DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
@@ -70,7 +70,7 @@ public int Create(UserInfo model)
       { 
          Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
-         sb.Append("delete from User");
+         sb.Append("delete from [User]");
          sb.Append(" where Id=@Id");
             DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
             db.AddInParameter(dbCommand, "@Id", DbType.Int32, model.Id); 
@@ -80,8 +80,8 @@ public int Create(UserInfo model)
       { 
          Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
-         sb.Append("delete from User");
-         sb.Append(" where ID in(" + ids + ")");
+         sb.Append("delete from [User]");
+         sb.Append(" where Id in(" + ids + ")");
             DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
             return db.ExecuteNonQuery(dbCommand) < 1 ? false : true; 
       }
@@ -90,7 +90,7 @@ public int Create(UserInfo model)
       {
          Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
-         sb.Append("select * from User where Id=@Id");
+         sb.Append("select * from [User] where Id=@Id");
             DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
             db.AddInParameter(dbCommand, "@Id",  DbType.Int32,  Id); 
 
@@ -110,7 +110,7 @@ public int Create(UserInfo model)
       {
          Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
-         sb.Append("select * from User order by Id desc");
+         sb.Append("select * from [User] order by Id desc");
             DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
             List<UserInfo> list =  new List<UserInfo>();
             using (IDataReader dataReader = db.ExecuteReader(dbCommand))

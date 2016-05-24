@@ -32,6 +32,8 @@ namespace Staryl.Manage.Models
 
         public ActivityInfo Activity { get; set; }
 
+        public TicketInfo Ticket { get; set; }
+
         public PageControl PageHtml { get; set; }
 
 
