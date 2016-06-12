@@ -4,7 +4,9 @@
 }
 @model Staryl.Manage.Models.ViewModels
 @section style{
-    <link rel="stylesheet" href="@(StaticDomain)css/bootstrapValidator.min.css" />
+
+<link rel="stylesheet" href="@(StaticDomain)plugins/datepicker/datepicker3.css">
+
 }
 <section class="content-header">
     <h1>
@@ -34,7 +36,7 @@
                         <label class="col-sm-2 control-label">
                             券类型
                         </label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-3">
                             <select name="TicketType" id="TicketType" class="form-control select2" style="width: 100%;">
                                 <option value="1">活动券</option>
                             </select>
@@ -44,24 +46,39 @@
                         <label class="col-sm-2 control-label">
                             券价值
                         </label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="TicketValue" name="TicketValue" value="" />
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <span class="input-group-addon">￥</span>
+                                <input type="text" class="form-control" id="TicketValue" name="TicketValue" value="" />
+                                <span class="input-group-addon">.00</span>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">
-                            开始时间
+                            开始日期
                         </label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="StarDate" name="StarDate" value="" />
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control date" name="StarDate" id="StarDate" placeholder="开始时间">
+                            </div>
+
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">
-                            结束时间
+                            结束日期
                         </label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="EndDate" name="EndDate" value="" />
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control date" name="EndDate" id="EndDate" placeholder="结束时间">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -97,12 +114,16 @@
 @section scripts {
     <script src="@(StaticDomain)js/bootstrapValidator.min.js"></script>
     <script src="@(StaticDomain)js/language/zh_CN.js"></script>
+    <script src="@(StaticDomain)plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="@(StaticDomain)plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+
     <script type="text/javascript">
         $(function () {
-            parent.$.SetMenu("account/create");
+            //parent.$.SetMenu("account/create");
             $(".select2").select2();
 
-            $("#IsEnable").bootstrapSwitch();
+            $("#Status").bootstrapSwitch();
+            $(".date").datepicker({ clearBtn: true, format: "yyyy-mm-dd", language: "zh-CN" });
 
 
             $('#addform')
@@ -114,26 +135,23 @@
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-            Account: {
+            StarDate: {
                 validators: {
                     notEmpty: {
-                        message: '请输入用户名'
+                        message: '请输入开始日期'
                     },
-                    regexp: {
-                        regexp: /^[a-zA-Z0-9_\.]+$/,
-                        message: '用户名格式为字母数字"_"组成'
+                    date: {
+                        format: 'YYYY-MM-DD'
                     }
                 }
             },
-            Password: {
+            EndDate: {
                 validators: {
                     notEmpty: {
-                        message: '请输入用户密码'
+                        message: '请输入结束日期'
                     },
-                    stringLength: {
-                        min: 6,
-                        max: 20,
-                        message: '请输入6-20位字符'
+                    date: {
+                        format: 'YYYY-MM-DD'
                     }
                 }
             },
