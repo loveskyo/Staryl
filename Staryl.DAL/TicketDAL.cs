@@ -21,9 +21,9 @@ public int Create(TicketInfo model)
         {         Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
          sb.Append("insert into Ticket(");
-         sb.Append("TicketNo,UserId,StarDate,EndDate,CreateDate,CreateIP,Creator,TicketValue,TicketType");
+         sb.Append("TicketNo,UserId,StarDate,EndDate,CreateDate,CreateIP,Creator,TicketValue,TicketType,Status");
          sb.Append(") values(");
-         sb.Append("@TicketNo,@UserId,@StarDate,@EndDate,@CreateDate,@CreateIP,@Creator,@TicketValue,@TicketType);SELECT @@IDENTITY;");
+         sb.Append("@TicketNo,@UserId,@StarDate,@EndDate,@CreateDate,@CreateIP,@Creator,@TicketValue,@TicketType,@Status);SELECT @@IDENTITY;");
          DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
             db.AddInParameter(dbCommand, "@TicketNo", DbType.String, model.TicketNo);
             db.AddInParameter(dbCommand, "@UserId", DbType.Int32, model.UserId);
@@ -34,6 +34,7 @@ public int Create(TicketInfo model)
             db.AddInParameter(dbCommand, "@Creator", DbType.Int32, model.Creator);
             db.AddInParameter(dbCommand, "@TicketValue", DbType.Int32, model.TicketValue);
             db.AddInParameter(dbCommand, "@TicketType", DbType.Int32, model.TicketType);
+            db.AddInParameter(dbCommand, "@Status", DbType.Int32, model.Status);
             int id = Convert.ToInt32(db.ExecuteScalar(dbCommand));  
             return id; 
       }
@@ -44,7 +45,7 @@ public int Create(TicketInfo model)
          Database db = DBHelper.CreateDataBase();
          StringBuilder sb = new StringBuilder();
          sb.Append("update Ticket set ");
-         sb.Append("TicketNo=@TicketNo,UserId=@UserId,StarDate=@StarDate,EndDate=@EndDate,CreateDate=@CreateDate,CreateIP=@CreateIP,Creator=@Creator,TicketValue=@TicketValue,TicketType=@TicketType");
+         sb.Append("TicketNo=@TicketNo,UserId=@UserId,StarDate=@StarDate,EndDate=@EndDate,CreateDate=@CreateDate,CreateIP=@CreateIP,Creator=@Creator,TicketValue=@TicketValue,TicketType=@TicketType,Status=@Status");
          sb.Append(" where Id=@Id");
          DbCommand dbCommand = db.GetSqlStringCommand(sb.ToString());
          db.AddInParameter(dbCommand, "@Id", DbType.Int32, model.Id);
@@ -57,6 +58,7 @@ public int Create(TicketInfo model)
          db.AddInParameter(dbCommand, "@Creator", DbType.Int32, model.Creator);
          db.AddInParameter(dbCommand, "@TicketValue", DbType.Int32, model.TicketValue);
          db.AddInParameter(dbCommand, "@TicketType", DbType.Int32, model.TicketType);
+         db.AddInParameter(dbCommand, "@Status", DbType.Int32, model.Status);
          return db.ExecuteNonQuery(dbCommand) < 1 ? false : true; 
       }
 
@@ -220,6 +222,11 @@ public int Create(TicketInfo model)
             {
                 model.TicketType = ( int)(ojb);
             }
+            ojb = dataReader["Status"]; 
+            if (ojb != null && ojb != DBNull.Value)
+            {
+                model.Status = ( int)(ojb);
+            }
 
             return model;
         }
@@ -241,7 +248,7 @@ bool suc = BaseDAL.ExecuteTransactionScopeInsert(this.ToDataTable(list), 250, "T
             if (list.Count > 0)
             {
 
-                string columnNameList = "?Id??TicketNo??UserId??StarDate??EndDate??CreateDate??CreateIP??Creator??TicketValue??TicketType?"; 
+                string columnNameList = "?Id??TicketNo??UserId??StarDate??EndDate??CreateDate??CreateIP??Creator??TicketValue??TicketType??Status?"; 
 
                 PropertyInfo[] propertys = list[0].GetType().GetProperties();
                 foreach (PropertyInfo pi in propertys)
@@ -275,6 +282,7 @@ bool suc = BaseDAL.ExecuteTransactionScopeInsert(this.ToDataTable(list), 250, "T
                 dr["Creator"] = list[i].Creator; 
                 dr["TicketValue"] = list[i].TicketValue; 
                 dr["TicketType"] = list[i].TicketType; 
+                dr["Status"] = list[i].Status; 
 
                 result.Rows.Add(dr );
             }

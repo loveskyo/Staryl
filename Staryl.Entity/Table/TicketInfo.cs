@@ -57,5 +57,10 @@ namespace Staryl.Entity
       /// </summary> 
       public int TicketType{get;set;}
 
+      /// <summary>
+      /// 状态，1未使用，2已使用，0已过期，-1无效
+      /// </summary> 
+      public int Status{get;set;}
+
     }
 }

@@ -9,7 +9,8 @@
     [CreateIP] NVARCHAR(50) NOT NULL, 
     [Creator] INT NOT NULL, 
     [TicketValue] INT NOT NULL, 
-    [TicketType] INT NOT NULL
+    [TicketType] INT NOT NULL, 
+    [Status] INT NOT NULL
 )
 
 GO
@@ -82,3 +83,13 @@ CREATE UNIQUE INDEX [IX_Ticket_TicketNo] ON [dbo].[Ticket] ([TicketNo])
 GO
 
 CREATE INDEX [IX_Ticket_UserId] ON [dbo].[Ticket] ([UserId])
+
+GO
+EXEC sp_addextendedproperty @name = N'MS_Description',
+    @value = N'状态，1未使用，2已使用，0已过期，-1无效',
+    @level0type = N'SCHEMA',
+    @level0name = N'dbo',
+    @level1type = N'TABLE',
+    @level1name = N'Ticket',
+    @level2type = N'COLUMN',
+    @level2name = N'Status'
