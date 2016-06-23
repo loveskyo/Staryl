@@ -1,0 +1,5 @@
+﻿<rows>
+    <row id="1" name="张三" type="同学" />
+  <row id="2" name="李四" type="同事" />
+  <row id="3" name="王五" type="朋友" />
+</rows>
