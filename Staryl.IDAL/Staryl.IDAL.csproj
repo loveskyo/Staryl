@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivityApplyInfo.cs" />
+    <Compile Include="ActivityInfo2.cs" />
     <Compile Include="ActivityInfo.cs" />
     <Compile Include="AlbumInfo.cs" />
     <Compile Include="FansInfo.cs" />

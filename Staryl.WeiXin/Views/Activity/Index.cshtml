@@ -1,0 +1,232 @@
+﻿@{
+    string StaticDomain = Staryl.WeiXin.Controllers.ControllerBase.StaticDomain;
+    ViewBag.Title = "活动主页";
+}
+
+
+<header class="top-nav clearfix">
+    <a class="dlt-a pull-left" href="javascript:history.go(-1);"><i class="glyphicon glyphicon-menu-left"></i><span>返回</span></a>
+    <h4>剧组</h4>
+</header>
+<form id="pagerForm" action="/activity/gets" method="post">
+    <input type="hidden" id="txtPage" name="txtPage" value="1" />
+    <input type="hidden" name="txtPageSize" value="10" />
+    <input type="hidden" id="txtGender" name="txtGender" value="-1" />
+</form>
+
+<div id="tabInfo" class="crew-list">
+    <div id="listcarousel" class="listcarousel">
+        <div id="plist" class="bd bull">
+            <ul class="list-unstyled">
+                <li class="current"><a href="#"><i><img src="images/icon-all.png" alt=""></i><span>全部</span></a></li>
+                <li><a href="#"><i><img src="images/icon-movie.png" alt=""></i><span>网络剧</span></a></li>
+                <li><a href="#"><i><img src="images/icon-tvplay.png" alt=""></i><span>电视剧</span></a></li>
+                <li><a href="#"><i><img src="images/icon-internet.png" alt=""></i><span>电影</span></a></li>
+                <li><a href="#"><i><img src="images/icon-ad.png" alt=""></i><span>微电影</span></a></li>
+                <li><a href="#"><i><img src="images/icon-microfilm.png" alt=""></i><span>微电影</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="listprev" class="page-btn prev">
+        <i class="glyphicon glyphicon-menu-left"></i>
+    </div>
+    <div id="listnext" class="page-btn next">
+        <i class="glyphicon glyphicon-menu-right"></i>
+    </div>
+</div>
+
+
+<div id="scroll-wrap">
+    <div id="scroller" class="crew-con-list">
+        <div class="member-list" id="datacontent">
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+<div class="clearfix bottom-fixd">
+    <div class="affix main-nav">
+        <div class="row">
+            <div class="col-md-3 col-xs-3">
+                <a href="/Index" class="current">
+                    <i><img src="@(StaticDomain)images/icon-group.png" width="30%"></i>
+                    童星库
+                </a>
+            </div>
+            <div class="col-md-3 col-xs-3">
+                <a href="/Activity">
+                    <i><img src="@(StaticDomain)images/icon-notice.png" width="30%"></i>
+                    活动通告
+                </a>
+            </div>
+            <div class="col-md-3 col-xs-3">
+                <a href="###">
+                    <i><img src="@(StaticDomain)images/icon-store.png" width="30%"></i>
+                    童星潮铺
+                </a>
+            </div>
+            <div class="col-md-3 col-xs-3">
+                <a href="/Account">
+                    <i><img src="@(StaticDomain)images/logo.png" width="30%"></i>
+                    我的
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script src="@(StaticDomain)js/jCarouselLite.js"></script>
+
+<script id="datalist" type="text/html">
+    {{each Data as item}}
+    <div class="row">
+        <a class="block base-a clearfix" href="/activity/Details/{{item.Id}}">
+            <div class="col-xs-3">
+                <img class="lazy-img" data-original="@(StaticDomain)upload/Activity/{{item.Images}}" src="@(StaticDomain)images/loading.gif" alt="{{item.Title}}">
+            </div>
+            <div class="col-xs-9">
+                <p class="nm">{{item.Title}}</p>
+
+                <p class="time"><i class="glyphicon glyphicon-time"></i><span>{{item.CreateDate | dateFormat:'yyyy-MM-dd'}}</span></p>
+
+                <p class="adress"><i class="glyphicon glyphicon-map-marker"></i><span>{{item.CityName}}</span></p>
+
+                <p class="text-ellipsis">{{item.BriefIntroduction}}</p>
+            </div>
+        </a>
+    </div>
+    {{/each}}
+
+
+</script>
+<script src="@(StaticDomain)js/template.js"></script>
+<script src="@(StaticDomain)js/template-date.js"></script>
+
+
+
+
+<script type="text/javascript">
+
+    $(".list-unstyled li").click(
+        function () {
+            $(".list-unstyled li").attr("class", "");
+            $(this).attr("class", "current");
+        }
+
+    );
+    $("#listcarousel").jCarouselLite({
+        btnNext: "#listnext",
+        btnPrev: "#listprev",
+        visible: 5,
+        circular: false,
+        scroll: 1,
+        speed: 300
+    });
+    var plist = $("#plist");
+    var plistLi = plist.find("li");
+    var liW = plistLi.width();
+    var totalW = liW * plistLi.length;
+    plist.width(totalW);
+
+
+        document.addEventListener('touchmove', function (e) {
+            e.preventDefault();
+        }, false);
+        var phoneScroll;
+        function liresize() {
+            var w = $("#plist").width();
+            $(".bull").width(w);
+            phoneScroll.refresh();
+        }
+
+        $(function () {
+            phoneScroll = new IScroll("#listcarousel", {
+                snap: true,
+                momentum: false,
+                scrollX: true,
+                scrollY: false
+            });
+
+            $(window).load(function (e) {
+                liresize();
+            });
+
+            $(window).resize(function (e) {
+                liresize();
+            });
+
+            //图片懒加载
+            //$(function () {
+            //    $("img.lazy-img").lazyload();
+            //})
+           
+
+
+
+
+
+            //location = "/login";
+            var indextab = 0;
+            var pageCount = 0;//总页数
+            //TouchSlide({
+            //    slideCell: "#tabMember",
+            //    endFun: function (i) { //高度自适应
+            //        indextab = i;
+            //        $("#txtPage").val(1);
+            //        console.log($("#taglist li:eq(" + i + ") a").attr("data-gender"));
+            //        $("#txtGender").val($("#taglist li:eq(" + i + ") a").attr("data-gender"));
+            //        init();
+            //        var bd = document.querySelector("#tabMemberBd");
+            //        bd.parentNode.style.height = bd.children[i].children[0].offsetHeight + "px";
+            //        if (i > 0) bd.parentNode.style.transition = "200ms"; //添加动画效果
+            //    }
+            //});
+
+            init = function () {
+                //获取绑定数据
+                var $form = $("#pagerForm");
+                param = $form.serialize();
+                jsonAjax({ url: $form.attr("action"), param: param, callback: bindData });
+            }
+            bindData = function (result) {
+                var vhtml = template("datalist", result);
+                $("#datacontent").html(vhtml);
+                pageCount = Math.ceil(result.TotalCount / result.PageSize);
+                //var bd = document.querySelector("#tabMemberBd");
+                //bd.parentNode.style.height = bd.children[i].children[0].offsetHeight + "px";
+                var height = $("#datacontent").height();
+                $("#tabMemberBd").parent().height(height);
+
+                //if (indextab > 0) bd.parentNode.style.transition = "200ms"; //添加动画效果
+                $("img.lazy-img").lazyload();
+
+
+
+
+                var crewScroll = new IScroll('#scroll-wrap', {
+                    mouseWheel: true
+                });
+
+
+
+
+
+
+
+
+
+            }
+
+            init();
+
+
+
+        });
+
+
+    </script>
+}

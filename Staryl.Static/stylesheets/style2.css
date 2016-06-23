@@ -1,0 +1,137 @@
+/* CSS Document */
+.child_detail {
+    border-bottom: 1px solid #E1E1E1;
+    padding-left: 15px;
+    position: relative;
+}
+.child_detail h4 {
+    font-size: 17px;
+    color: #686868;
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+}
+.child_detail table {
+    width: 100%;
+    margin-top: 10px;
+}
+.child_detail .child_talent {
+    width: 100%;
+    border: 0px;
+    border-top: 1px solid #e1e1e1;
+    margin-bottom: 25px;
+    padding-left: 15px;
+    margin-top: 10px;
+    margin-left: -15px;
+	padding-bottom:20px;
+}
+.child_operate {
+    width: 55px;
+    position: absolute;
+    right: 0px;
+    top: 30px;
+}
+.child_operate .score {
+    background: url("../images/child_score.png") no-repeat;
+    background-size: 45px 45px;
+    background-position: center center;
+}
+.child_operate .comment {
+    background: url("../images/child_comment2.png") no-repeat;
+    background-size: 45px 45px;
+    background-position: center center;
+}
+.child_operate li {
+    width: 45px;
+    height: 45px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+ul{
+	list-style-type:none;}
+	.guardian_info {
+    background: url("../images/child_contact.png") no-repeat;
+    background-size: 80px 30px;
+    background-position: center center;
+    width: 94px;
+    height: 36px;
+    display: inline-block;
+}
+.child_detail tr {
+    height: 30px;
+    line-height: 30px;}
+.child_talent .talent_title {
+    height: 40px;
+    line-height: 40px;
+    color: #949494;
+}
+.child_talent .talent1 {
+    background: #EC6768;
+}
+.child_talent span {
+    background: #EC6768;
+    color: #fff;
+    border: 0px;
+    cursor: pointer;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    min-width: 50px;
+    margin-right: 10px;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+
+.experience_menu, .experience_img_menu, .experience_video_menu {
+    width: 380px;
+    margin: 15px auto;
+}
+.experience_menu li, .experience_img_menu li, .experience_video_menu li {
+    width: 105px;
+    height: 40px;
+    float: left;
+    cursor: pointer;
+}
+.clear{
+	clear:both;}
+.experience_menu .exp_left.curr .exp_bg, .experience_img_menu .exp_left.curr .exp_bg, .experience_video_menu .exp_left.curr .exp_bg {
+    background: url("../images/exp_left_curr.png") no-repeat;
+    background-size: 20px 39px;
+    background-position: left center;
+    width: 20px;
+}
+.experience_menu .exp_left.curr .exp_text, .experience_img_menu .exp_left.curr .exp_text, .experience_video_menu .exp_left.curr .exp_text {
+    background: #F694A8;
+    border: 0px;
+	color:#fff;
+}
+#mi{
+	background-color:#F9C2CD;
+	color:#fff;}
+
+.experience_menu .exp_middle, .experience_img_menu .exp_middle, .experience_video_menu .exp_middle {
+    height: 39px;
+    line-height: 39px;
+    border: 1px solid #F9C2CD;
+    text-align: center;
+    color: #F9ADBC;
+}
+.experience_menu li span, .experience_img_menu li span, .experience_video_menu li span {
+    display: inline-block;
+    height: 39px;
+    line-height: 39px;
+    color: #F9ADBC;
+   
+    
+    float: left;
+}
+.experience_menu .exp_right .exp_text, .experience_img_menu .exp_right .exp_text, .experience_video_menu .exp_right .exp_text {
+    background: #fff;
+    border: 1px solid #F9C2CD;
+    text-align: right;
+    border-left: 0px;
+    border-right: 0px;
+}

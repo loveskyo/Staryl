@@ -1,0 +1,37 @@
+﻿
+@{
+    string StaticDomain = Staryl.WeiXin.Controllers.ControllerBase.StaticDomain;
+
+    ViewBag.Title = "Details";
+}
+@model Staryl.WeiXin.ViewModels
+@section style {
+<link rel="stylesheet" href="@(StaticDomain)stylesheets/style.css">
+    <style>
+        .container .deduce-list {
+            border-left: none;
+        }
+    </style>
+}
+
+
+<header class="top-nav clearfix">
+    <a class="dlt-a pull-left" href="javascript:history.go(-1);"><i class="glyphicon glyphicon-menu-left"></i><span>返回</span></a>
+    <h4>@Model.viewActivity.Title</h4>
+</header>
+<div class="crew-info">
+    <div class="con">
+        <!-- 高度自适应需添加外层 -->
+        <div class="container">
+            <div class="deduce-list">
+                @Html.Raw( Model.viewActivity.Content)
+
+            </div>
+            <input type="button" id="btnAdd" name="btnAdd" value="我要报名" class="clickcurr" onclick="window.location.href='register-3.html'">
+        </div>
+    </div>
+
+</div>
+
+
+

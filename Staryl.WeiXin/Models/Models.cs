@@ -14,6 +14,8 @@ namespace Staryl.WeiXin
 
         public SystemAreaInfo systemArea { get; set; }
         public List<SystemAreaInfo> systemAreaList { get; set; }
+
+        public ViewActivityInfo viewActivity { get; set; }
     }
 
 

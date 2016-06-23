@@ -86,8 +86,28 @@
     <Content Include="css\skins\_all-skins.css" />
     <Content Include="css\skins\_all-skins.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="images\arrow_left.png" />
     <Content Include="images\bg-input-focus.png" />
     <Content Include="images\bg-input.png" />
+    <Content Include="images\child_comment2.png" />
+    <Content Include="images\child_contact.png" />
+    <Content Include="images\child_score.png" />
+    <Content Include="images\icon-message-1.png" />
+    <Content Include="images\icon-score-btn.png" />
+    <Content Include="images\icon-score-in.png" />
+    <Content Include="images\icon-score-out.png" />
+    <Content Include="images\icon-user-quan.png" />
+    <Content Include="images\index_0.png" />
+    <Content Include="images\index_go2.png" />
+    <Content Include="images\login_mobile.png" />
+    <Content Include="images\login_qq.png" />
+    <Content Include="images\login_sina.png" />
+    <Content Include="images\mobile_ico.png" />
+    <Content Include="images\pic_add2.png" />
+    <Content Include="images\search.png" />
+    <Content Include="images\vip.png" />
+    <Content Include="images\z1.png" />
+    <Content Include="images\z2.png" />
     <Content Include="img\cp_img_tj.png" />
     <Content Include="images\icon-ad.png" />
     <Content Include="images\icon-add-pic.png" />
@@ -144,6 +164,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="images\navbar.psd" />
     <Content Include="js\isScroll.js" />
+    <Content Include="js\jCarouselLite.js" />
     <Content Include="plugins\datepicker\bootstrap-datepicker.js" />
     <Content Include="plugins\datepicker\datepicker3.css" />
     <Content Include="plugins\datepicker\locales\bootstrap-datepicker.zh-CN.js" />
@@ -337,6 +358,8 @@
     <Content Include="stylesheets\font\glyphicons-halflings-regular.svg" />
     <Content Include="stylesheets\jsui\mobiscroll.css" />
     <Content Include="stylesheets\jsui\swipebox.css" />
+    <Content Include="stylesheets\style.css" />
+    <Content Include="stylesheets\style2.css" />
     <Content Include="Web.config" />
     <Content Include="widgets.html" />
   </ItemGroup>

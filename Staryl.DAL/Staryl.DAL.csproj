@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivityApplyDAL.cs" />
+    <Compile Include="ActivityDAL2.cs" />
     <Compile Include="ActivityDAL.cs" />
     <Compile Include="AlbumDAL.cs" />
     <Compile Include="BaseDAL.cs" />

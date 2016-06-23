@@ -53,6 +53,7 @@
     <Compile Include="ActivityEnum.cs" />
     <Compile Include="UserStatusEnum.cs" />
     <Compile Include="UserTypeEnum.cs" />
+    <Compile Include="ViewActivityInfo.cs" />
     <Compile Include="ViewStarUserInfo.cs" />
     <Compile Include="ViewMenuInfo.cs" />
     <Compile Include="ViewAccountInfo.cs" />

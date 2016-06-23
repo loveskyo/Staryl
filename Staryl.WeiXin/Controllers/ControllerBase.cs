@@ -19,6 +19,7 @@ namespace Staryl.WeiXin.Controllers
         protected StarUserManager mStarUserMgr = new StarUserManager();
         protected SystemAreaManager mSystemAreaMgr = new SystemAreaManager();
         protected UndergoManager mUndergoMgr = new UndergoManager();
+        protected ActivityManager activityMgr = new ActivityManager();
         /// <summary>
         /// 获取客户端的 IP地址
         /// </summary>
