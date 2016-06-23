@@ -1,0 +1,518 @@
+﻿@{
+    ViewBag.Title = "Create";
+    string StaticDomain = Staryl.Manage.Controllers.ControllerBase.StaticDomain;
+}
+@model Staryl.Manage.Models.ViewModels
+@section style {
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="@(StaticDomain)plugins/datepicker/datepicker3.css">
+    <link href="@(StaticDomain)plugins/webupload/webuploader.css" rel="stylesheet" />
+    <style>
+
+
+            #upimg .webuploader-pick {
+                width: 100%;
+        height:100%;
+        background:none;padding:0px;
+
+            }
+        #upimg .webuploader-pick:hover{
+        background:none;
+        }
+        .imgadd {
+            width: 91px;
+            height: 91px;
+            float: left;
+            border: 1px solid #d3d3d3;
+            margin-right: 16px;
+            background: url(@(StaticDomain)/img/cp_img_tj.png) no-repeat;
+        display:none;
+        }
+        #fileLists{width:91px; height:91px;}
+        #fileLists img{width:91px; height:91px;}
+        .send-img-item a{ position: absolute;}
+    </style>
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        新增活动
+        <small>新增一个活动</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li><a href="/activity">活动管理</a></li>
+        <li class="active">新增活动</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title"></h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form id="addform" method="post" action="/activity/modify" class="form-horizontal">
+            <div class="box-body">
+                <input type="hidden" id="Id" name="Id" value="@Model.Activity.Id" />
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">活动类型</label>
+                        <div class="col-sm-6">
+                            <select name="TypeId" class="form-control select2" style="width: 150px;">
+                                <option value="1" @(Model.Activity.TypeId == 1 ? "selected=\"selected\"" : "")>演出通告</option>
+                                <option value="2" @(Model.Activity.TypeId == 2 ? "selected=\"selected\"" : "")>公益活动</option>
+                                <option value="3" @(Model.Activity.TypeId == 3 ? "selected=\"selected\"" : "")>亲子活动</option>
+                                <option value="4" @(Model.Activity.TypeId == 4 ? "selected=\"selected\"" : "")>第三方活动</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">收费级别</label>
+                        <div class="col-sm-6">
+                            <select name="ChargeLevel" class="form-control select2" style="width: 150px;">
+                                <option value="0" @(Model.Activity.ChargeLevel == 0 ? "selected=\"selected\"" : "")>全部免费</option>
+                                <option value="1" @(Model.Activity.ChargeLevel == 1 ? "selected=\"selected\"" : "")>会员免费</option>
+                                <option value="2" @(Model.Activity.ChargeLevel == 2 ? "selected=\"selected\"" : "")>VIP免费</option>
+                                <option value="3" @(Model.Activity.ChargeLevel == 3 ? "selected=\"selected\"" : "")>全部收费</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">活动主题</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="Title" name="Title" value="@Model.Activity.Title" placeholder="输入活动主题" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">活动简介</label>
+                        <div class="col-sm-6">
+                            <textarea id="BriefIntroduction" class="form-control" name="BriefIntroduction" rows="5" cols="80" style="width:100%">@Model.Activity.BriefIntroduction</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">活动内容</label>
+                        <div class="col-sm-10">
+                            <textarea id="Content" name="Content" rows="10" cols="80">@Model.Activity.Content</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputSkills" class="col-sm-2 control-label">活动所在地</label>
+                        <div class="col-sm-10">
+                            <select class="select2" name="Province" id="Province" style="width:150px;">
+                                <option value="-1">省</option>
+                            </select>
+                            <select class="select2" name="City" id="City" style="width:150px;">
+                                <option value="-1">市</option>
+                            </select>
+                            <select class="select2" name="Area" id="Area" style="width:150px;">
+                                <option value="-1">区/县</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">活动状态</label>
+                        <div class="col-sm-6">
+                            <select name="Status" class="form-control select2" style="width:150px;">
+                                <option value="1" @(Model.Activity.Status == 1 ? "selected=\"selected\"" : "")>报名中</option>
+                                <option value="2" @(Model.Activity.Status == 2 ? "selected=\"selected\"" : "")>进行中</option>
+                                <option value="0" @(Model.Activity.Status == 0 ? "selected=\"selected\"" : "")>已结束</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">活动图片</label>
+                        <div class="col-sm-10">
+                            <div class="imgadd" id="upimg"></div>
+                            <div id="fileLists">
+                                <div id="file1" class="send-img-item">
+                                    <a href="#" class="glyphicon glyphicon-remove dlt-a remove-this"></a><img alt="" src="@(StaticDomain)/@Model.UploadDomainRoot/@Model.ActivityUrl/@Model.Activity.Images">
+                                </div>
+                            </div>
+                            <input type="hidden" id="Images" name="Images" value="@Model.Activity.Images" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">排序</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="OrderBy" name="OrderBy" value="@Model.Activity.OrderBy" placeholder="输入数字，数字越小越往前排" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">是否发布</label>
+                        <div class="col-sm-10">
+                            <div class="checkbox">
+                                <input type="checkbox" id="IsActive" name="IsActive" checked="checked" value="@Model.Activity.IsActive" data-on-text="是" data-off-text="否" /> （选“是”前端才会显示）
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            &nbsp;
+                        </label>
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-success btn-sm">
+                                提 交
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </form>
+
+    </div>
+</section>
+<!-- /.content -->
+@section scripts {
+    <script src="@(StaticDomain)js/bootstrapValidator.min.js"></script>
+    <script src="@(StaticDomain)js/language/zh_CN.js"></script>
+    <script src="@(StaticDomain)plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="@(StaticDomain)plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+    <script src="@(StaticDomain)plugins/webupload/webuploader.js"></script>
+    <script src="//cdn.ckeditor.com/4.5.8/standard/ckeditor.js"></script>
+    @*<script src="//cdn.ckeditor.com/4.4.3/basic/ckeditor.js"></script>*@
+    <script src="//cdn.ckeditor.com/4.5.8/standard/adapters/jquery.js"></script>
+    <script type="text/javascript">
+    var BASE_URL = "@(StaticDomain)";
+
+        var province = "@(Model.Activity.Province)";
+        var city = "@(Model.Activity.City)";
+        var area = "@(Model.Activity.Area)";
+
+        $(function () {
+            //parent.$.Setactivity("user/create");
+            $(".select2").select2();
+            $("#IsActive").bootstrapSwitch();
+
+            $(".date").datepicker({ clearBtn: true, format: "yyyy-mm-dd", language: "zh-CN" });
+
+            $("#file1 a").click(function () {
+                $("#file1").remove();
+                $("#upimg").show();
+            });
+
+
+
+            Province = function () {
+                var param = { "parentId": 0 };
+                jsonAjax({
+                    url: "/area/GetAreaByParentId", param: param, callback: function (result) {
+                        bindSelect(result, $("#Province"));
+                    }
+                });
+            }
+
+            $("#Province").change(function () {
+                if ($(this).val() == "-1") {
+                    bindSelect(null, $("#City"));
+                    bindSelect(null, $("#Area"));
+                    return;
+                }
+                var param = { "parentId": $(this).val() };
+                jsonAjax({
+                    url: "/area/GetAreaByParentId", param: param, callback: function (result) {
+                        bindSelect(result, $("#City"));
+                    }
+                });
+            });
+
+            $("#City").change(function () {
+                if ($(this).val() == "-1") {
+                    bindSelect(null, $("#Area"));
+                    return;
+                }
+                var param = { "parentId": $(this).val() };
+                jsonAjax({
+                    url: "/area/GetAreaByParentId", param: param, callback: function (result) {
+                        bindSelect(result, $("#Area"));
+                    }
+                });
+            });
+
+            bindSelect = function (result, obj) {
+                var selectval = "-1";
+                var text = "省";
+                if (obj.attr("id") == "Province") {
+                    selectval = province;
+                    province = "-1";
+                } else if (obj.attr("id") == "City") {
+                    selectval = city;
+                    city = "-1";
+                    text = "市";
+                } else if (obj.attr("id") == "Area") {
+                    selectval = area;
+                    area = "-1";
+                    text = "区/县";
+
+                }
+
+                var s = obj.get(0);
+                s.options.length = 0;
+                s.options.add(new Option(text, "-1"));
+                if (result != null) {
+                    $.each(result, function (idx, item) {
+                        s.options.add(new Option(item.text, item.id));
+                    });
+                }
+
+                obj.val(selectval).trigger("change");
+
+            }
+            Province();
+            var intcon = $("#Content").ckeditor().editor;
+            CKEDITOR.config.filebrowserImageUploadUrl = '/activity/UploadImg';
+            intcon.on('change', function () {
+                $('#addform')
+                    .data('bootstrapValidator')                 // Get plugin instance
+                    .updateStatus('Content', 'NOT_VALIDATED')  // Update field status
+                    .validateField('Content');                 // and re-validate it
+
+            });
+            $('#addform').bootstrapValidator({
+                excluded: ':disabled',
+                message: '',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+
+                    Title: {
+                        validators: {
+                            notEmpty: {
+                                message: '活动主题不可为空'
+                            }
+                        }
+                    },
+                    BriefIntroduction: {
+                        validators: {
+                            notEmpty: {
+                                message: '活动简介不可为空'
+                            }
+                        }
+                    },
+                    Content: {
+                        validators: {
+                            notEmpty: {
+                                message: '活动内容不可为空'
+                            },
+                            callback: {
+                                message: '请至少输入20个字',
+                                callback: function (value, validator) {
+                                    if (value === '') {
+                                        return true;
+                                    }
+                                    // Get the plain text without HTML
+                                    var div = $('<div/>').html(value).get(0),
+                                        text = div.textContent || div.innerText;
+
+                                    return text.length >= 20;
+                                }
+                            }
+                        }
+                    }
+                }
+            }).on('success.form.bv', function (e) {
+                // Prevent form submission
+                e.preventDefault();
+
+                // Get the form instance
+                var $form = $(e.target);
+
+                // Get the BootstrapValidator instance
+                var bv = $form.data('bootstrapValidator');
+                // Use Ajax to submit form data
+                //uploader.upload();
+                uploadifySub();
+            });
+
+
+
+            uploadifySub = function () {
+                var aa = $(".send-img-item", "#fileLists");
+                if (aa.length > 0) {
+                    //$("#FileMsg").css('display', 'none');
+                    uploader.upload();
+                } else {
+                    //$("#FileMsg").css('display', '');
+                    Modal.alert({ title: "错误提示", msg: "请选择活动的图片" });
+                }
+            }
+
+
+            /*上传插件*/
+            $list = $('#fileLists'),
+            // 优化retina, 在retina下这个值是2
+            ratio = window.devicePixelRatio || 1,
+
+            // 缩略图大小
+            thumbnailWidth = 91 * ratio,
+            thumbnailHeight = 91 * ratio,
+
+
+            // 初始化Web Uploader
+         uploader = WebUploader.create({
+
+             // 自动上传。
+             //auto: true,
+
+             // swf文件路径
+             swf: BASE_URL + 'plugins/webupload/Uploader.swf',
+
+             // 文件接收服务端。
+             server: '/activity/ActivityImage',
+
+             // 选择文件的按钮。可选。
+             // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+             pick: '#upimg',
+             formData: {},
+             //二进制上传
+             sendAsBinary: true,
+             // 只允许选择文件，可选。
+             accept: {
+                 title: 'Images',
+                 extensions: 'gif,jpg,jpeg,bmp,png',
+                 mimeTypes: 'image/*'
+             },
+             fileNumLimit: 1,
+             fileSingleSizeLimit: 10500000,
+         });
+
+            // 当有文件添加进来的时候
+            uploader.on('fileQueued', function (file) {
+                var $li = $(
+                        '<div id="' + file.id + '" class="send-img-item">' +
+                            '<a href="#" class="glyphicon glyphicon-remove dlt-a remove-this"></a><img alt=' + file.name + '>' +
+                        '</div>'
+                        ),
+
+                    $img = $li.find('img');
+
+                $list.append($li);
+                $("#upimg").hide();
+
+                $('#addform').data('bootstrapValidator').resetForm();
+
+
+                // 创建缩略图
+                uploader.makeThumb(file, function (error, src) {
+                    if (error) {
+                        $img.replaceWith('<span>不能预览</span>');
+                        return;
+                    }
+
+                    $img.attr('src', src);
+                }, thumbnailWidth, thumbnailHeight);
+
+                $li.on('click', '.remove-this', function () {
+                    uploader.removeFile(file, true);
+                    $li.remove();
+                    $("#upimg").show();
+                    return false;
+                })
+
+
+            });
+
+            // 文件上传过程中创建进度条实时显示。
+            uploader.on('uploadProgress', function (file, percentage) {
+                var $li = $('#' + file.id),
+                    $percent = $li.find('.progress span');
+
+                // 避免重复创建
+                if (!$percent.length) {
+                    $percent = $('<p class="progress"><span></span></p>')
+                            .appendTo($li)
+                            .find('span');
+                }
+
+                $percent.css('width', percentage * 100 + '%');
+            });
+
+            // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+            uploader.on('uploadSuccess', function (file, response) {
+                console.log(response);
+                console.log(response.filepath);
+
+                var photos = $("#Images").val();
+                if (photos.length <= 0)
+                    photos = response.filepath;
+                else
+                    photos += "," + response.filepath;
+                $("#Images").val(photos);
+
+                //$('#' + file.id).addClass('upload-state-done');
+            });
+
+            // 文件上传失败，现实上传出错。
+            uploader.on('uploadError', function (file) {
+                var $li = $('#' + file.id),
+                    $error = $li.find('div.error');
+
+                // 避免重复创建
+                if (!$error.length) {
+                    $error = $('<div class="error"></div>').appendTo($li);
+                }
+
+                $error.text('上传失败');
+            });
+
+            // 完成上传完了，成功或者失败，先删除进度条。
+            uploader.on('uploadComplete', function (file) {
+                $('#' + file.id).find('.progress').remove();
+            });
+
+            uploader.on('error', function (type) {
+                switch (type) {
+                    case "Q_EXCEED_NUM_LIMIT":
+                        Modal.alert({ title: "错误提示", msg: "一次最多只能上传 1 张图片" });
+                        break;
+                    case "F_EXCEED_SIZE":
+                        Modal.alert({ title: "错误提示", msg: "上传图片大小不能超过 1M" });
+                        break;
+
+                }
+            });
+
+            uploader.on("uploadFinished", function () {
+
+                var $form = $("#addform");
+
+                $.post($form.attr('action'), $form.serialize(), function (result) {
+                    parent.$.CheckLogin(result);
+                    if (result.MsgNo == 1) {
+                        location = "/Activity";
+                    } else {
+                        Modal.alert({
+                            msg: result.Msg
+                        })
+                    }
+                }, 'json');
+
+            });
+            /*上传插件结束*/
+
+
+        });
+
+        function upimg(cbfun, str) {//上传文件页面上传成功后将返回图片的完整路径名，然后我们就可以将其插入编辑其中
+
+            if (str == "undefined" || str == "") {
+                return;
+            }
+            //str = "<img src='" + str + "'></img>";
+
+
+            CKEDITOR.tools.callFunction(cbfun, str, '')
+
+
+            //CKEDITOR.instances.Content.insertHtml(str);//调用CKEditor的JS接口将图片插入
+            //close();
+        }
+
+    </script>
+}

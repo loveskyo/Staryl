@@ -1,0 +1,191 @@
+﻿@{
+    ViewBag.Title = "Create";
+    string StaticDomain = Staryl.Manage.Controllers.ControllerBase.StaticDomain;
+}
+@model Staryl.Manage.Models.ViewModels
+@section style{
+
+<link rel="stylesheet" href="@(StaticDomain)plugins/datepicker/datepicker3.css">
+
+}
+<section class="content-header">
+    <h1>
+        新增活动券
+        <small>为用户新增活动券</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li><a href="/account">用户管理</a></li>
+        <li><a href="/Ticket">活动券管理</a></li>
+        <li class="active">新增活动券</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title"></h3>
+        </div>
+
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form id="addform" method="post" action="/ticket/create" class="form-horizontal">
+            <div class="box-body">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            券类型
+                        </label>
+                        <div class="col-sm-3">
+                            <select name="TicketType" id="TicketType" class="form-control select2" style="width: 100%;">
+                                <option value="1">活动券</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            券价值
+                        </label>
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <span class="input-group-addon">￥</span>
+                                <input type="text" class="form-control" id="TicketValue" name="TicketValue" value="" />
+                                <span class="input-group-addon">.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            开始日期
+                        </label>
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control date" name="StarDate" id="StarDate" placeholder="开始时间">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            结束日期
+                        </label>
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control date" name="EndDate" id="EndDate" placeholder="结束时间">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            是否启用
+                        </label>
+                        <div class="col-sm-10">
+                            <input type="checkbox" id="Status" name="Status" checked="true" value="true" data-on-text="启用" data-off-text="禁用" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            &nbsp;
+                        </label>
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-success btn-sm">
+                                提 交
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.box-body -->
+        </form>
+
+
+
+
+
+    </div>
+</section>
+@section scripts {
+    <script src="@(StaticDomain)js/bootstrapValidator.min.js"></script>
+    <script src="@(StaticDomain)js/language/zh_CN.js"></script>
+    <script src="@(StaticDomain)plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="@(StaticDomain)plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            //parent.$.SetMenu("account/create");
+            $(".select2").select2();
+
+            $("#Status").bootstrapSwitch();
+            $(".date").datepicker({ clearBtn: true, format: "yyyy-mm-dd", language: "zh-CN" });
+
+
+            $('#addform')
+    .bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            StarDate: {
+                validators: {
+                    notEmpty: {
+                        message: '请输入开始日期'
+                    },
+                    date: {
+                        format: 'YYYY-MM-DD'
+                    }
+                }
+            },
+            EndDate: {
+                validators: {
+                    notEmpty: {
+                        message: '请输入结束日期'
+                    },
+                    date: {
+                        format: 'YYYY-MM-DD'
+                    }
+                }
+            },
+            UserName: {
+                validators: {
+                    notEmpty: {
+                        message: '请输入用户姓名'
+                    },
+                    stringLength: {
+                        min: 2,
+                        max: 10,
+                        message: '请输入2-10位字符'
+                    }
+                }
+            }
+
+        }
+    })
+    .on('success.form.bv', function (e) {
+        e.preventDefault();
+        var $form = $(e.target);
+        var bv = $form.data('bootstrapValidator');
+        $.post($form.attr('action'), $form.serialize(), function (result) {
+            parent.$.CheckLogin(result);
+            if (result.MsgNo == 1) {
+                location = "/Account";
+            } else {
+                Modal.alert({
+                    msg: result.Msg
+                })
+            }
+        }, 'json');
+    });
+
+        });
+    </script>
+}

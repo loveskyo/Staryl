@@ -9,12 +9,19 @@ using System.Web.Mvc;
 
 namespace Staryl.Manage.Controllers
 {
-    public class ActivityController : ControllerBase
+    public class TicketController : ControllerBase
     {
-        // GET: Activity
+        // GET: Ticket
         public ActionResult Index()
         {
-            return View();
+            string userid = Convert.ToString(RouteData.Values["id"]);
+            int uid = 0;
+            int.TryParse(userid, out uid);
+            UserInfo userinfo = userMgr.Get(uid);
+            ViewModels viewmodels = new ViewModels();
+            viewmodels.UserInfo = userinfo;
+
+            return View(viewmodels);
         }
 
         [HttpPost]
@@ -30,14 +37,13 @@ namespace Staryl.Manage.Controllers
                 pageSize = 20;
 
 
-            string key = Convert.ToString(RouteData.Values["txtKey"]);
-            ViewBag.key = key;
+            string userid = Convert.ToString(RouteData.Values["userid"]);
             string where = string.Empty;
             where = "1=1";
-            where += string.IsNullOrEmpty(key) ? string.Empty : " and ([Title] like'%" + key + "%')";
+            where += string.IsNullOrEmpty(userid) ? string.Empty : " and UserId=" + userid + "";
             string orderBy = "order by Id desc";
             int recordCount = 0;
-            IEnumerable<ActivityInfo> activityList = activityMgr.GetPageList(pageIndex, pageSize, where, orderBy, out recordCount, true);
+            IEnumerable<TicketInfo> activityList = ticketMgr.GetPageList(pageIndex, pageSize, where, orderBy, out recordCount, true);
             ReturnData returnData = new ReturnData
             {
                 Data = activityList,
@@ -59,13 +65,13 @@ namespace Staryl.Manage.Controllers
         [AuthAttribute(FunCode = "Add", ReturnType = "json")]
         [ValidateInput(false)]
         [HttpPost]
-        public ActionResult Create(ActivityInfo model)
+        public ActionResult Create(TicketInfo model)
         {
 
             bool issuc = false;
             model.CreateDate = DateTime.Now;
             model.CreateIP = this.GetIP;
-            int id = activityMgr.Create(model);
+            int id = ticketMgr.Create(model);
             if (id > 0)
             {
                 issuc = true;
@@ -90,35 +96,35 @@ namespace Staryl.Manage.Controllers
         public ActionResult Modify(int id)
         {
             ViewModels viewmodels = new ViewModels();
-            viewmodels.ActivityUrl= this.ActivityUrl;
+            viewmodels.ActivityUrl = this.ActivityUrl;
             viewmodels.UploadDomainRoot = this.UploadDomainRoot;
-            viewmodels.Activity = activityMgr.Get(id);
+            viewmodels.Ticket = ticketMgr.Get(id);
             return View(viewmodels);
         }
 
         [AuthAttribute(FunCode = "Modify", ReturnType = "json")]
         [ValidateInput(false)]
         [HttpPost]
-        public ActionResult Modify(ActivityInfo model)
+        public ActionResult Modify(TicketInfo model)
         {
             bool issuc = false;
-            ActivityInfo _model = activityMgr.Get(model.Id);
+            TicketInfo _model = ticketMgr.Get(model.Id);
             if (_model != null)
             {
-                _model.BriefIntroduction = model.BriefIntroduction;
-                _model.ChargeLevel = model.ChargeLevel;
-                _model.Content = model.Content;
-                _model.OrderBy = model.OrderBy;
-                _model.Title = model.Title;
-                _model.TypeId = model.TypeId;
-                _model.Images = model.Images;
-                _model.IsActive = model.IsActive;
-                _model.Province = model.Province;
-                _model.City = model.City;
-                _model.Area = model.Area;
-                _model.Status = model.Status;
+                //_model.BriefIntroduction = model.BriefIntroduction;
+                //_model.ChargeLevel = model.ChargeLevel;
+                //_model.Content = model.Content;
+                //_model.OrderBy = model.OrderBy;
+                //_model.Title = model.Title;
+                //_model.TypeId = model.TypeId;
+                //_model.Images = model.Images;
+                //_model.IsActive = model.IsActive;
+                //_model.Province = model.Province;
+                //_model.City = model.City;
+                //_model.Area = model.Area;
+                //_model.Status = model.Status;
 
-                issuc = activityMgr.Update(_model);
+                issuc = ticketMgr.Update(_model);
             }
             MsgInfo msgInfo = new MsgInfo();
             if (issuc)
@@ -144,7 +150,7 @@ namespace Staryl.Manage.Controllers
             string id = col["Id"];
             ActivityInfo model = activityMgr.Get(int.Parse(id));
 
-            bool res = activityMgr.Delete(new ActivityInfo { Id = int.Parse(id) });
+            bool res = ticketMgr.Delete(new TicketInfo { Id = int.Parse(id) });
             MsgInfo msgInfo = new MsgInfo();
             if (res)
             {
@@ -166,7 +172,7 @@ namespace Staryl.Manage.Controllers
         public ActionResult Destroys(FormCollection col)
         {
             string ids = col["Ids"];
-            bool res = activityMgr.Deletes(ids);
+            bool res = ticketMgr.Deletes(ids);
             MsgInfo msgInfo = new MsgInfo();
             if (res)
             {
@@ -183,55 +189,5 @@ namespace Staryl.Manage.Controllers
             return Content(JsonConvert.SerializeObject(msgInfo));
         }
 
-        [HttpPost]
-        public ActionResult UploadImg()
-        {
-          string cbfun =  Request["CKEditorFuncNum"];
-
-            if (Request.InputStream.Length <= 0)
-            {
-                return Json(new { jsonrpc = 2.0, error = new { code = 102, message = "保存失败" }, id = "id" });
-            }
-
-            string imgurl = string.Empty;
-            try
-            {
-                var f = Request.Files;
-                if (f.Count <= 0)
-                    return Json(new { jsonrpc = 2.0, error = new { code = 104, message = "图片为空" }, id = "id" });
-
-                imgurl = SaveImg(0, this.CKEditUrl, f[0].InputStream);
-
-                imgurl = StaticDomain + "/" + this.UploadDomainRoot + "/" + this.CKEditUrl + "/" + imgurl;
-
-                //return Json(new { jsonrpc = 2.0, filepath = imgurl, id = "id" });
-                return Content("<script>window.parent.upimg('" + cbfun + "','" + imgurl + "')</script>");
-            }
-            catch (Exception ex)
-            {
-                return Json(new { jsonrpc = 2.0, error = new { code = 103, message = "保存失败" }, id = "id" });
-            }
-            
-        }
-
-        public ActionResult ActivityImage()
-        {
-            if (Request.InputStream.Length <= 0)
-            {
-                return Json(new { jsonrpc = 2.0, error = new { code = 102, message = "保存失败" }, id = "id" });
-            }
-
-            string imgurl = string.Empty;
-            try
-            {
-                imgurl = SaveImg(0, this.ActivityUrl, Request.InputStream);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { jsonrpc = 2.0, error = new { code = 103, message = "保存失败" }, id = "id" });
-            }
-            return Json(new { jsonrpc = 2.0, filepath = imgurl, id = "id" });
-
-        }
     }
 }

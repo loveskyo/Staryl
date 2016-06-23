@@ -22,6 +22,7 @@ namespace Staryl.Manage.Controllers
         protected SystemAreaManager mSystemAreaMgr = new SystemAreaManager();
         protected StarUserManager starUserMgr = new StarUserManager();
         protected ActivityManager activityMgr = new ActivityManager();
+        protected TicketManager ticketMgr = new TicketManager();
 
         /// <summary>
         /// 获取客户端的 IP地址

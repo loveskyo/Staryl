@@ -79,6 +79,7 @@
                 <td>{{if item.Status==1}}<span class="label label-success">正常</span>{{else}}<span class="label label-danger">禁用</span>{{/if}}</td>
                 <td>{{item.CreateDate | dateFormat:'yyyy-MM-dd'}}</td>
                 <td>
+                    <button type="button" data-id="{{item.Id}}" class="btn btn-default btn-xs addcoupon" title="新增活动券"><i class="fa fa-cc-discover"></i></button>
                     <button type="button" data-id="{{item.Id}}" class="btn btn-default btn-xs modify" title="编辑"><i class="fa fa-edit"></i></button>
                     <button type="button" data-id="{{item.Id}}" class="btn btn-default btn-xs delete" title="删除"><i class="fa fa-trash-o"></i></button>
                 </td>
@@ -134,6 +135,12 @@
                 if ($(".modify")) {
                     $(".modify").click(function () {
                         location = "/user/modify/" + $(this).attr("data-id");
+                    });
+                }
+
+                if ($(".addcoupon")) {
+                    $(".addcoupon").click(function () {
+                        location = "/ticket/index/" + $(this).attr("data-id");
                     });
                 }
 
